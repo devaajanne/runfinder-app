@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 
@@ -16,10 +18,12 @@ public class RunSignUp {
     @Column(name = "runSignUpId")
     private Long runSignUpId;
 
-    @Column(name = "appUser")
+    @ManyToOne
+    @JoinColumn(name = "appUser")
     private AppUser appUser;
 
-    @Column(name = "runningGroup")
+    @ManyToOne
+    @JoinColumn(name = "runningGroup")
     private RunningGroup runningGroup;
 
     public RunSignUp() {
