@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 
@@ -31,7 +33,8 @@ public class RunningGroup {
     @Column(name = "startAddress")
     private String startAddress;
 
-    @Column(name = "zipcode")
+    @ManyToOne
+    @JoinColumn(name = "zipcode")
     private Zipcode zipcode;
 
     public RunningGroup() {
