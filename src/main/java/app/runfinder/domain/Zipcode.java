@@ -16,8 +16,8 @@ import jakarta.persistence.Column;
 public class Zipcode {
 
     @Id
-    @Column(name = "zipcode")
-    private String zipcode;
+    @Column(name = "zipcodeId")
+    private String zipcodeId;
 
     @Column(name = "city")
     private String city;
@@ -29,21 +29,21 @@ public class Zipcode {
     public Zipcode() {
     }
 
-    public Zipcode(String zipcode, String city) {
-        this.zipcode = zipcode;
+    public Zipcode(String zipcodeId, String city) {
+        this.zipcodeId = zipcodeId;
         this.city = city;
     }
 
-    public String getZipcode() {
-        return this.zipcode;
+    public String getZipcodeId() {
+        return this.zipcodeId;
     }
 
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
+    public void setZipcodeId(String zipcodeId) {
+        this.zipcodeId = zipcodeId;
     }
 
-    public Zipcode zipcode(String zipcode) {
-        setZipcode(zipcode);
+    public Zipcode zipcodeId(String zipcodeId) {
+        setZipcodeId(zipcodeId);
         return this;
     }
 
@@ -63,7 +63,7 @@ public class Zipcode {
     @Override
     public String toString() {
         return "{" +
-                " zipcode='" + getZipcode() + "'" +
+                " zipcodeId='" + getZipcodeId() + "'" +
                 ", city='" + getCity() + "'" +
                 "}";
     }

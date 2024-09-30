@@ -20,11 +20,11 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "roleId")
+    private Long roleId;
 
-    @Column(name = "role")
-    private String role;
+    @Column(name = "roleName")
+    private String roleName;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
@@ -33,41 +33,41 @@ public class Role {
     public Role() {
     }
 
-    public Role(String role) {
-        this.role = role;
+    public Role(String roleName) {
+        this.roleName = roleName;
     }
 
-    public Long getId() {
-        return this.id;
+    public Long getRoleId() {
+        return this.roleId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 
-    public Role id(Long id) {
-        setId(id);
+    public Role roleId(Long roleId) {
+        setRoleId(roleId);
         return this;
     }
 
-    public String getRole() {
-        return this.role;
+    public String getRoleName() {
+        return this.roleName;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
-    public Role role(String role) {
-        setRole(role);
+    public Role roleName(String roleName) {
+        setRoleName(roleName);
         return this;
     }
 
     @Override
     public String toString() {
         return "{" +
-                " id='" + getId() + "'" +
-                ", role='" + getRole() + "'" +
-                "}";
+            " roleId='" + getRoleId() + "'" +
+            ", roleName='" + getRoleName() + "'" +
+            "}";
     }
 }

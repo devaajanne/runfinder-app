@@ -31,7 +31,7 @@ public class AppUser {
     private String email;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "roleId")
     private Role role;
 
     @Column(name = "password")
