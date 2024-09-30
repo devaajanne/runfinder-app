@@ -46,7 +46,7 @@ public class RunfinderApplication {
 			zipcodeRepository.save(new Zipcode("05800", "Hyvinkää"));
 			zipcodeRepository.save(new Zipcode("06100", "Porvoo"));
 
-			runningGroupRepository.save(new RunningGroup("runningGroup1", LocalDateTime.of(2024, 10, 1, 12, 00, 00), Duration.ofHours(1), "Juoksukatu 1", zipcodeRepository.findByZipcode("00100")));
+			runningGroupRepository.save(new RunningGroup("runningGroup1", LocalDateTime.of(2024, 10, 1, 12, 00, 00), Duration.ofHours(1), "Juoksukatu 1", zipcodeRepository.findByZipcodeId("00100")));
 		};
 	};
 
