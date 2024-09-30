@@ -15,8 +15,8 @@ public class AppUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "appUserId")
+    private Long appUserId;
 
     @Column(name = "username")
     private String username;
@@ -49,16 +49,16 @@ public class AppUser {
         this.password = password;
     }
 
-    public Long getId() {
-        return this.id;
+    public Long getAppUserId() {
+        return this.appUserId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setAppUserId(Long appUserId) {
+        this.appUserId = appUserId;
     }
 
-    public AppUser id(Long id) {
-        setId(id);
+    public AppUser appUserId(Long appUserId) {
+        setAppUserId(appUserId);
         return this;
     }
 
@@ -143,7 +143,7 @@ public class AppUser {
     @Override
     public String toString() {
         return "{" +
-                " id='" + getId() + "'" +
+                " appUserId='" + getAppUserId() + "'" +
                 ", username='" + getUsername() + "'" +
                 ", firstName='" + getFirstName() + "'" +
                 ", lastName='" + getLastName() + "'" +

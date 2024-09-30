@@ -13,8 +13,8 @@ public class RunSignUp {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "runSignUpId")
+    private Long runSignUpId;
 
     @Column(name = "appUser")
     private AppUser appUser;
@@ -30,16 +30,16 @@ public class RunSignUp {
         this.runningGroup = runningGroup;
     }
 
-    public Long getId() {
-        return this.id;
+    public Long getRunSignUpId() {
+        return this.runSignUpId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setRunSignUpId(Long runSignUpId) {
+        this.runSignUpId = runSignUpId;
     }
 
-    public RunSignUp id(Long id) {
-        setId(id);
+    public RunSignUp runSignUpId(Long runSignUpId) {
+        setRunSignUpId(runSignUpId);
         return this;
     }
 
@@ -72,7 +72,7 @@ public class RunSignUp {
     @Override
     public String toString() {
         return "{" +
-                " id='" + getId() + "'" +
+                " runSignUpId='" + getRunSignUpId() + "'" +
                 ", appUser='" + getAppUser() + "'" +
                 ", runningGroup='" + getRunningGroup() + "'" +
                 "}";

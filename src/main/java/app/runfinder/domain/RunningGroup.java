@@ -18,8 +18,8 @@ public class RunningGroup {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "runningGroupId")
+    private Long runningGroupId;
 
     @Column(name = "runningGroupName")
     private String runningGroupName;
@@ -49,16 +49,16 @@ public class RunningGroup {
         this.zipcode = zipcode;
     }
 
-    public Long getId() {
-        return this.id;
+    public Long getRunningGroupId() {
+        return this.runningGroupId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setRunningGroupId(Long runningGroupId) {
+        this.runningGroupId = runningGroupId;
     }
 
-    public RunningGroup id(Long id) {
-        setId(id);
+    public RunningGroup runningGroupId(Long runningGroupId) {
+        setRunningGroupId(runningGroupId);
         return this;
     }
 
@@ -130,7 +130,7 @@ public class RunningGroup {
     @Override
     public String toString() {
         return "{" +
-                " id='" + getId() + "'" +
+                " runningGroupId='" + getRunningGroupId() + "'" +
                 ", runningGroupName='" + getRunningGroupName() + "'" +
                 ", runStart='" + getRunStart() + "'" +
                 ", duration='" + getDuration() + "'" +
