@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 
@@ -28,7 +30,8 @@ public class AppUser {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "role")
+    @ManyToOne
+    @JoinColumn(name = "id")
     private Role role;
 
     @Column(name = "password")
