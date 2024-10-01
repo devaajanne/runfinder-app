@@ -9,12 +9,21 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 
+// We use @Entity annotation to annotate this class as an entity
+// Entities are tables in relational databases
 @Entity
+
+// @Table annotation renames the entity's table in relational database
 @Table(name = "appUsers")
 public class AppUser {
 
+    // @Id annotates this attribute as the table's id column
     @Id
+    // @GeneratedValue generates unique primary keys for all entity objects
+    // GenerationType.IDENTITY auto-increments the id value
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @Column renames the column in the relational database
+    // Not always needed; used to have more control over the database colum naming
     @Column(name = "appUserId")
     private Long appUserId;
 
@@ -30,16 +39,20 @@ public class AppUser {
     @Column(name = "email")
     private String email;
 
+    // @ManyToOne annotes a many to one relation between two tables
     @ManyToOne
+    // @JoinColumn annotes which columns are joined
     @JoinColumn(name = "roleId")
     private Role role;
 
     @Column(name = "password")
     private String password;
 
+    // Empty constructor
     public AppUser() {
     }
 
+    // Constructor with attributes
     public AppUser(String username, String firstName, String lastName, String email, Role role, String password) {
         this.username = username;
         this.firstName = firstName;
@@ -48,6 +61,8 @@ public class AppUser {
         this.role = role;
         this.password = password;
     }
+
+    // Getters and setters
 
     public Long getAppUserId() {
         return this.appUserId;
@@ -140,6 +155,7 @@ public class AppUser {
         return this;
     }
 
+    // toString method
     @Override
     public String toString() {
         return "{" +

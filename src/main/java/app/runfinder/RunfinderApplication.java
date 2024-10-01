@@ -22,6 +22,8 @@ public class RunfinderApplication {
 		SpringApplication.run(RunfinderApplication.class, args);
 	}
 
+	// CommandLineRunner for adding test data to a runtime database
+	// Used to test application
 	@Bean
 	public CommandLineRunner runfinderCLR(RunningGroupRepository runningGroupRepository,
 			ZipcodeRepository zipcodeRepository, RoleRepository roleRepository) {
@@ -66,5 +68,4 @@ public class RunfinderApplication {
 			roleRepository.save(new Role("admin"));
 		};
 	};
-
 }

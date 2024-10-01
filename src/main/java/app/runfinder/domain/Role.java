@@ -25,7 +25,9 @@ public class Role {
     @Column(name = "roleName")
     private String roleName;
 
+    // @JsonIgnore annotation to stop endless loops from GET requests
     @JsonIgnore
+    // @OneToMany annotates a one to many relation between two tables
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
     private List<AppUser> appUsers;
 
