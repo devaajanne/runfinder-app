@@ -17,7 +17,7 @@ import app.runfinder.domain.RunningGroupRepository;
 
 @RestController
 @RequestMapping("/api")
-public class RestRunfinderController {
+public class RestRunningGroupController {
 
     @Autowired
     RunningGroupRepository runningGroupRepository;
