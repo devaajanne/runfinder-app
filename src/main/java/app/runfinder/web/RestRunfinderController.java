@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
@@ -28,6 +30,12 @@ public class RestRunfinderController {
     @GetMapping("runninggroups/{runningGroupId}")
     public Optional<RunningGroup> getRunningGroup(@PathVariable Long runningGroupId) {
         return runningGroupRepository.findById(runningGroupId);
+    }
+
+    @PostMapping("runninggroups")
+    public RunningGroup postRunningGroup(@RequestBody RunningGroup newRunningGroup) {
+        runningGroupRepository.save(newRunningGroup);
+        return newRunningGroup;
     }
 
     @DeleteMapping("runninggroups/{runningGroupId}")
