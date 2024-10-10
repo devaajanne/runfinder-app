@@ -1,7 +1,8 @@
 package app.runfinder;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -52,15 +53,20 @@ public class RunfinderApplication {
 			zipcodeRepository.save(new Zipcode("05800", "Hyvinkää"));
 			zipcodeRepository.save(new Zipcode("06100", "Porvoo"));
 
-			runningGroupRepository.save(new RunningGroup("runningGroup1", LocalDateTime.of(2024, 10, 1, 12, 00, 00),
-					Duration.ofHours(1), "Juoksukatu 1", zipcodeRepository.findByZipcode("00100")));
-			runningGroupRepository.save(new RunningGroup("runningGroup2", LocalDateTime.of(2024, 10, 3, 18, 30, 00),
-					Duration.ofMinutes(90), "Juoksutie 2", zipcodeRepository.findByZipcode("02200")));
-			runningGroupRepository.save(new RunningGroup("runningGroup3", LocalDateTime.of(2024, 10, 5, 7, 15, 00),
-					Duration.ofHours(2), "Juoksukuja 3", zipcodeRepository.findByZipcode("02300")));
-			runningGroupRepository.save(new RunningGroup("runningGroup4", LocalDateTime.of(2024, 10, 7, 16, 00, 00),
-					Duration.ofMinutes(75), "Juoksupolku 4", zipcodeRepository.findByZipcode("04400")));
-			runningGroupRepository.save(new RunningGroup("runningGroup5", LocalDateTime.of(2024, 10, 9, 9, 45, 00),
+			runningGroupRepository
+					.save(new RunningGroup("runningGroup1", LocalDate.of(2024, 10, 1), LocalTime.of(12, 0, 0),
+							Duration.ofHours(1), "Juoksukatu 1", zipcodeRepository.findByZipcode("00100")));
+			runningGroupRepository
+					.save(new RunningGroup("runningGroup2", LocalDate.of(2024, 10, 1), LocalTime.of(12, 0, 0),
+							Duration.ofMinutes(90), "Juoksutie 2", zipcodeRepository.findByZipcode("02200")));
+			runningGroupRepository
+					.save(new RunningGroup("runningGroup3", LocalDate.of(2024, 10, 1), LocalTime.of(12, 0, 0),
+							Duration.ofHours(2), "Juoksukuja 3", zipcodeRepository.findByZipcode("02300")));
+			runningGroupRepository
+					.save(new RunningGroup("runningGroup4", LocalDate.of(2024, 10, 1), LocalTime.of(12, 0, 0),
+							Duration.ofMinutes(75), "Juoksupolku 4", zipcodeRepository.findByZipcode("04400")));
+			runningGroupRepository.save(new RunningGroup("runningGroup5", LocalDate.of(2024, 10, 1),
+					LocalTime.of(12, 0, 0),
 					Duration.ofHours(1).plusMinutes(30), "Juoksurinne 5", zipcodeRepository.findByZipcode("05800")));
 
 			roleRepository.save(new Role("user"));

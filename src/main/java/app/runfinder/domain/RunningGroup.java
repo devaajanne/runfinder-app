@@ -1,7 +1,8 @@
 package app.runfinder.domain;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,8 +25,11 @@ public class RunningGroup {
     @Column(name = "runningGroupName")
     private String runningGroupName;
 
-    @Column(name = "runStart")
-    private LocalDateTime runStart;
+    @Column(name = "runStartDate")
+    private LocalDate runStartDate;
+
+    @Column(name = "runStartTime")
+    private LocalTime runStartTime;
 
     @Column(name = "duration")
     private Duration duration;
@@ -40,10 +44,11 @@ public class RunningGroup {
     public RunningGroup() {
     }
 
-    public RunningGroup(String runningGroupName, LocalDateTime runStart, Duration duration, String startAddress,
-            Zipcode zipcode) {
+    public RunningGroup(String runningGroupName, LocalDate runStartDate, LocalTime runStartTime, Duration duration,
+            String startAddress, Zipcode zipcode) {
         this.runningGroupName = runningGroupName;
-        this.runStart = runStart;
+        this.runStartDate = runStartDate;
+        this.runStartTime = runStartTime;
         this.duration = duration;
         this.startAddress = startAddress;
         this.zipcode = zipcode;
@@ -75,16 +80,29 @@ public class RunningGroup {
         return this;
     }
 
-    public LocalDateTime getRunStart() {
-        return this.runStart;
+    public LocalDate getRunStartDate() {
+        return this.runStartDate;
     }
 
-    public void setRunStart(LocalDateTime runStart) {
-        this.runStart = runStart;
+    public void setRunStartDate(LocalDate runStartDate) {
+        this.runStartDate = runStartDate;
     }
 
-    public RunningGroup runStart(LocalDateTime runStart) {
-        setRunStart(runStart);
+    public RunningGroup runStartDate(LocalDate runStartDate) {
+        setRunStartDate(runStartDate);
+        return this;
+    }
+
+    public LocalTime getRunStartTime() {
+        return this.runStartTime;
+    }
+
+    public void setRunStartTime(LocalTime runStartTime) {
+        this.runStartTime = runStartTime;
+    }
+
+    public RunningGroup runStartTime(LocalTime runStartTime) {
+        setRunStartTime(runStartTime);
         return this;
     }
 
@@ -132,10 +150,12 @@ public class RunningGroup {
         return "{" +
                 " runningGroupId='" + getRunningGroupId() + "'" +
                 ", runningGroupName='" + getRunningGroupName() + "'" +
-                ", runStart='" + getRunStart() + "'" +
+                ", runStartDate='" + getRunStartDate() + "'" +
+                ", runStartTime='" + getRunStartTime() + "'" +
                 ", duration='" + getDuration() + "'" +
                 ", startAddress='" + getStartAddress() + "'" +
                 ", zipcode='" + getZipcode() + "'" +
                 "}";
     }
+
 }
