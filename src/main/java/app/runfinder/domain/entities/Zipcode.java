@@ -1,4 +1,4 @@
-package app.runfinder.domain;
+package app.runfinder.domain.entities;
 
 import java.util.List;
 

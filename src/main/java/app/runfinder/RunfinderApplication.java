@@ -9,12 +9,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import app.runfinder.domain.Zipcode;
-import app.runfinder.domain.ZipcodeRepository;
-import app.runfinder.domain.RunningGroup;
-import app.runfinder.domain.RunningGroupRepository;
-import app.runfinder.domain.Role;
-import app.runfinder.domain.RoleRepository;
+import app.runfinder.domain.entities.Role;
+import app.runfinder.domain.entities.RunningGroup;
+import app.runfinder.domain.entities.Zipcode;
+import app.runfinder.domain.repositories.RoleRepository;
+import app.runfinder.domain.repositories.RunningGroupRepository;
+import app.runfinder.domain.repositories.ZipcodeRepository;
 
 @SpringBootApplication
 public class RunfinderApplication {

@@ -1,4 +1,4 @@
-package app.runfinder.web;
+package app.runfinder.web.restControllers;
 
 import java.util.Optional;
 
@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.runfinder.domain.RunningGroup;
-import app.runfinder.domain.RunningGroupRepository;
+import app.runfinder.domain.entities.RunningGroup;
+import app.runfinder.domain.repositories.RunningGroupRepository;
 
 // @RestController annotates this class as a rest controller class
 @RestController
