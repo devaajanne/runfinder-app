@@ -15,7 +15,7 @@ import jakarta.persistence.Column;
 
 @Entity
 @Table(name = "runningGroups")
-public class RunningGroup {
+public class RunGroup {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,10 +41,10 @@ public class RunningGroup {
     @JoinColumn(name = "zipcode")
     private Zipcode zipcode;
 
-    public RunningGroup() {
+    public RunGroup() {
     }
 
-    public RunningGroup(String runningGroupName, LocalDate runStartDate, LocalTime runStartTime, Duration duration,
+    public RunGroup(String runningGroupName, LocalDate runStartDate, LocalTime runStartTime, Duration duration,
             String startAddress, Zipcode zipcode) {
         this.runningGroupName = runningGroupName;
         this.runStartDate = runStartDate;
@@ -62,7 +62,7 @@ public class RunningGroup {
         this.runningGroupId = runningGroupId;
     }
 
-    public RunningGroup runningGroupId(Long runningGroupId) {
+    public RunGroup runningGroupId(Long runningGroupId) {
         setRunningGroupId(runningGroupId);
         return this;
     }
@@ -75,7 +75,7 @@ public class RunningGroup {
         this.runningGroupName = runningGroupName;
     }
 
-    public RunningGroup runningGroupName(String runningGroupName) {
+    public RunGroup runningGroupName(String runningGroupName) {
         setRunningGroupName(runningGroupName);
         return this;
     }
@@ -88,7 +88,7 @@ public class RunningGroup {
         this.runStartDate = runStartDate;
     }
 
-    public RunningGroup runStartDate(LocalDate runStartDate) {
+    public RunGroup runStartDate(LocalDate runStartDate) {
         setRunStartDate(runStartDate);
         return this;
     }
@@ -101,7 +101,7 @@ public class RunningGroup {
         this.runStartTime = runStartTime;
     }
 
-    public RunningGroup runStartTime(LocalTime runStartTime) {
+    public RunGroup runStartTime(LocalTime runStartTime) {
         setRunStartTime(runStartTime);
         return this;
     }
@@ -114,7 +114,7 @@ public class RunningGroup {
         this.duration = duration;
     }
 
-    public RunningGroup duration(Duration duration) {
+    public RunGroup duration(Duration duration) {
         setDuration(duration);
         return this;
     }
@@ -127,7 +127,7 @@ public class RunningGroup {
         this.startAddress = startAddress;
     }
 
-    public RunningGroup startAddress(String startAddress) {
+    public RunGroup startAddress(String startAddress) {
         setStartAddress(startAddress);
         return this;
     }
@@ -140,7 +140,7 @@ public class RunningGroup {
         this.zipcode = zipcode;
     }
 
-    public RunningGroup zipcode(Zipcode zipcode) {
+    public RunGroup zipcode(Zipcode zipcode) {
         setZipcode(zipcode);
         return this;
     }

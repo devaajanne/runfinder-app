@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.runfinder.domain.entities.RunningGroup;
-import app.runfinder.domain.repositories.RunningGroupRepository;
+import app.runfinder.domain.entities.RunGroup;
+import app.runfinder.domain.repositories.RunGroupRepository;
 
 // @RestController annotates this class as a rest controller class
 @RestController
@@ -23,26 +23,26 @@ public class RestRunningGroupController {
 
     // @Autowired injects the repository to the controller
     @Autowired
-    RunningGroupRepository runningGroupRepository;
+    RunGroupRepository runningGroupRepository;
 
     // @GetMapping creates a GET request
     // Here it lists all the running groups and their attributes
     @GetMapping("/runninggroups")
-    public Iterable<RunningGroup> getRunningGroups() {
+    public Iterable<RunGroup> getRunningGroups() {
         return runningGroupRepository.findAll();
     }
 
     // @GetMapping creates a GET request
     // Here it lists a running group specified in @PathVariable
     @GetMapping("runninggroups/{runningGroupId}")
-    public Optional<RunningGroup> getRunningGroup(@PathVariable Long runningGroupId) {
+    public Optional<RunGroup> getRunningGroup(@PathVariable Long runningGroupId) {
         return runningGroupRepository.findById(runningGroupId);
     }
 
     // @PostMapping creates a POST request
     // Here it adds a new running group to runningGroupRepository
     @PostMapping("runninggroups")
-    public RunningGroup postRunningGroup(@RequestBody RunningGroup newRunningGroup) {
+    public RunGroup postRunningGroup(@RequestBody RunGroup newRunningGroup) {
         runningGroupRepository.save(newRunningGroup);
         return newRunningGroup;
     }
@@ -51,7 +51,7 @@ public class RestRunningGroupController {
     // Here it updates the runninggroup specified in @PathVariable
     // @RequestBody contains the updated attributes
     @PutMapping("runninggroups/{runningGroupId}")
-    public RunningGroup putRunningGroup(@RequestBody RunningGroup editedRunningGroup,
+    public RunGroup putRunningGroup(@RequestBody RunGroup editedRunningGroup,
             @PathVariable Long runningGroupId) {
         editedRunningGroup.setRunningGroupId(runningGroupId);
         runningGroupRepository.save(editedRunningGroup);
@@ -61,7 +61,7 @@ public class RestRunningGroupController {
     // @DeleteMapping creates a DELETE request
     // Here it deletes the runninggroup specified in @PathVariable
     @DeleteMapping("runninggroups/{runningGroupId}")
-    public Iterable<RunningGroup> deleteRunningGroup(@PathVariable Long runningGroupId) {
+    public Iterable<RunGroup> deleteRunningGroup(@PathVariable Long runningGroupId) {
         runningGroupRepository.deleteById(runningGroupId);
         return runningGroupRepository.findAll();
     }

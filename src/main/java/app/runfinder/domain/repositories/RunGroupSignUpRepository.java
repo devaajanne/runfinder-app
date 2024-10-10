@@ -2,8 +2,8 @@ package app.runfinder.domain.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 
-import app.runfinder.domain.entities.RunSignUp;
+import app.runfinder.domain.entities.RunGroupSignUp;
 
-public interface RunSignUpRepository extends CrudRepository<RunSignUp, Long> {
+public interface RunGroupSignUpRepository extends CrudRepository<RunGroupSignUp, Long> {
      // No additional CRUD methods created
 }

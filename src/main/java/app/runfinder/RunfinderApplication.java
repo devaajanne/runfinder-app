@@ -10,10 +10,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import app.runfinder.domain.entities.Role;
-import app.runfinder.domain.entities.RunningGroup;
+import app.runfinder.domain.entities.RunGroup;
 import app.runfinder.domain.entities.Zipcode;
 import app.runfinder.domain.repositories.RoleRepository;
-import app.runfinder.domain.repositories.RunningGroupRepository;
+import app.runfinder.domain.repositories.RunGroupRepository;
 import app.runfinder.domain.repositories.ZipcodeRepository;
 
 @SpringBootApplication
@@ -26,7 +26,7 @@ public class RunfinderApplication {
 	// CommandLineRunner for adding test data to a runtime database
 	// Used to test application
 	@Bean
-	public CommandLineRunner runfinderCLR(RunningGroupRepository runningGroupRepository,
+	public CommandLineRunner runfinderCLR(RunGroupRepository runningGroupRepository,
 			ZipcodeRepository zipcodeRepository, RoleRepository roleRepository) {
 		return (args) -> {
 
@@ -54,18 +54,18 @@ public class RunfinderApplication {
 			zipcodeRepository.save(new Zipcode("06100", "Porvoo"));
 
 			runningGroupRepository
-					.save(new RunningGroup("runningGroup1", LocalDate.of(2024, 10, 1), LocalTime.of(12, 0, 0),
+					.save(new RunGroup("runningGroup1", LocalDate.of(2024, 10, 1), LocalTime.of(12, 0, 0),
 							Duration.ofHours(1), "Juoksukatu 1", zipcodeRepository.findByZipcode("00100")));
 			runningGroupRepository
-					.save(new RunningGroup("runningGroup2", LocalDate.of(2024, 10, 1), LocalTime.of(12, 0, 0),
+					.save(new RunGroup("runningGroup2", LocalDate.of(2024, 10, 1), LocalTime.of(12, 0, 0),
 							Duration.ofMinutes(90), "Juoksutie 2", zipcodeRepository.findByZipcode("02200")));
 			runningGroupRepository
-					.save(new RunningGroup("runningGroup3", LocalDate.of(2024, 10, 1), LocalTime.of(12, 0, 0),
+					.save(new RunGroup("runningGroup3", LocalDate.of(2024, 10, 1), LocalTime.of(12, 0, 0),
 							Duration.ofHours(2), "Juoksukuja 3", zipcodeRepository.findByZipcode("02300")));
 			runningGroupRepository
-					.save(new RunningGroup("runningGroup4", LocalDate.of(2024, 10, 1), LocalTime.of(12, 0, 0),
+					.save(new RunGroup("runningGroup4", LocalDate.of(2024, 10, 1), LocalTime.of(12, 0, 0),
 							Duration.ofMinutes(75), "Juoksupolku 4", zipcodeRepository.findByZipcode("04400")));
-			runningGroupRepository.save(new RunningGroup("runningGroup5", LocalDate.of(2024, 10, 1),
+			runningGroupRepository.save(new RunGroup("runningGroup5", LocalDate.of(2024, 10, 1),
 					LocalTime.of(12, 0, 0),
 					Duration.ofHours(1).plusMinutes(30), "Juoksurinne 5", zipcodeRepository.findByZipcode("05800")));
 

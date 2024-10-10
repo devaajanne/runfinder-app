@@ -4,16 +4,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import app.runfinder.domain.repositories.RunningGroupRepository;
+import app.runfinder.domain.repositories.RunGroupRepository;
 
 
 
 @Controller
 public class RunningGroupController {
 
-    private final RunningGroupRepository runningGroupRepository;
+    private final RunGroupRepository runningGroupRepository;
 
-    public RunningGroupController(RunningGroupRepository runningGroupRepository) {
+    public RunningGroupController(RunGroupRepository runningGroupRepository) {
         this.runningGroupRepository = runningGroupRepository;
     }
 

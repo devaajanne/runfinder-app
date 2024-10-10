@@ -11,7 +11,7 @@ import jakarta.persistence.Column;
 
 @Entity
 @Table(name = "runSignUps")
-public class RunSignUp {
+public class RunGroupSignUp {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,12 +24,12 @@ public class RunSignUp {
 
     @ManyToOne
     @JoinColumn(name = "runningGroup")
-    private RunningGroup runningGroup;
+    private RunGroup runningGroup;
 
-    public RunSignUp() {
+    public RunGroupSignUp() {
     }
 
-    public RunSignUp(AppUser appUser, RunningGroup runningGroup) {
+    public RunGroupSignUp(AppUser appUser, RunGroup runningGroup) {
         this.appUser = appUser;
         this.runningGroup = runningGroup;
     }
@@ -42,7 +42,7 @@ public class RunSignUp {
         this.runSignUpId = runSignUpId;
     }
 
-    public RunSignUp runSignUpId(Long runSignUpId) {
+    public RunGroupSignUp runSignUpId(Long runSignUpId) {
         setRunSignUpId(runSignUpId);
         return this;
     }
@@ -55,20 +55,20 @@ public class RunSignUp {
         this.appUser = appUser;
     }
 
-    public RunSignUp appUser(AppUser appUser) {
+    public RunGroupSignUp appUser(AppUser appUser) {
         setAppUser(appUser);
         return this;
     }
 
-    public RunningGroup getRunningGroup() {
+    public RunGroup getRunningGroup() {
         return this.runningGroup;
     }
 
-    public void setRunningGroup(RunningGroup runningGroup) {
+    public void setRunningGroup(RunGroup runningGroup) {
         this.runningGroup = runningGroup;
     }
 
-    public RunSignUp runningGroup(RunningGroup runningGroup) {
+    public RunGroupSignUp runningGroup(RunGroup runningGroup) {
         setRunningGroup(runningGroup);
         return this;
     }

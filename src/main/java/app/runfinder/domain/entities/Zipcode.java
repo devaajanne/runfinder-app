@@ -24,7 +24,7 @@ public class Zipcode {
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "zipcode")
-    private List<RunningGroup> runningGroups;
+    private List<RunGroup> runningGroups;
 
     public Zipcode() {
     }
