@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Run groups</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <h1>Run groups</h1>
+    <table>
+        <tr>
+            <th>Run group ID</th>
+            <th>Run group name</th>
+            <th>Run start date</th>
+            <th>Run start time</th>
+            <th>Run duration</th>
+            <th>Start address</th>
+            <th>Zipcode</th>
+            <th>City</th>
+        </tr>
+        <tr th:each="rungroup : ${rungroups}">
+            <td th:text="${rungroup.runGroupId}"></td>
+            <td th:text="${rungroup.runGroupName}"></td>
+            <td th:text="${rungroup.runStartDate}"></td>
+            <td th:text="${rungroup.runStartTime}"></td>
+            <td th:text="${rungroup.duration}"></td>
+            <td th:text="${rungroup.startAddress}"></td>
+            <td th:text="${rungroup.zipcode.zipcode}"></td>
+            <td th:text="${rungroup.zipcode.city}"></td>
+        </tr>
+    </table>
+</body>
+
+</html>
