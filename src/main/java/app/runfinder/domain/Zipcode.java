@@ -16,8 +16,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Zipcode {
 
     @Id
-    @Column(name = "zipcodeId")
-    private String zipcodeId;
+    @Column(name = "zipcode")
+    private String zipcode;
 
     @Column(name = "city")
     private String city;
@@ -29,21 +29,21 @@ public class Zipcode {
     public Zipcode() {
     }
 
-    public Zipcode(String zipcodeId, String city) {
-        this.zipcodeId = zipcodeId;
+    public Zipcode(String zipcode, String city) {
+        this.zipcode = zipcode;
         this.city = city;
     }
 
-    public String getZipcodeId() {
-        return this.zipcodeId;
+    public String getZipcode() {
+        return this.zipcode;
     }
 
-    public void setZipcodeId(String zipcodeId) {
-        this.zipcodeId = zipcodeId;
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
     }
 
-    public Zipcode zipcodeId(String zipcodeId) {
-        setZipcodeId(zipcodeId);
+    public Zipcode zipcode(String zipcode) {
+        setZipcode(zipcode);
         return this;
     }
 
@@ -63,7 +63,7 @@ public class Zipcode {
     @Override
     public String toString() {
         return "{" +
-                " zipcodeId='" + getZipcodeId() + "'" +
+                " zipcodeId='" + getZipcode() + "'" +
                 ", city='" + getCity() + "'" +
                 "}";
     }

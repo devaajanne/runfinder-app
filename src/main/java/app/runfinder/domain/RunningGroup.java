@@ -34,7 +34,7 @@ public class RunningGroup {
     private String startAddress;
 
     @ManyToOne
-    @JoinColumn(name = "zipcodeId")
+    @JoinColumn(name = "zipcode")
     private Zipcode zipcode;
 
     public RunningGroup() {

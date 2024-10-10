@@ -23,7 +23,7 @@ public class RestZipcodeController {
 
     @GetMapping("/zipcodes/{zipcode}")
     public Zipcode getZipcodes(@PathVariable String zipcode) {
-        return zipcodeRepository.findByZipcodeId(zipcode);
+        return zipcodeRepository.findByZipcode(zipcode);
     }
 
 }
