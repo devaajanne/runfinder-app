@@ -24,14 +24,14 @@ public class RunGroupSignUp {
 
     @ManyToOne
     @JoinColumn(name = "runningGroup")
-    private RunGroup runningGroup;
+    private RunGroup runGroup;
 
     public RunGroupSignUp() {
     }
 
-    public RunGroupSignUp(AppUser appUser, RunGroup runningGroup) {
+    public RunGroupSignUp(AppUser appUser, RunGroup runGroup) {
         this.appUser = appUser;
-        this.runningGroup = runningGroup;
+        this.runGroup = runGroup;
     }
 
     public Long getRunSignUpId() {
@@ -60,16 +60,16 @@ public class RunGroupSignUp {
         return this;
     }
 
-    public RunGroup getRunningGroup() {
-        return this.runningGroup;
+    public RunGroup getRunGroup() {
+        return this.runGroup;
     }
 
-    public void setRunningGroup(RunGroup runningGroup) {
-        this.runningGroup = runningGroup;
+    public void setRunGroup(RunGroup runGroup) {
+        this.runGroup = runGroup;
     }
 
-    public RunGroupSignUp runningGroup(RunGroup runningGroup) {
-        setRunningGroup(runningGroup);
+    public RunGroupSignUp runGroup(RunGroup runGroup) {
+        setRunGroup(runGroup);
         return this;
     }
 
@@ -78,7 +78,7 @@ public class RunGroupSignUp {
         return "{" +
                 " runSignUpId='" + getRunSignUpId() + "'" +
                 ", appUser='" + getAppUser() + "'" +
-                ", runningGroup='" + getRunningGroup() + "'" +
+                ", runGroup='" + getRunGroup() + "'" +
                 "}";
     }
 }

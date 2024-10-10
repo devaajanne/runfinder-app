@@ -20,10 +20,10 @@ public class RunGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "runningGroupId")
-    private Long runningGroupId;
+    private Long runGroupId;
 
     @Column(name = "runningGroupName")
-    private String runningGroupName;
+    private String runGroupName;
 
     @Column(name = "runStartDate")
     private LocalDate runStartDate;
@@ -44,9 +44,9 @@ public class RunGroup {
     public RunGroup() {
     }
 
-    public RunGroup(String runningGroupName, LocalDate runStartDate, LocalTime runStartTime, Duration duration,
+    public RunGroup(String runGroupName, LocalDate runStartDate, LocalTime runStartTime, Duration duration,
             String startAddress, Zipcode zipcode) {
-        this.runningGroupName = runningGroupName;
+        this.runGroupName = runGroupName;
         this.runStartDate = runStartDate;
         this.runStartTime = runStartTime;
         this.duration = duration;
@@ -54,29 +54,29 @@ public class RunGroup {
         this.zipcode = zipcode;
     }
 
-    public Long getRunningGroupId() {
-        return this.runningGroupId;
+    public Long getRunGroupId() {
+        return this.runGroupId;
     }
 
-    public void setRunningGroupId(Long runningGroupId) {
-        this.runningGroupId = runningGroupId;
+    public void setRunGroupId(Long runGroupId) {
+        this.runGroupId = runGroupId;
     }
 
-    public RunGroup runningGroupId(Long runningGroupId) {
-        setRunningGroupId(runningGroupId);
+    public RunGroup runGroupId(Long runGroupId) {
+        setRunGroupId(runGroupId);
         return this;
     }
 
-    public String getRunningGroupName() {
-        return this.runningGroupName;
+    public String getRunGroupName() {
+        return this.runGroupName;
     }
 
-    public void setRunningGroupName(String runningGroupName) {
-        this.runningGroupName = runningGroupName;
+    public void setRunGroupName(String runGroupName) {
+        this.runGroupName = runGroupName;
     }
 
-    public RunGroup runningGroupName(String runningGroupName) {
-        setRunningGroupName(runningGroupName);
+    public RunGroup runGroupName(String runGroupName) {
+        setRunGroupName(runGroupName);
         return this;
     }
 
@@ -148,8 +148,8 @@ public class RunGroup {
     @Override
     public String toString() {
         return "{" +
-                " runningGroupId='" + getRunningGroupId() + "'" +
-                ", runningGroupName='" + getRunningGroupName() + "'" +
+                " runGroupId='" + getRunGroupId() + "'" +
+                ", runGroupName='" + getRunGroupName() + "'" +
                 ", runStartDate='" + getRunStartDate() + "'" +
                 ", runStartTime='" + getRunStartTime() + "'" +
                 ", duration='" + getDuration() + "'" +
