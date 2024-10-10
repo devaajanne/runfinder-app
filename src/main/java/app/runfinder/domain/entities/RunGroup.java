@@ -4,6 +4,8 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,9 +27,11 @@ public class RunGroup {
     @Column(name = "runningGroupName")
     private String runGroupName;
 
+    @DateTimeFormat(pattern = "d.M.yyyy")
     @Column(name = "runStartDate")
     private LocalDate runStartDate;
 
+    @DateTimeFormat(pattern = "HH.mm")
     @Column(name = "runStartTime")
     private LocalTime runStartTime;
 
