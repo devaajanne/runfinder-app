@@ -22,8 +22,8 @@ public class Role {
     @Column(name = "roleId")
     private Long roleId;
 
-    @Column(name = "roleName")
-    private String roleName;
+    @Column(name = "role")
+    private String role;
 
     // @JsonIgnore annotation to stop endless loops from GET requests
     @JsonIgnore
@@ -34,8 +34,8 @@ public class Role {
     public Role() {
     }
 
-    public Role(String roleName) {
-        this.roleName = roleName;
+    public Role(String role) {
+        this.role = role;
     }
 
     public Long getRoleId() {
@@ -51,16 +51,16 @@ public class Role {
         return this;
     }
 
-    public String getRoleName() {
-        return this.roleName;
+    public String getRole() {
+        return this.role;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public Role roleName(String roleName) {
-        setRoleName(roleName);
+    public Role role(String role) {
+        setRole(role);
         return this;
     }
 
@@ -68,7 +68,7 @@ public class Role {
     public String toString() {
         return "{" +
             " roleId='" + getRoleId() + "'" +
-            ", roleName='" + getRoleName() + "'" +
+            ", role='" + getRole() + "'" +
             "}";
     }
 }
