@@ -15,7 +15,7 @@ public class RunGroupController {
         this.runGroupRepository = runGroupRepository;
     }
 
-    @GetMapping("/rungroups")
+    @GetMapping("/rungrouplist")
     public String showRunGroups(Model model) {
         model.addAttribute("rungroups", runGroupRepository.findAll());
         return "rungrouplist";
