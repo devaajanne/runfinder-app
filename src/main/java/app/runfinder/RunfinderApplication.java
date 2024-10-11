@@ -54,20 +54,18 @@ public class RunfinderApplication {
 			zipcodeRepository.save(new Zipcode("06100", "Porvoo"));
 
 			runningGroupRepository
-					.save(new RunGroup("runningGroup1", LocalDate.of(2024, 10, 1), LocalTime.of(12, 0, 0),
-							Duration.ofHours(1), "Juoksukatu 1", zipcodeRepository.findByZipcode("00100")));
+					.save(new RunGroup("runningGroup1", LocalDate.of(2024, 10, 1), LocalTime.of(12, 0, 0), "Juoksukatu 1", zipcodeRepository.findByZipcode("00100")));
 			runningGroupRepository
 					.save(new RunGroup("runningGroup2", LocalDate.of(2024, 10, 1), LocalTime.of(12, 0, 0),
-							Duration.ofMinutes(90), "Juoksutie 2", zipcodeRepository.findByZipcode("02200")));
+							"Juoksutie 2", zipcodeRepository.findByZipcode("02200")));
 			runningGroupRepository
 					.save(new RunGroup("runningGroup3", LocalDate.of(2024, 10, 1), LocalTime.of(12, 0, 0),
-							Duration.ofHours(2), "Juoksukuja 3", zipcodeRepository.findByZipcode("02300")));
+							"Juoksukuja 3", zipcodeRepository.findByZipcode("02300")));
 			runningGroupRepository
 					.save(new RunGroup("runningGroup4", LocalDate.of(2024, 10, 1), LocalTime.of(12, 0, 0),
-							Duration.ofMinutes(75), "Juoksupolku 4", zipcodeRepository.findByZipcode("04400")));
+							"Juoksupolku 4", zipcodeRepository.findByZipcode("04400")));
 			runningGroupRepository.save(new RunGroup("runningGroup5", LocalDate.of(2024, 10, 1),
-					LocalTime.of(12, 0, 0),
-					Duration.ofHours(1).plusMinutes(30), "Juoksurinne 5", zipcodeRepository.findByZipcode("05800")));
+					LocalTime.of(12, 0, 0), "Juoksurinne 5", zipcodeRepository.findByZipcode("05800")));
 
 			roleRepository.save(new Role("user"));
 			roleRepository.save(new Role("contributor"));

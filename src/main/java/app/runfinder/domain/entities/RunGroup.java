@@ -1,6 +1,5 @@
 package app.runfinder.domain.entities;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -35,9 +34,6 @@ public class RunGroup {
     @Column(name = "runStartTime")
     private LocalTime runStartTime;
 
-    @Column(name = "duration")
-    private Duration duration;
-
     @Column(name = "startAddress")
     private String startAddress;
 
@@ -48,12 +44,11 @@ public class RunGroup {
     public RunGroup() {
     }
 
-    public RunGroup(String runGroupName, LocalDate runStartDate, LocalTime runStartTime, Duration duration,
-            String startAddress, Zipcode zipcode) {
+    public RunGroup(String runGroupName, LocalDate runStartDate, LocalTime runStartTime, String startAddress,
+            Zipcode zipcode) {
         this.runGroupName = runGroupName;
         this.runStartDate = runStartDate;
         this.runStartTime = runStartTime;
-        this.duration = duration;
         this.startAddress = startAddress;
         this.zipcode = zipcode;
     }
@@ -110,19 +105,6 @@ public class RunGroup {
         return this;
     }
 
-    public Duration getDuration() {
-        return this.duration;
-    }
-
-    public void setDuration(Duration duration) {
-        this.duration = duration;
-    }
-
-    public RunGroup duration(Duration duration) {
-        setDuration(duration);
-        return this;
-    }
-
     public String getStartAddress() {
         return this.startAddress;
     }
@@ -156,7 +138,6 @@ public class RunGroup {
                 ", runGroupName='" + getRunGroupName() + "'" +
                 ", runStartDate='" + getRunStartDate() + "'" +
                 ", runStartTime='" + getRunStartTime() + "'" +
-                ", duration='" + getDuration() + "'" +
                 ", startAddress='" + getStartAddress() + "'" +
                 ", zipcode='" + getZipcode() + "'" +
                 "}";
