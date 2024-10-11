@@ -54,7 +54,8 @@ public class RunfinderApplication {
 			zipcodeRepository.save(new Zipcode("06100", "Porvoo"));
 
 			runningGroupRepository
-					.save(new RunGroup("runningGroup1", LocalDate.of(2024, 10, 1), LocalTime.of(12, 0, 0), "Juoksukatu 1", zipcodeRepository.findByZipcode("00100")));
+					.save(new RunGroup("runningGroup1", LocalDate.of(2024, 10, 1), LocalTime.of(12, 0, 0),
+							"Juoksukatu 1", zipcodeRepository.findByZipcode("00100")));
 			runningGroupRepository
 					.save(new RunGroup("runningGroup2", LocalDate.of(2024, 10, 1), LocalTime.of(12, 0, 0),
 							"Juoksutie 2", zipcodeRepository.findByZipcode("02200")));

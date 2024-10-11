@@ -9,7 +9,7 @@
 <body>
     <h1>Add a run group</h1>
     <div>
-        <form th:object="${rungroup}" th:action="@{save}" action="#" method="post">
+        <form th:object="${rungroup}" th:action="@{/save}" action="#" method="post">
             <input type="hidden" id="runGroupId" th:field="*{runGroupId}" />
 
             <label for="runGroupName">Run group name: </label>
@@ -30,7 +30,8 @@
 
             <label for="zipcode">Zipcode: </label>
             <select id="zipcodeList" th:field="*{zipcode}" class="form-control">
-                <option th:each="zipcode: ${zipcodes}" th:value="${zipcode}" th:text="${zipcode.zipcode}"></option>
+                <option th:each="zipcode: ${zipcodes}" th:value="${zipcode.zipcode}" th:text="${zipcode.zipcode}">
+                </option>
             </select>
             <input type="submit" value="Save"></input>
         </form>
