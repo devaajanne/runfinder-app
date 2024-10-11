@@ -29,10 +29,26 @@
             <div style="clear: both; display: block; height: 10px;"></div>
 
             <label for="zipcode">Zipcode: </label>
-            <select id="zipcodeList" th:field="*{zipcode}" class="form-control">
+            <select id="zipcodeList" th:field="*{zipcode}" class="form-control" onChange="fetchCity()">
                 <option th:each="zipcode: ${zipcodes}" th:value="${zipcode.zipcode}" th:text="${zipcode.zipcode}">
                 </option>
             </select>
+
+            <p>City: <span id="cityDisplay"></span></p>
+            <script>
+                function fetchCity() {
+                    var selectedZipcode = document.getElementById("zipcodeList").value;
+
+
+                    fetch('/zipcodes/' + selectedZipcode)
+                        .then(response => response.text())
+                        .then(data => {
+                            document.getElementById("cityDisplay").innerText = data;
+                        })
+                        .catch(error => console.error('Error fetching city:', error));
+                }
+            </script>
+
             <input type="submit" value="Save"></input>
         </form>
     </div>
