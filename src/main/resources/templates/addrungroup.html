@@ -32,9 +32,8 @@
             <select id="zipcodeList" th:field="*{zipcode}" class="form-control">
                 <option th:each="zipcode: ${zipcodes}" th:value="${zipcode}" th:text="${zipcode.zipcode}"></option>
             </select>
+            <input type="submit" value="Save"></input>
         </form>
-
-        <input type="submit" value="Save"></input>
     </div>
 </body>
 
