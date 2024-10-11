@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Add a run group</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <h1>Add a run group</h1>
+    <div>
+        <form th:object="${rungroup}" th:action="@{save}" action="#" method="post">
+            <input type="hidden" id="runGroupId" th:field="*{runGroupId}" />
+
+            <label for="runGroupName">Run group name: </label>
+            <input type="text" id="runGroupName" th:field="*{runGroupName}" />
+            <div style="clear: both; display: block; height: 10px;"></div>
+
+            <label for="runStartDate">Run start date: </label>
+            <input type="date" id="runStartDate" th:field="*{runStartDate}" />
+            <div style="clear: both; display: block; height: 10px;"></div>
+
+            <label for="runStartTime">Run start time: </label>
+            <input type="time" id="runStartTime" th:field="*{runStartTime}" />
+            <div style="clear: both; display: block; height: 10px;"></div>
+
+            <label for="duration">Run duration: </label>
+            <input type="text" id="duration" th:field="*{duration}" />
+            <div style="clear: both; display: block; height: 10px;"></div>
+
+            <label for="startAddress">Start address: </label>
+            <input type="text" id="startAddress" th:field="*{startAddress}" />
+            <div style="clear: both; display: block; height: 10px;"></div>
+
+            <label for="zipcode">Zipcode: </label>
+            <select id="zipcodeList" th:field="*{zipcode}" class="form-control">
+                <option th:each="zipcode: ${zipcodes}" th:value="${zipcode}" th:text="${zipcode.zipcode}"></option>
+            </select>
+        </form>
+
+        <input type="submit" value="Save"></input>
+    </div>
+</body>
+
+</html>
