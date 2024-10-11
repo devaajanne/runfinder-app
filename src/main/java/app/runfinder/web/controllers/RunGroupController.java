@@ -3,6 +3,8 @@ package app.runfinder.web.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import app.runfinder.domain.entities.RunGroup;
 import app.runfinder.domain.repositories.RunGroupRepository;
@@ -30,5 +32,12 @@ public class RunGroupController {
         model.addAttribute("rungroup", new RunGroup());
         model.addAttribute("zipcodes", zipcodeRepository.findAll());
         return "addrungroup";
+    }
+
+    @PostMapping("/save")
+    public String saveRunGroup(@ModelAttribute("runGroup") RunGroup runGroup, Model model) {
+
+        runGroupRepository.save(runGroup);
+        return "redirect:rungrouplist";
     }
 }
