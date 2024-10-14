@@ -30,22 +30,26 @@
 
             <label for="zipcode">Zipcode: </label>
             <select id="zipcodeList" th:field="*{zipcode}" class="form-control" onChange="fetchCity()">
+                <option value="select">Select a zipcode</option>
                 <option th:each="zipcode: ${zipcodes}" th:value="${zipcode.zipcode}" th:text="${zipcode.zipcode}">
                 </option>
             </select>
 
-            <p>City: <span id="cityDisplay"></span></p>
+            <p>City: <span id="cityDisplay">Select a zipcode</span></p>
 
             <script>
                 async function fetchCity() {
                     let selectedZipcode = document.getElementById("zipcodeList").value;
-
-                    try {
-                        const cityData = await fetch('/zipcodes/' + selectedZipcode);
-                        const cityDataText = await cityData.text();
-                        document.getElementById("cityDisplay").innerText = cityDataText;
-                    } catch (error) {
-                        console.error(error);
+                    if (selectedZipcode != "select") {
+                        try {
+                            const cityData = await fetch('/zipcodes/' + selectedZipcode);
+                            const cityDataText = await cityData.text();
+                            document.getElementById("cityDisplay").innerText = cityDataText;
+                        } catch (error) {
+                            console.error(error);
+                        }
+                    } else {
+                        document.getElementById("cityDisplay").innerText = "Select a zipcode";
                     }
                 }
             </script>
