@@ -13,6 +13,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
 
 @Entity
 @Table(name = "runningGroups")
@@ -24,10 +28,12 @@ public class RunGroup {
     private Long runGroupId;
 
     @Column(name = "runningGroupName")
+    @NotEmpty(message = "The run group must have a name")
     private String runGroupName;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "runStartDate")
+    @FutureOrPresent(message = "Run group start date must be today or in the future")
     private LocalDate runStartDate;
 
     @DateTimeFormat(pattern = "HH:mm")
@@ -35,6 +41,7 @@ public class RunGroup {
     private LocalTime runStartTime;
 
     @Column(name = "startAddress")
+    @NotEmpty(message = "The run group must have a start address")
     private String startAddress;
 
     @ManyToOne

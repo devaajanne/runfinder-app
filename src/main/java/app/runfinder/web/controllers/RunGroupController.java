@@ -2,10 +2,12 @@ package app.runfinder.web.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import jakarta.validation.Valid;
 
 import app.runfinder.domain.entities.RunGroup;
 import app.runfinder.domain.repositories.RunGroupRepository;
@@ -36,14 +38,20 @@ public class RunGroupController {
     }
 
     @GetMapping("/edit/{id}")
-       public String editRunGroup(@PathVariable("id") Long id, Model model) {
+    public String editRunGroup(@PathVariable("id") Long id, Model model) {
         model.addAttribute("rungroup", runGroupRepository.findById(id));
         model.addAttribute("zipcodes", zipcodeRepository.findAll());
         return "editrungroup";
     }
 
     @PostMapping("/save")
-    public String saveRunGroup(@ModelAttribute("runGroup") RunGroup runGroup, Model model) {
+    public String saveRunGroup(@Valid @ModelAttribute("rungroup") RunGroup runGroup, BindingResult bindingResult,
+            Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("rungroup", runGroup);
+            model.addAttribute("zipcodes", zipcodeRepository.findAll());
+            return "addrungroup";
+        }
 
         runGroupRepository.save(runGroup);
         return "redirect:rungrouplist";
