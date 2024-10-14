@@ -6,6 +6,23 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
+<script>
+    async function fetchCity() {
+        let selectedZipcode = document.getElementById("zipcodeList").value;
+        if (selectedZipcode != "select") {
+            try {
+                const cityData = await fetch('/zipcodes/' + selectedZipcode);
+                const cityDataText = await cityData.text();
+                document.getElementById("cityDisplay").innerText = cityDataText;
+            } catch (error) {
+                console.error(error);
+            }
+        } else {
+            document.getElementById("cityDisplay").innerText = "Select a zipcode";
+        }
+    }
+</script>
+
 <body>
     <h1>Add a run group</h1>
     <div>
@@ -36,23 +53,6 @@
             </select>
 
             <p>City: <span id="cityDisplay">Select a zipcode</span></p>
-
-            <script>
-                async function fetchCity() {
-                    let selectedZipcode = document.getElementById("zipcodeList").value;
-                    if (selectedZipcode != "select") {
-                        try {
-                            const cityData = await fetch('/zipcodes/' + selectedZipcode);
-                            const cityDataText = await cityData.text();
-                            document.getElementById("cityDisplay").innerText = cityDataText;
-                        } catch (error) {
-                            console.error(error);
-                        }
-                    } else {
-                        document.getElementById("cityDisplay").innerText = "Select a zipcode";
-                    }
-                }
-            </script>
 
             <input type="submit" value="Save"></input>
         </form>
