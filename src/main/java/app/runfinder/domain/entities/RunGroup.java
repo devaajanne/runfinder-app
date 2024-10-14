@@ -26,11 +26,11 @@ public class RunGroup {
     @Column(name = "runningGroupName")
     private String runGroupName;
 
-    @DateTimeFormat(pattern = "d.M.yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "runStartDate")
     private LocalDate runStartDate;
 
-    @DateTimeFormat(pattern = "HH.mm")
+    @DateTimeFormat(pattern = "HH:mm")
     @Column(name = "runStartTime")
     private LocalTime runStartTime;
 
