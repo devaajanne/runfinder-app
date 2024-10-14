@@ -15,7 +15,6 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 
 
 @Entity
