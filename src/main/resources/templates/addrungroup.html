@@ -35,17 +35,18 @@
             </select>
 
             <p>City: <span id="cityDisplay"></span></p>
+
             <script>
-                function fetchCity() {
-                    var selectedZipcode = document.getElementById("zipcodeList").value;
+                async function fetchCity() {
+                    let selectedZipcode = document.getElementById("zipcodeList").value;
 
-
-                    fetch('/zipcodes/' + selectedZipcode)
-                        .then(response => response.text())
-                        .then(data => {
-                            document.getElementById("cityDisplay").innerText = data;
-                        })
-                        .catch(error => console.error('Error fetching city:', error));
+                    try {
+                        const cityData = await fetch('/zipcodes/' + selectedZipcode);
+                        const cityDataText = await cityData.text();
+                        document.getElementById("cityDisplay").innerText = cityDataText;
+                    } catch (error) {
+                        console.error(error);
+                    }
                 }
             </script>
 
