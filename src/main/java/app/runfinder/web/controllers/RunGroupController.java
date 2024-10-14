@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import app.runfinder.domain.entities.RunGroup;
 import app.runfinder.domain.repositories.RunGroupRepository;
@@ -32,6 +33,13 @@ public class RunGroupController {
         model.addAttribute("rungroup", new RunGroup());
         model.addAttribute("zipcodes", zipcodeRepository.findAll());
         return "addrungroup";
+    }
+
+    @GetMapping("/edit/{id}")
+       public String editRunGroup(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("rungroup", runGroupRepository.findById(id));
+        model.addAttribute("zipcodes", zipcodeRepository.findAll());
+        return "editrungroup";
     }
 
     @PostMapping("/save")
