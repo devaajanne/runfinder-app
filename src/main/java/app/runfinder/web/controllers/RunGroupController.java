@@ -37,20 +37,33 @@ public class RunGroupController {
         return "addrungroup";
     }
 
+    @PostMapping("/save")
+    public String saveNewRunGroup(@Valid @ModelAttribute("rungroup") RunGroup runGroup, BindingResult bindingResult,
+            Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("rungroup", runGroup);
+            model.addAttribute("zipcodes", zipcodeRepository.findAll());
+            return "addrungroup";
+        }
+
+        runGroupRepository.save(runGroup);
+        return "redirect:rungrouplist";
+    }
+
     @GetMapping("/edit/{id}")
     public String editRunGroup(@PathVariable("id") Long id, Model model) {
         model.addAttribute("rungroup", runGroupRepository.findById(id));
         model.addAttribute("zipcodes", zipcodeRepository.findAll());
         return "editrungroup";
     }
-
-    @PostMapping("/save")
-    public String saveRunGroup(@Valid @ModelAttribute("rungroup") RunGroup runGroup, BindingResult bindingResult,
+    
+    @PostMapping("/saveedited")
+    public String saveEditedRunGroup(@Valid @ModelAttribute("rungroup") RunGroup runGroup, BindingResult bindingResult,
             Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("rungroup", runGroup);
             model.addAttribute("zipcodes", zipcodeRepository.findAll());
-            return "addrungroup";
+            return "editrungroup";
         }
 
         runGroupRepository.save(runGroup);
