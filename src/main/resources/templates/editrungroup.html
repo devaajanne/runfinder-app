@@ -31,10 +31,12 @@
 
             <label for="runGroupName">Run group name: </label>
             <input type="text" id="runGroupName" th:field="*{runGroupName}" />
+            <div th:if="${#fields.hasErrors('runGroupName')}" th:errors="*{runGroupName}">Run group name error</div>
             <div style="clear: both; display: block; height: 10px;"></div>
 
             <label for="runStartDate">Run start date: </label>
             <input type="date" id="runStartDate" th:field="*{runStartDate}" />
+            <div th:if="${#fields.hasErrors('runStartDate')}" th:errors="*{runStartDate}">Run start date error</div>
             <div style="clear: both; display: block; height: 10px;"></div>
 
             <label for="runStartTime">Run start time: </label>
@@ -43,6 +45,7 @@
 
             <label for="startAddress">Start address: </label>
             <input type="text" id="startAddress" th:field="*{startAddress}" />
+            <div th:if="${#fields.hasErrors('startAddress')}" th:errors="*{startAddress}">Start address error</div>
             <div style="clear: both; display: block; height: 10px;"></div>
 
             <label for="zipcode">Zipcode: </label>
