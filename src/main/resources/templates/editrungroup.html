@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Edit a run group</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <h1>Edit a run group</h1>
+    <div>
+        <form th:object="${rungroup}" th:action="@{/save}" action="#" method="post">
+            <input type="hidden" id="runGroupId" th:field="*{runGroupId}" />
+
+            <label for="runGroupName">Run group name: </label>
+            <input type="text" id="runGroupName" th:field="*{runGroupName}" />
+            <div style="clear: both; display: block; height: 10px;"></div>
+
+            <label for="runStartDate">Run start date: </label>
+            <input type="date" id="runStartDate" th:field="*{runStartDate}" />
+            <div style="clear: both; display: block; height: 10px;"></div>
+
+            <label for="runStartTime">Run start time: </label>
+            <input type="time" id="runStartTime" th:field="*{{runStartTime}}" />
+            <div style="clear: both; display: block; height: 10px;"></div>
+
+            <label for="startAddress">Start address: </label>
+            <input type="text" id="startAddress" th:field="*{startAddress}" />
+            <div style="clear: both; display: block; height: 10px;"></div>
+
+            <label for="zipcode">Zipcode: </label>
+            <select id="zipcodeList" th:field="*{zipcode}" class="form-control" onChange="fetchCity()">
+                <option value="select">Select a zipcode</option>
+                <option th:each="zipcode: ${zipcodes}" th:value="${zipcode.zipcode}" th:text="${zipcode.zipcode}">
+                </option>
+            </select>
+
+            <p>City: <span id="cityDisplay" value="*{zipcode.city}"></span></p>
+
+            <script>
+                async function fetchCity() {
+                    let selectedZipcode = document.getElementById("zipcodeList").value;
+                    if (selectedZipcode != "select") {
+                        try {
+                            const cityData = await fetch('/zipcodes/' + selectedZipcode);
+                            const cityDataText = await cityData.text();
+                            document.getElementById("cityDisplay").innerText = cityDataText;
+                        } catch (error) {
+                            console.error(error);
+                        }
+                    } else {
+                        document.getElementById("cityDisplay").innerText = "Select a zipcode";
+                    }
+                }
+            </script>
+
+            <input type="submit" value="Save"></input>
+        </form>
+    </div>
+    <a href="/rungrouplist"> Back to run group list</a>
+</body>
+
+</html>
