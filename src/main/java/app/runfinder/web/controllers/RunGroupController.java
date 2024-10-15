@@ -24,6 +24,11 @@ public class RunGroupController {
         this.zipcodeRepository = zipcodeRepository;
     }
 
+    @PostMapping("/login")
+    public String showLoginPage() {
+        return "login";
+    }
+
     @GetMapping("/rungrouplist")
     public String showRunGroupList(Model model) {
         model.addAttribute("rungroups", runGroupRepository.findAll());
