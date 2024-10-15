@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Signup to Runfinder</title>
+    <title>Signup to RunFinder</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
 <body>
     <div>
-        <h1>Signup to Runfinder</h1>
+        <h1>Signup to RunFinder</h1>
         <form th:object="${signupform}" th:action="@{/saveuser}" action="#" method="post">
             <div>
                 <label>Username: <input type="text" th:field="*{username}" /></label>

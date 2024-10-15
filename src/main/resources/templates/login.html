@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <h1>Login to Runfinder</h1>
+    <h1>Login to RunFinder</h1>
     <div th:if="${param.error}">
         <p>Invalid username or password.</p>
     </div>
@@ -19,7 +19,6 @@
         <div><label>Password: <input type="password" name="password" /></label></div>
         <div><input type="submit" value="Sign in" /></div>
     </form>
-    <a th:href="@{/signup}">Sign up</a>
 </body>
 
 </html>
