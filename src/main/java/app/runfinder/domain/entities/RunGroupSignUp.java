@@ -10,20 +10,20 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 
 @Entity
-@Table(name = "runSignUps")
+@Table(name = "run_sign_ups")
 public class RunGroupSignUp {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "runSignUpId")
+    @Column(name = "run_sign_up_id")
     private Long runSignUpId;
 
     @ManyToOne
-    @JoinColumn(name = "appUser")
+    @JoinColumn(name = "app_user")
     private AppUser appUser;
 
     @ManyToOne
-    @JoinColumn(name = "runningGroup")
+    @JoinColumn(name = "run_group")
     private RunGroup runGroup;
 
     public RunGroupSignUp() {

@@ -14,7 +14,7 @@ import jakarta.persistence.Column;
 @Entity
 
 // @Table annotation renames the entity's table in relational database
-@Table(name = "appUsers")
+@Table(name = "app_users")
 public class AppUser {
 
     // @Id annotates this attribute as the table's id column
@@ -24,16 +24,16 @@ public class AppUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     // @Column renames the column in the relational database
     // Not always needed; used to have more control over the database colum naming
-    @Column(name = "appUserId")
+    @Column(name = "app_user_id")
     private Long appUserId;
 
     @Column(name = "username")
     private String username;
 
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     private String lastName;
 
     @Column(name = "email")
@@ -42,7 +42,7 @@ public class AppUser {
     // @ManyToOne annotes a many to one relation between two tables
     @ManyToOne
     // @JoinColumn annotes which columns are joined
-    @JoinColumn(name = "roleId")
+    @JoinColumn(name = "role_id")
     private Role role;
 
     @Column(name = "password")

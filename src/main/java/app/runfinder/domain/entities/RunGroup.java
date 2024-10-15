@@ -18,28 +18,28 @@ import jakarta.validation.constraints.NotEmpty;
 
 
 @Entity
-@Table(name = "runningGroups")
+@Table(name = "run_groups")
 public class RunGroup {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "runningGroupId")
+    @Column(name = "run_group_id")
     private Long runGroupId;
 
-    @Column(name = "runningGroupName")
+    @Column(name = "run_group_name")
     @NotEmpty(message = "The run group must have a name")
     private String runGroupName;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Column(name = "runStartDate")
+    @Column(name = "run_start_date")
     @FutureOrPresent(message = "Run group start date must be today or in the future")
     private LocalDate runStartDate;
 
     @DateTimeFormat(pattern = "HH:mm")
-    @Column(name = "runStartTime")
+    @Column(name = "run_start_time")
     private LocalTime runStartTime;
 
-    @Column(name = "startAddress")
+    @Column(name = "start_address")
     @NotEmpty(message = "The run group must have a start address")
     private String startAddress;
 
