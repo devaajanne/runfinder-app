@@ -10,8 +10,6 @@ public class SignUpForm {
 
     private String email = "";
 
-    private String role = "USER";
-
     private String password = "";
 
     private String passwordCheck = "";
@@ -71,19 +69,6 @@ public class SignUpForm {
         return this;
     }
 
-    public String getRole() {
-        return this.role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public SignUpForm role(String role) {
-        setRole(role);
-        return this;
-    }
-
     public String getPassword() {
         return this.password;
     }
@@ -117,7 +102,6 @@ public class SignUpForm {
                 ", firstName='" + getFirstName() + "'" +
                 ", lastName='" + getLastName() + "'" +
                 ", email='" + getEmail() + "'" +
-                ", role='" + getRole() + "'" +
                 ", password='" + getPassword() + "'" +
                 ", passwordCheck='" + getPasswordCheck() + "'" +
                 "}";
