@@ -6,19 +6,31 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
-<body>
+<header>
     <h1>Login to RunFinder</h1>
+</header>
+
+<body>
     <div th:if="${param.error}">
         <p>Invalid username or password.</p>
     </div>
     <div th:if="${param.logout}">
         <p>You have been logged out.</p>
     </div>
-    <form th:action="@{/login}" method="post">
-        <div><label>Username: <input type="text" name="username"></label></div>
-        <div><label>Password: <input type="password" name="password" /></label></div>
-        <div><input type="submit" value="Sign in" /></div>
-    </form>
+    <div>
+        <form th:action="@{/login}" method="post">
+            <label for="username">Username: </label>
+            <input type="text" name="username" />
+            <div style="clear: both; display: block; height: 10px;"></div>
+
+            <label for="password">Password: </label>
+            <input type="password" name="password" />
+            <div style="clear: both; display: block; height: 10px;"></div>
+
+            <button type="submit">Log in</button>
+            <input type="button" onclick="location.href='signup'" value="Sign up" />
+        </form>
+    </div>
 </body>
 
 </html>
