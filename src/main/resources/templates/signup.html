@@ -2,30 +2,46 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Signup to RunFinder</title>
+    <title>Sign up to RunFinder</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
+<header>
+    <h1>Sign up to RunFinder</h1>
+</header>
+
 <body>
     <div>
-        <h1>Signup to RunFinder</h1>
-        <form th:object="${signupform}" th:action="@{/saveuser}" action="#" method="post">
-            <div>
-                <label>Username: <input type="text" th:field="*{username}" /></label>
-                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</p>
-            </div>
-            <div>
-                <label>Password: <input type="password" th:field="*{password}" /></label>
-                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</p>
-            </div>
-            <div>
-                <label>Re-type password: <input type="password" th:field="*{passwordCheck}" /></label>
-                <p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password match error</p>
-            </div>
+        <form th:object="${signupform}" th:action="@{/savenewuser}" action="#" method="post">
 
-            <input type="submit" value="Signup"></input>
+            <label for="username">Username: </label>
+            <input type="text" th:field="*{username}" />
+            <div style="clear: both; display: block; height: 10px;"></div>
+
+            <label for="firstName">First name: </label>
+            <input type="text" th:field="*{firstName}" />
+            <div style="clear: both; display: block; height: 10px;"></div>
+
+            <label for="lastName">Last name: </label>
+            <input type="text" th:field="*{lastName}" />
+            <div style="clear: both; display: block; height: 10px;"></div>
+
+            <label for="email">Email: </label>
+            <input type="text" th:field="*{email}" />
+            <div style="clear: both; display: block; height: 10px;"></div>
+
+            <label for="password">Password: </label>
+            <input type="password" th:field="*{password}" />
+            <div style="clear: both; display: block; height: 10px;"></div>
+
+            <label for="passwordCheck">Re-type password: </label>
+            <input type="password" th:field="*{passwordCheck}" />
+            <div style="clear: both; display: block; height: 10px;"></div>
+            <p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password match error</p>
+
+            <input type="submit" value="Sign up"></input>
+            <input type="button" onclick="location.href='login'" value="Back to login" />
         </form>
-        <a href="/login">Back to login page</a>
     </div>
 </body>
 
