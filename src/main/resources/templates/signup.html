@@ -11,38 +11,40 @@
 </header>
 
 <body>
-    <div>
-        <form th:object="${signupform}" th:action="@{/savenewuser}" action="#" method="post">
+    <form th:object="${signupform}" th:action="@{/savenewuser}" action="#" method="post">
 
-            <label for="username">Username: </label>
-            <input type="text" th:field="*{username}" />
-            <div style="clear: both; display: block; height: 10px;"></div>
+        <label for="username">Username: </label>
+        <input type="text" th:field="*{username}" />
+        <div style="clear: both; display: block; height: 10px;"></div>
 
-            <label for="firstName">First name: </label>
-            <input type="text" th:field="*{firstName}" />
-            <div style="clear: both; display: block; height: 10px;"></div>
+        <label for="firstName">First name: </label>
+        <input type="text" th:field="*{firstName}" />
+        <div style="clear: both; display: block; height: 10px;"></div>
 
-            <label for="lastName">Last name: </label>
-            <input type="text" th:field="*{lastName}" />
-            <div style="clear: both; display: block; height: 10px;"></div>
+        <label for="lastName">Last name: </label>
+        <input type="text" th:field="*{lastName}" />
+        <div style="clear: both; display: block; height: 10px;"></div>
 
-            <label for="email">Email: </label>
-            <input type="text" th:field="*{email}" />
-            <div style="clear: both; display: block; height: 10px;"></div>
+        <label for="email">Email: </label>
+        <input type="text" th:field="*{email}" />
+        <div style="clear: both; display: block; height: 10px;"></div>
 
-            <label for="password">Password: </label>
-            <input type="password" th:field="*{password}" />
-            <div style="clear: both; display: block; height: 10px;"></div>
+        <label for="password">Password: </label>
+        <input type="password" th:field="*{password}" />
+        <div style="clear: both; display: block; height: 10px;"></div>
 
-            <label for="passwordCheck">Re-type password: </label>
-            <input type="password" th:field="*{passwordCheck}" />
-            <div style="clear: both; display: block; height: 10px;"></div>
-            <p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password match error</p>
+        <label for="passwordCheck">Re-type password: </label>
+        <input type="password" th:field="*{passwordCheck}" />
+        <div style="clear: both; display: block; height: 10px;"></div>
+        <p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password match error</p>
 
-            <input type="submit" value="Sign up"></input>
-            <input type="button" onclick="location.href='login'" value="Back to login" />
-        </form>
-    </div>
+
+        <button type="submit">Sign up</button>
+    </form>
+
+    <form th:action="@{/login}" method="get">
+        <button type="submit">Back to login</button>
+    </form>
 </body>
 
 </html>

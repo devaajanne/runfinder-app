@@ -6,11 +6,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
-<body>
+<header>
     <h1>Run groups</h1>
-    <form th:action="@{/logout}" method="post">
-        <input type="submit" value="Sign Out" />
-    </form>
+    <h2>Hello <span sec:authentication="name"></span>!</h2>
+</header>
+
+<body>
     <table>
         <tr>
             <th>Run group ID</th>
@@ -25,14 +26,26 @@
             <td th:text="${rungroup.runGroupId}"></td>
             <td th:text="${rungroup.runGroupName}"></td>
             <td th:text="${#temporals.format(rungroup.runStartDate, 'dd.MM.YYYY')}"></td>
+            <!--FIX!! Näyttää jostakin syystä seuraavan vuoden, kun päivämäärä on 29.-31.12.-->
             <td th:text="${{rungroup.runStartTime}}"></td>
             <td th:text="${rungroup.startAddress}"></td>
             <td th:text="${rungroup.zipcode.zipcode}"></td>
             <td th:text="${rungroup.zipcode.city}"></td>
-            <td><a th:href="@{/edit/{id}(id=${rungroup.runGroupId})}">Edit</a></td>
+            <td>
+                <form th:action="@{/edit/{id}(id=${rungroup.runGroupId})}" method="get">
+                    <button type="submit">Edit</button>
+                </form>
+            </td>
         </tr>
     </table>
-    <a href="/add">Add a new run group</a>
+
+    <form th:action="@{/add}" method="get">
+        <button type="submit">Add a new run group</button>
+    </form>
+
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Sign out</button>
+    </form>
 </body>
 
 </html>
