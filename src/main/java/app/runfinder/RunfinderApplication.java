@@ -11,9 +11,11 @@ import org.springframework.context.annotation.Bean;
 import app.runfinder.domain.entities.Role;
 import app.runfinder.domain.entities.RunGroup;
 import app.runfinder.domain.entities.Zipcode;
+import app.runfinder.domain.entities.AppUser;
 import app.runfinder.domain.repositories.RoleRepository;
 import app.runfinder.domain.repositories.RunGroupRepository;
 import app.runfinder.domain.repositories.ZipcodeRepository;
+import app.runfinder.domain.repositories.AppUserRepository;
 
 @SpringBootApplication
 public class RunfinderApplication {
@@ -26,7 +28,7 @@ public class RunfinderApplication {
 	// Used to test application
 	@Bean
 	public CommandLineRunner runfinderCLR(RunGroupRepository runningGroupRepository,
-			ZipcodeRepository zipcodeRepository, RoleRepository roleRepository) {
+			ZipcodeRepository zipcodeRepository, RoleRepository roleRepository, AppUserRepository appUserRepository) {
 		return (args) -> {
 
 			// Test data has mostly been generated with ChatGPT
@@ -70,6 +72,10 @@ public class RunfinderApplication {
 			roleRepository.save(new Role("USER"));
 			roleRepository.save(new Role("CONTRIBUTOR"));
 			roleRepository.save(new Role("ADMIN"));
+
+			appUserRepository.save(new AppUser("user", "userFirstname", "userLastname", "user@runfinder.com", roleRepository.findByRole("USER"), "$2a$10$1KmOKZbxn09.ptn75m9ttOWn6X9YDkZZyQOwCURb3wgM6kwEnIcPy"));
+			appUserRepository.save(new AppUser("contributor", "contributorFirstname", "contributorLastName", "contributor@runfinder.com", roleRepository.findByRole("CONTRIBUTOR"), "$2a$10$HFh46mkLcOGwS1GJZtPXqutsOrFlYvyODeQKMobBzjLuvGnTiOr3u"));
+			appUserRepository.save(new AppUser("admin", "adminFirstname", "adminLastname", "admin@runfinder.com", roleRepository.findByRole("ADMIN"), "$2a$10$/X5g8wxjMXw1pIDnJq7cL.WqJbg.LKQltNP8wXYpXjy/1Ha16lpKq"));
 		};
 	};
 }
