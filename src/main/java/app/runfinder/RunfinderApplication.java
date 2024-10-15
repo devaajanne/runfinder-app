@@ -67,9 +67,9 @@ public class RunfinderApplication {
 			runningGroupRepository.save(new RunGroup("runningGroup5", LocalDate.of(2024, 12, 30),
 					LocalTime.of(12, 0, 0), "Juoksurinne 5", zipcodeRepository.findByZipcode("05800")));
 
-			roleRepository.save(new Role("user"));
-			roleRepository.save(new Role("contributor"));
-			roleRepository.save(new Role("admin"));
+			roleRepository.save(new Role("USER"));
+			roleRepository.save(new Role("CONTRIBUTOR"));
+			roleRepository.save(new Role("ADMIN"));
 		};
 	};
 }
