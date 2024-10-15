@@ -24,7 +24,7 @@ public class RunGroupController {
         this.zipcodeRepository = zipcodeRepository;
     }
 
-    @PostMapping("/login")
+    @GetMapping("/login")
     public String showLoginPage() {
         return "login";
     }
