@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Signup to Runfinder</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+    <div>
+        <h1>Signup to Runfinder</h1>
+        <form th:object="${signupform}" th:action="@{/saveuser}" action="#" method="post">
+            <div>
+                <label>Username: <input type="text" th:field="*{username}" /></label>
+                <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</p>
+            </div>
+            <div>
+                <label>Password: <input type="password" th:field="*{password}" /></label>
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</p>
+            </div>
+            <div>
+                <label>Re-type password: <input type="password" th:field="*{passwordCheck}" /></label>
+                <p th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password match error</p>
+            </div>
+
+            <input type="submit" value="Signup"></input>
+        </form>
+        <a href="/login">Back to login page</a>
+    </div>
+</body>
+
+</html>
