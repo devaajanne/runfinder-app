@@ -33,19 +33,19 @@
                 <td th:text="${rungroup.zipcode.zipcode}"></td>
                 <td th:text="${rungroup.zipcode.city}"></td>
                 <td sec:authorize="hasAuthority( 'ADMIN')">
-                    <form th:action="@{/edit/{id}(id=${rungroup.runGroupId})}" method="get">
+                    <form th:action="@{/editgroup/{id}(id=${rungroup.runGroupId})}" method="get">
                         <button type="submit">Edit</button>
                     </form>
                 </td>
                 <td sec:authorize="hasAuthority('ADMIN')">
-                    <form th:action="@{/delete/{id}(id=${rungroup.runGroupId})}" method="get">
+                    <form th:action="@{/deletegroup/{id}(id=${rungroup.runGroupId})}" method="get">
                         <button type="submit">Delete</button>
                     </form>
                 </td>
             </span>
         </tr>
     </table>
-    <form th:action="@{/add}" method="get" sec:authorize="hasAnyAuthority('CONTRIBUTOR', 'ADMIN')">
+    <form th:action="@{/addnewgroup}" method="get" sec:authorize="hasAnyAuthority('CONTRIBUTOR', 'ADMIN')">
         <button type="submit">Add a new run group</button>
     </form>
 

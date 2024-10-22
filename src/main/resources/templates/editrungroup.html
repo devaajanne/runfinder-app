@@ -28,7 +28,7 @@
 </header>
 
 <body>
-    <form th:object="${rungroup}" th:action="@{/saveedited}" action="#" method="post">
+    <form th:object="${rungroup}" th:action="@{/saveeditedgroup}" action="#" method="post">
         <input type="hidden" id="runGroupId" th:field="*{runGroupId}" />
 
         <label for="runGroupName">Run group name: </label>

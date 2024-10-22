@@ -36,7 +36,7 @@ public class RunGroupController {
         return "rungrouplist";
     }
 
-    @GetMapping("/add")
+    @GetMapping("/addnewgroup")
     @PreAuthorize("hasAnyAuthority('CONTRIBUTOR', 'ADMIN')")
     public String addRunGroup(Model model) {
         model.addAttribute("rungroup", new RunGroup());
@@ -44,7 +44,7 @@ public class RunGroupController {
         return "addrungroup";
     }
 
-    @PostMapping("/save")
+    @PostMapping("/savenewgroup")
     @PreAuthorize("hasAnyAuthority('CONTRIBUTOR', 'ADMIN')")
     public String saveNewRunGroup(@Valid @ModelAttribute("rungroup") RunGroup runGroup, BindingResult bindingResult,
             Model model) {
@@ -58,14 +58,14 @@ public class RunGroupController {
         return "redirect:rungrouplist";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/editgroup/{id}")
     public String editRunGroup(@PathVariable("id") Long id, Model model) {
         model.addAttribute("rungroup", runGroupRepository.findById(id));
         model.addAttribute("zipcodes", zipcodeRepository.findAll());
         return "editrungroup";
     }
 
-    @PostMapping("/saveedited")
+    @PostMapping("/saveeditedgroup")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String saveEditedRunGroup(@Valid @ModelAttribute("rungroup") RunGroup runGroup, BindingResult bindingResult,
             Model model) {
@@ -79,7 +79,7 @@ public class RunGroupController {
         return "redirect:rungrouplist";
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/deletegroup/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteRunGroup(@PathVariable("id") Long id, Model model) {
         RunGroup runGroup = runGroupRepository.findById(id).get();
