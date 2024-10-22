@@ -11,25 +11,26 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig {
 
-    @Bean
-    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/login", "/signup", "/savenewuser").permitAll()
-                        .requestMatchers("/add", "/delete/**", "/edit/**").hasAuthority("ADMIN")
-                        .anyRequest().authenticated())
-                .formLogin(formlogin -> formlogin.loginPage("/login")
-                        .defaultSuccessUrl("/rungrouplist", true)
-                        .permitAll())
-                .logout(logout -> logout
-                        .permitAll())
-                .csrf(csrf -> csrf.disable());
+        @Bean
+        public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+                http
+                                .authorizeHttpRequests(authorize -> authorize
+                                                .requestMatchers("/login", "/signup", "/savenewuser").permitAll()
+                                                .requestMatchers("/add").hasAnyAuthority("CONTRIBUTOR", "ADMIN")
+                                                .requestMatchers("/delete/**", "/edit/**").hasAuthority("ADMIN")
+                                                .anyRequest().authenticated())
+                                .formLogin(formlogin -> formlogin.loginPage("/login")
+                                                .defaultSuccessUrl("/rungrouplist", true)
+                                                .permitAll())
+                                .logout(logout -> logout
+                                                .permitAll())
+                                .csrf(csrf -> csrf.disable());
 
-        return http.build();
-    }
+                return http.build();
+        }
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+        @Bean
+        public BCryptPasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
 }

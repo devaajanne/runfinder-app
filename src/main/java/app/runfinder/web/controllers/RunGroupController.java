@@ -1,5 +1,6 @@
 package app.runfinder.web.controllers;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -36,6 +37,7 @@ public class RunGroupController {
     }
 
     @GetMapping("/add")
+    @PreAuthorize("hasAnyAuthority('CONTRIBUTOR', 'ADMIN')")
     public String addRunGroup(Model model) {
         model.addAttribute("rungroup", new RunGroup());
         model.addAttribute("zipcodes", zipcodeRepository.findAll());
@@ -43,6 +45,7 @@ public class RunGroupController {
     }
 
     @PostMapping("/save")
+    @PreAuthorize("hasAnyAuthority('CONTRIBUTOR', 'ADMIN')")
     public String saveNewRunGroup(@Valid @ModelAttribute("rungroup") RunGroup runGroup, BindingResult bindingResult,
             Model model) {
         if (bindingResult.hasErrors()) {
@@ -63,6 +66,7 @@ public class RunGroupController {
     }
 
     @PostMapping("/saveedited")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String saveEditedRunGroup(@Valid @ModelAttribute("rungroup") RunGroup runGroup, BindingResult bindingResult,
             Model model) {
         if (bindingResult.hasErrors()) {
@@ -76,6 +80,7 @@ public class RunGroupController {
     }
 
     @GetMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteRunGroup(@PathVariable("id") Long id, Model model) {
         RunGroup runGroup = runGroupRepository.findById(id).get();
         runGroup.delete();
