@@ -1,5 +1,7 @@
 package app.runfinder.web.controllers;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -61,7 +63,7 @@ public class RunGroupController {
         model.addAttribute("zipcodes", zipcodeRepository.findAll());
         return "editrungroup";
     }
-    
+
     @PostMapping("/saveedited")
     public String saveEditedRunGroup(@Valid @ModelAttribute("rungroup") RunGroup runGroup, BindingResult bindingResult,
             Model model) {
@@ -73,5 +75,13 @@ public class RunGroupController {
 
         runGroupRepository.save(runGroup);
         return "redirect:rungrouplist";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteRunGroup(@PathVariable("id") Long id, Model model) {
+        RunGroup runGroup = runGroupRepository.findById(id).get();
+        runGroup.delete();
+        runGroupRepository.save(runGroup);
+        return "redirect:/rungrouplist";
     }
 }

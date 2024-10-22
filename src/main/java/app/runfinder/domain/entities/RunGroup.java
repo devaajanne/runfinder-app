@@ -2,6 +2,7 @@ package app.runfinder.domain.entities;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,7 +16,6 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotEmpty;
-
 
 @Entity
 @Table(name = "run_groups")
@@ -47,16 +47,20 @@ public class RunGroup {
     @JoinColumn(name = "zipcode")
     private Zipcode zipcode;
 
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
+
     public RunGroup() {
     }
 
     public RunGroup(String runGroupName, LocalDate runStartDate, LocalTime runStartTime, String startAddress,
-            Zipcode zipcode) {
+            Zipcode zipcode, LocalDateTime deletedAt) {
         this.runGroupName = runGroupName;
         this.runStartDate = runStartDate;
         this.runStartTime = runStartTime;
         this.startAddress = startAddress;
         this.zipcode = zipcode;
+        this.deletedAt = deletedAt;
     }
 
     public Long getRunGroupId() {
@@ -137,6 +141,27 @@ public class RunGroup {
         return this;
     }
 
+    public LocalDateTime getDeletedAt() {
+        return this.deletedAt;
+    }
+
+    public void setDeletedAt(LocalDateTime deletedAt) {
+        this.deletedAt = deletedAt;
+    }
+
+    public RunGroup deletedAt(LocalDateTime deletedAt) {
+        setDeletedAt(deletedAt);
+        return this;
+    }
+
+    public void delete() {
+        this.deletedAt = LocalDateTime.now();
+    }
+
+    public void restore() {
+        this.deletedAt = null;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -146,6 +171,7 @@ public class RunGroup {
                 ", runStartTime='" + getRunStartTime() + "'" +
                 ", startAddress='" + getStartAddress() + "'" +
                 ", zipcode='" + getZipcode() + "'" +
+                ", deletedAt='" + getDeletedAt() + "'" +
                 "}";
     }
 
