@@ -54,28 +54,75 @@ public class RunfinderApplication {
 			zipcodeRepository.save(new Zipcode("05800", "Hyvinkää"));
 			zipcodeRepository.save(new Zipcode("06100", "Porvoo"));
 
-			runningGroupRepository
-					.save(new RunGroup("runningGroup1", LocalDate.of(2024, 12, 30), LocalTime.of(12, 0, 0),
-							"Juoksukatu 1", zipcodeRepository.findByZipcode("00100")));
-			runningGroupRepository
-					.save(new RunGroup("runningGroup2", LocalDate.of(2024, 12, 30), LocalTime.of(12, 0, 0),
-							"Juoksutie 2", zipcodeRepository.findByZipcode("02200")));
-			runningGroupRepository
-					.save(new RunGroup("runningGroup3", LocalDate.of(2024, 12, 30), LocalTime.of(12, 0, 0),
-							"Juoksukuja 3", zipcodeRepository.findByZipcode("02300")));
-			runningGroupRepository
-					.save(new RunGroup("runningGroup4", LocalDate.of(2024, 12, 30), LocalTime.of(12, 0, 0),
-							"Juoksupolku 4", zipcodeRepository.findByZipcode("04400")));
-			runningGroupRepository.save(new RunGroup("runningGroup5", LocalDate.of(2024, 12, 30),
-					LocalTime.of(12, 0, 0), "Juoksurinne 5", zipcodeRepository.findByZipcode("05800")));
+			runningGroupRepository.save(
+					new RunGroup(
+							"runningGroup1",
+							LocalDate.of(2024, 12, 30),
+							LocalTime.of(12, 0, 0),
+							"Juoksukatu 1",
+							zipcodeRepository.findByZipcode("00100"),
+							null));
+			runningGroupRepository.save(
+					new RunGroup(
+							"runningGroup2",
+							LocalDate.of(2024, 12, 30),
+							LocalTime.of(12, 0, 0),
+							"Juoksutie 2",
+							zipcodeRepository.findByZipcode("02200"),
+							null));
+			runningGroupRepository.save(
+					new RunGroup(
+							"runningGroup3",
+							LocalDate.of(2024, 12, 30),
+							LocalTime.of(12, 0, 0),
+							"Juoksukuja 3",
+							zipcodeRepository.findByZipcode("02300"),
+							null));
+			runningGroupRepository.save(
+					new RunGroup(
+							"runningGroup4",
+							LocalDate.of(2024, 12, 30),
+							LocalTime.of(12, 0, 0),
+							"Juoksupolku 4",
+							zipcodeRepository.findByZipcode("04400"),
+							null));
+			runningGroupRepository.save(
+					new RunGroup(
+							"runningGroup5",
+							LocalDate.of(2024, 12, 30),
+							LocalTime.of(12, 0, 0),
+							"Juoksurinne 5",
+							zipcodeRepository.findByZipcode("05800"),
+							null));
 
 			roleRepository.save(new Role("USER"));
 			roleRepository.save(new Role("CONTRIBUTOR"));
 			roleRepository.save(new Role("ADMIN"));
 
-			appUserRepository.save(new AppUser("user", "userFirstname", "userLastname", "user@runfinder.com", roleRepository.findByRole("USER"), "$2a$10$1KmOKZbxn09.ptn75m9ttOWn6X9YDkZZyQOwCURb3wgM6kwEnIcPy"));
-			appUserRepository.save(new AppUser("contributor", "contributorFirstname", "contributorLastName", "contributor@runfinder.com", roleRepository.findByRole("CONTRIBUTOR"), "$2a$10$HFh46mkLcOGwS1GJZtPXqutsOrFlYvyODeQKMobBzjLuvGnTiOr3u"));
-			appUserRepository.save(new AppUser("admin", "adminFirstname", "adminLastname", "admin@runfinder.com", roleRepository.findByRole("ADMIN"), "$2a$10$/X5g8wxjMXw1pIDnJq7cL.WqJbg.LKQltNP8wXYpXjy/1Ha16lpKq"));
+			appUserRepository.save(
+					new AppUser(
+							"user",
+							"userFirstname",
+							"userLastname",
+							"user@runfinder.com",
+							roleRepository.findByRole("USER"),
+							"$2a$10$1KmOKZbxn09.ptn75m9ttOWn6X9YDkZZyQOwCURb3wgM6kwEnIcPy"));
+			appUserRepository.save(
+					new AppUser(
+							"contributor",
+							"contributorFirstname",
+							"contributorLastName",
+							"contributor@runfinder.com",
+							roleRepository.findByRole("CONTRIBUTOR"),
+							"$2a$10$HFh46mkLcOGwS1GJZtPXqutsOrFlYvyODeQKMobBzjLuvGnTiOr3u"));
+			appUserRepository.save(
+					new AppUser(
+							"admin",
+							"adminFirstname",
+							"adminLastname",
+							"admin@runfinder.com",
+							roleRepository.findByRole("ADMIN"),
+							"$2a$10$/X5g8wxjMXw1pIDnJq7cL.WqJbg.LKQltNP8wXYpXjy/1Ha16lpKq"));
 		};
 	};
 }
