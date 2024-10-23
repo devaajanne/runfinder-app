@@ -1,17 +1,30 @@
 package app.runfinder.domain.classes;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
+
 public class SignUpForm {
 
+    @Size(min = 4, max = 25, message = "Your username must be between 4 and 25 characters long")
     private String username = "";
 
+    @NotEmpty(message = "Please type your first name")
     private String firstName = "";
 
+    @NotEmpty(message = "Please type your last name")
     private String lastName = "";
 
+    @NotEmpty(message = "Please provide a valid email address")
+    @Email(message = "Please provide a valid email address")
     private String email = "";
 
+    @Size(min = 8, message = "Your password must be at least 8 characters long")
+    @NotEmpty(message = "Please type your password")
     private String password = "";
 
+    @Size(min = 8, message = "Your password must be at least 8 characters long")
+    @NotEmpty(message = "Please re-type your password")
     private String passwordCheck = "";
 
     public SignUpForm() {
