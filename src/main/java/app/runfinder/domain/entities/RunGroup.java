@@ -16,6 +16,7 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "run_groups")
@@ -27,7 +28,7 @@ public class RunGroup {
     private Long runGroupId;
 
     @Column(name = "run_group_name")
-    @NotEmpty(message = "The run group must have a name")
+    @Size(min = 4, max = 50, message = "Run group name must be between 5 and 50 characters long")
     private String runGroupName;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
