@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Home</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<header>
+    <h1>RunFinder</h1>
+    <h2>Home</h2>
+</header>
+
+<body>
+    <span>
+        <form th:action="@{/upcomingrungroups}" method="get">
+            <button type="submit">See upcoming run groups</button>
+        </form>
+    </span>
+    <form th:action="@{/logout}" method="post">
+        <p>You are signed in as <span sec:authentication="name"></span>.</p>
+        <button type="submit">Sign out</button>
+    </form>
+</body>
+
+</html>

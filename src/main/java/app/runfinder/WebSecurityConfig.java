@@ -20,7 +20,7 @@ public class WebSecurityConfig {
                                                 .requestMatchers("/delete/**", "/edit/**").hasAuthority("ADMIN")
                                                 .anyRequest().authenticated())
                                 .formLogin(formlogin -> formlogin.loginPage("/login")
-                                                .defaultSuccessUrl("/rungrouplist", true)
+                                                .defaultSuccessUrl("/home", true)
                                                 .permitAll())
                                 .logout(logout -> logout
                                                 .permitAll())

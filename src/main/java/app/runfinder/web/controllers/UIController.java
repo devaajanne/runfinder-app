@@ -1,8 +1,8 @@
 package app.runfinder.web.controllers;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
@@ -21,18 +21,23 @@ public class UIController {
         this.runGroupRepository = runGroupRepository;
     }
 
+    @GetMapping("/home")
+    public String showHomepage(Model model) {
+        return "home";
+    }
+
     @GetMapping("/upcomingrungroups")
     public String showUpcomingRunGroups(Model model) {
-        List<RunGroup> runGroups = new ArrayList<RunGroup>();
-        runGroupRepository.findAll().forEach(runGroups::add);
+        List<RunGroup> runGroupList = new ArrayList<RunGroup>();
+        runGroupRepository.findAll().forEach(runGroupList::add);
 
-        List<RunGroup> upcomingRunGroups = runGroups.stream()
+        List<RunGroup> upcomingRunGroups = runGroupList.stream()
                 .filter(runGroup -> runGroup.getDeletedAt() == null
                         && runGroup.getRunStartDate().isAfter(LocalDate.now()))
                 .collect(Collectors.toList());
 
-        model.addAttribute("upcomingrungroups", upcomingRunGroups);
+        model.addAttribute("upcomingrungrouplist", upcomingRunGroups);
 
-        return "upcomingrungrouplist";
+        return "upcomingrungroups";
     }
 }

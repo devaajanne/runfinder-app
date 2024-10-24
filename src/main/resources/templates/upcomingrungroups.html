@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Run groups</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<header>
+    <h1>RunFinder</h1>
+    <h2>Upcoming run groups</h2>
+</header>
+
+<body>
+    <form th:action="@{/home}" method="get">
+        <button type="submit">Return home</button>
+    </form>
+    <table>
+        <tr>
+            <th>Run group name</th>
+            <th>Run start date</th>
+            <th>Run start time</th>
+            <th>Start address</th>
+            <th>Zipcode</th>
+            <th>City</th>
+        </tr>
+        <tr th:each="rungroup : ${upcomingrungrouplist}">
+            <td th:text="${rungroup.runGroupName}"></td>
+            <td th:text="${#temporals.format(rungroup.runStartDate, 'dd.MM.YYYY')}"></td>
+            <!--FIX!! Näyttää jostakin syystä seuraavan vuoden, kun päivämäärä on 29.-31.12.-->
+            <td th:text="${{rungroup.runStartTime}}"></td>
+            <td th:text="${rungroup.startAddress}"></td>
+            <td th:text="${rungroup.zipcode.zipcode}"></td>
+            <td th:text="${rungroup.zipcode.city}"></td>
+            <td>
+                <form th:action="@{/signuptogroup/{id}(id=${rungroup.runGroupId})}" method="get">
+                    <button type="submit">Sign up</button>
+                </form>
+            </td>
+            <td sec:authorize="hasAuthority( 'ADMIN')">
+                <form th:action="@{/editgroup/{id}(id=${rungroup.runGroupId})}" method="get">
+                    <button type="submit">Edit</button>
+                </form>
+            </td>
+            <td sec:authorize="hasAuthority('ADMIN')">
+                <form th:action="@{/deletegroup/{id}(id=${rungroup.runGroupId})}" method="get">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <form th:action="@{/logout}" method="post">
+        <p>You are signed in as <span sec:authentication="name"></span>.</p>
+        <button type="submit">Sign out</button>
+    </form>
+</body>
+
+</html>
