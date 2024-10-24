@@ -14,15 +14,20 @@ import app.runfinder.domain.entities.RunGroup;
 import app.runfinder.domain.repositories.RunGroupRepository;
 import app.runfinder.domain.repositories.ZipcodeRepository;
 
+import app.runfinder.web.services.AppUserService;
+
 @Controller
 public class RunGroupController {
 
     private final RunGroupRepository runGroupRepository;
     private final ZipcodeRepository zipcodeRepository;
+    private final AppUserService appUserService;
 
-    public RunGroupController(RunGroupRepository runGroupRepository, ZipcodeRepository zipcodeRepository) {
+    public RunGroupController(RunGroupRepository runGroupRepository, ZipcodeRepository zipcodeRepository,
+            AppUserService appUserService) {
         this.runGroupRepository = runGroupRepository;
         this.zipcodeRepository = zipcodeRepository;
+        this.appUserService = appUserService;
     }
 
     @GetMapping("/login")
@@ -39,7 +44,10 @@ public class RunGroupController {
     @GetMapping("/addnewgroup")
     @PreAuthorize("hasAnyAuthority('CONTRIBUTOR', 'ADMIN')")
     public String addRunGroup(Model model) {
-        model.addAttribute("rungroup", new RunGroup());
+        RunGroup newRunGroup = new RunGroup();
+        newRunGroup.setAddedByAppUser(appUserService.getAuthenticatedAppUser());
+
+        model.addAttribute("rungroup", newRunGroup);
         model.addAttribute("zipcodes", zipcodeRepository.findAll());
         return "addrungroup";
     }
@@ -66,7 +74,7 @@ public class RunGroupController {
     }
 
     @PostMapping("/saveeditedgroup")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('CONTRIBUTOR', 'ADMIN')")
     public String saveEditedRunGroup(@Valid @ModelAttribute("rungroup") RunGroup runGroup, BindingResult bindingResult,
             Model model) {
         if (bindingResult.hasErrors()) {
@@ -80,7 +88,7 @@ public class RunGroupController {
     }
 
     @GetMapping("/deletegroup/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('CONTRIBUTOR', 'ADMIN')")
     public String deleteRunGroup(@PathVariable("id") Long id, Model model) {
         RunGroup runGroup = runGroupRepository.findById(id).get();
         runGroup.delete();

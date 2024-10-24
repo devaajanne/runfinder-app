@@ -18,6 +18,9 @@
     <form th:action="@{/usersignups}" method="get">
         <button type="submit">See my sign ups</button>
     </form>
+    <form th:action="@{/userrungroups}" method="get" sec:authorize="hasAuthority('CONTRIBUTOR')">
+        <button type="userrungroups">See my run groups</button>
+    </form>
     <form th:action="@{/logout}" method="post">
         <p>You are signed in as <span sec:authentication="name"></span>.</p>
         <button type="submit">Sign out</button>

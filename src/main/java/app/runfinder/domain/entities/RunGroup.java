@@ -54,6 +54,10 @@ public class RunGroup {
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
+    @ManyToOne
+    @JoinColumn(name = "appUserId")
+    private AppUser addedByAppUser;
+
     @OneToMany(mappedBy = "runGroup")
     Set<RunGroupSignUp> runGroupSignUps;
 
@@ -61,13 +65,14 @@ public class RunGroup {
     }
 
     public RunGroup(String runGroupName, LocalDate runStartDate, LocalTime runStartTime, String startAddress,
-            Zipcode zipcode, LocalDateTime deletedAt) {
+            Zipcode zipcode, LocalDateTime deletedAt, AppUser addedByAppUser) {
         this.runGroupName = runGroupName;
         this.runStartDate = runStartDate;
         this.runStartTime = runStartTime;
         this.startAddress = startAddress;
         this.zipcode = zipcode;
         this.deletedAt = deletedAt;
+        this.addedByAppUser = addedByAppUser;
     }
 
     public Long getRunGroupId() {
@@ -169,17 +174,31 @@ public class RunGroup {
         this.deletedAt = null;
     }
 
+    public AppUser getAddedByAppUser() {
+        return this.addedByAppUser;
+    }
+
+    public void setAddedByAppUser(AppUser addedByAppUser) {
+        this.addedByAppUser = addedByAppUser;
+    }
+
+    public RunGroup addedByAppUser(AppUser addedByAppUser) {
+        setAddedByAppUser(addedByAppUser);
+        return this;
+    }
+
+
     @Override
     public String toString() {
         return "{" +
-                " runGroupId='" + getRunGroupId() + "'" +
-                ", runGroupName='" + getRunGroupName() + "'" +
-                ", runStartDate='" + getRunStartDate() + "'" +
-                ", runStartTime='" + getRunStartTime() + "'" +
-                ", startAddress='" + getStartAddress() + "'" +
-                ", zipcode='" + getZipcode() + "'" +
-                ", deletedAt='" + getDeletedAt() + "'" +
-                "}";
+            " runGroupId='" + getRunGroupId() + "'" +
+            ", runGroupName='" + getRunGroupName() + "'" +
+            ", runStartDate='" + getRunStartDate() + "'" +
+            ", runStartTime='" + getRunStartTime() + "'" +
+            ", startAddress='" + getStartAddress() + "'" +
+            ", zipcode='" + getZipcode() + "'" +
+            ", deletedAt='" + getDeletedAt() + "'" +
+            ", addedByAppUser='" + getAddedByAppUser() + "'" +
+            "}";
     }
-
 }

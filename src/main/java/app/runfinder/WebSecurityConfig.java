@@ -16,8 +16,9 @@ public class WebSecurityConfig {
                 http
                                 .authorizeHttpRequests(authorize -> authorize
                                                 .requestMatchers("/login", "/signup", "/savenewuser").permitAll()
-                                                .requestMatchers("/add").hasAnyAuthority("CONTRIBUTOR", "ADMIN")
-                                                .requestMatchers("/delete/**", "/edit/**").hasAuthority("ADMIN")
+                                                .requestMatchers("/add", "/savenewgroup", "/edit/**",
+                                                                "/saveeditedgroup", "/delete/**")
+                                                .hasAnyAuthority("CONTRIBUTOR", "ADMIN")
                                                 .anyRequest().authenticated())
                                 .formLogin(formlogin -> formlogin.loginPage("/login")
                                                 .defaultSuccessUrl("/home", true)

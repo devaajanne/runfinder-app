@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,5 +73,22 @@ public class UIController {
         model.addAttribute("usersignups", userSignUps);
 
         return "usersignups";
+    }
+
+    @GetMapping("/userrungroups")
+    @PreAuthorize("hasAnyAuthority('CONTRIBUTOR', 'ADMIN')")
+    public String showUserRunGroups(Model model) {
+        List<RunGroup> runGroupList = new ArrayList<RunGroup>();
+        runGroupRepository.findAll().forEach(runGroupList::add);
+
+        List<RunGroup> userRunGroups = runGroupList.stream()
+                .filter(runGroup -> runGroup.getDeletedAt() == null
+                        && runGroup.getRunStartDate().isAfter(LocalDate.now())
+                        && runGroup.getAddedByAppUser() == appUserService.getAuthenticatedAppUser())
+                .collect(Collectors.toList());
+
+        model.addAttribute("userrungroups", userRunGroups);
+
+        return "userrungroups";
     }
 }
