@@ -35,7 +35,8 @@ public class RunGroup {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "run_start_date")
-    @FutureOrPresent(message = "Run group start date must be today or in the future")
+    // @FutureOrPresent(message = "Run group start date must be today or in the
+    // future")
     private LocalDate runStartDate;
 
     @DateTimeFormat(pattern = "HH:mm")

@@ -89,7 +89,7 @@ public class RunfinderApplication {
 			runningGroupRepository.save(
 					new RunGroup(
 							"runningGroup5",
-							LocalDate.of(2024, 12, 30),
+							LocalDate.of(2022, 12, 30),
 							LocalTime.of(12, 0, 0),
 							"Juoksurinne 5",
 							zipcodeRepository.findByZipcode("05800"),
