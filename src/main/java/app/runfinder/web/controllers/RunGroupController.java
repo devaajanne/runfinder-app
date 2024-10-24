@@ -30,17 +30,6 @@ public class RunGroupController {
         this.appUserService = appUserService;
     }
 
-    @GetMapping("/login")
-    public String showLoginPage() {
-        return "login";
-    }
-
-    @GetMapping("/rungrouplist")
-    public String showRunGroupList(Model model) {
-        model.addAttribute("rungroups", runGroupRepository.findAll());
-        return "rungrouplist";
-    }
-
     @GetMapping("/addnewgroup")
     @PreAuthorize("hasAnyAuthority('CONTRIBUTOR', 'ADMIN')")
     public String addRunGroup(Model model) {

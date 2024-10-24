@@ -31,6 +31,11 @@ public class UIController {
         this.appUserService = appUserService;
     }
 
+    @GetMapping("/login")
+    public String showLoginPage() {
+        return "login";
+    }
+
     @GetMapping("/home")
     public String showHomepage(Model model) {
         return "home";
