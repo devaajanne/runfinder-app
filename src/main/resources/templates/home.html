@@ -12,11 +12,12 @@
 </header>
 
 <body>
-    <span>
-        <form th:action="@{/upcomingrungroups}" method="get">
-            <button type="submit">See upcoming run groups</button>
-        </form>
-    </span>
+    <form th:action="@{/upcomingrungroups}" method="get">
+        <button type="submit">See upcoming run groups</button>
+    </form>
+    <form th:action="@{/usersignups}" method="get">
+        <button type="submit">See my sign ups</button>
+    </form>
     <form th:action="@{/logout}" method="post">
         <p>You are signed in as <span sec:authentication="name"></span>.</p>
         <button type="submit">Sign out</button>

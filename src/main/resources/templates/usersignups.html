@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>My sign ups</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<header>
+    <h1>RunFinder</h1>
+    <h2>My sign ups</h2>
+</header>
+
+<body>
+    <form th:action="@{/home}" method="get">
+        <button type="submit">Return home</button>
+    </form>
+    <table>
+        <tr>
+            <th>Run group name</th>
+            <th>Run start date</th>
+            <th>Run start time</th>
+            <th>Start address</th>
+            <th>Zipcode</th>
+            <th>City</th>
+        </tr>
+        <tr th:each="usersignup : ${usersignups}">
+            <td th:text="${usersignup.runGroup.runGroupName}"></td>
+            <td th:text="${#temporals.format(usersignup.runGroup.runStartDate, 'dd.MM.yyyy')}"></td>
+            <td th:text="${{usersignup.runGroup.runStartTime}}"></td>
+            <td th:text="${usersignup.runGroup.startAddress}"></td>
+            <td th:text="${usersignup.runGroup.zipcode.zipcode}"></td>
+            <td th:text="${usersignup.runGroup.zipcode.city}"></td>
+            <td>
+                <form th:action="@{/signuptogroup/{id}(id=${usersignup.runGroup.runGroupId})}" method="get">
+                    <button type="submit">Sign up</button>
+                </form>
+            </td>
+            <td sec:authorize="hasAuthority( 'ADMIN')">
+                <form th:action="@{/editgroup/{id}(id=${rungroup.runGroupId})}" method="get">
+                    <button type="submit">Edit</button>
+                </form>
+            </td>
+            <td sec:authorize="hasAuthority('ADMIN')">
+                <form th:action="@{/deletegroup/{id}(id=${rungroup.runGroupId})}" method="get">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <p th:if="${#lists.isEmpty(upcomingrungrouplist)}">No upcoming run groups</p>
+    <form th:action="@{/logout}" method="post">
+        <p>You are signed in as <span sec:authentication="name"></span>.</p>
+        <button type="submit">Sign out</button>
+    </form>
+</body>
+
+</html>

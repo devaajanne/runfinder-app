@@ -11,14 +11,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import app.runfinder.domain.entities.RunGroup;
 import app.runfinder.domain.repositories.RunGroupRepository;
+import app.runfinder.domain.entities.RunGroupSignUp;
+import app.runfinder.domain.repositories.RunGroupSignUpRepository;
+
+import app.runfinder.web.services.AppUserService;
 
 @Controller
 public class UIController {
 
     private final RunGroupRepository runGroupRepository;
+    private final RunGroupSignUpRepository runGroupSignUpRepository;
+    private final AppUserService appUserService;
 
-    public UIController(RunGroupRepository runGroupRepository) {
+    public UIController(RunGroupRepository runGroupRepository, RunGroupSignUpRepository runGroupSignUpRepository,
+            AppUserService appUserService) {
         this.runGroupRepository = runGroupRepository;
+        this.runGroupSignUpRepository = runGroupSignUpRepository;
+        this.appUserService = appUserService;
     }
 
     @GetMapping("/home")
@@ -39,5 +48,21 @@ public class UIController {
         model.addAttribute("upcomingrungrouplist", upcomingRunGroups);
 
         return "upcomingrungroups";
+    }
+
+    @GetMapping("/usersignups")
+    public String showUserSignUps(Model model) {
+        List<RunGroupSignUp> runGroupSignUps = new ArrayList<RunGroupSignUp>();
+        runGroupSignUpRepository.findAll().forEach(runGroupSignUps::add);
+
+        List<RunGroupSignUp> userSignUps = runGroupSignUps.stream()
+                .filter(runGroupSignUp -> runGroupSignUp.getRunGroup().getDeletedAt() == null
+                        && runGroupSignUp.getAppUser().getAppUserId() == appUserService.getAuthenticatedAppUser()
+                                .getAppUserId())
+                .collect(Collectors.toList());
+
+        model.addAttribute("usersignups", userSignUps);
+
+        return "usersignups";
     }
 }

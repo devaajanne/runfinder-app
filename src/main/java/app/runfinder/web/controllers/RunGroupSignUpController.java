@@ -31,6 +31,6 @@ public class RunGroupSignUpController {
         newRunGroupSignUp.setRunGroup(runGroupRepository.findById(runGroupId).get());
         runGroupSignUpRepository.save(newRunGroupSignUp);
 
-        return "redirect:../rungrouplist";
+        return "redirect:../upcomingrungroups";
     }
 }
