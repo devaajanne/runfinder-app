@@ -33,4 +33,10 @@ public class RunGroupSignUpController {
 
         return "redirect:../upcomingrungroups";
     }
+
+    @GetMapping("/deletesignup/{id}")
+    public String deleteRunGroupSignUp(@PathVariable("id") Long runGroupSignUpId) {
+        runGroupSignUpRepository.deleteById(runGroupSignUpId);
+        return "redirect:../usersignups";
+    }
 }
