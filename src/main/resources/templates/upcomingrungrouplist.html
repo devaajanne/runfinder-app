@@ -2,19 +2,16 @@
 <html xmlns:th="http://thymeleaf.org">
 
 <head>
-    <title>Run groups</title>
+    <title>Upcoming run groups</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
 <header>
-    <h1>Run groups</h1>
+    <h1>Upcoming run groups</h1>
     <h2>Hello <span sec:authentication="name"></span>!</h2>
 </header>
 
 <body>
-    <form th:action="@{/upcomingrungroups}" method="get">
-        <button type="submit">See upcoming run groups</button>
-    </form>
     <table>
         <tr>
             <th>Run group ID</th>
@@ -25,7 +22,7 @@
             <th>Zipcode</th>
             <th>City</th>
         </tr>
-        <tr th:each="rungroup : ${rungroups}">
+        <tr th:each="rungroup : ${upcomingrungroups}">
             <span th:if="${rungroup.deletedAt == null}">
                 <td th:text="${rungroup.runGroupId}"></td>
                 <td th:text="${rungroup.runGroupName}"></td>
