@@ -51,7 +51,8 @@
             </td>
         </tr>
     </table>
-    <p th:if="${#lists.isEmpty(upcomingrungrouplist)}">No upcoming run groups</p>
+    <p th:if="${#lists.isEmpty(upcomingrungrouplist)}">
+        You have not yet signed up to any run groups. Click <strong>"See upcoming run groups"</strong> to sign up!</p>
     <form th:action="@{/logout}" method="post">
         <p>You are signed in as <span sec:authentication="name"></span>.</p>
         <button type="submit">Sign out</button>
