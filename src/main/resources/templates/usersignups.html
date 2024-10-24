@@ -45,16 +45,6 @@
                     <button type="submit">Remove sign up</button>
                 </form>
             </td>
-            <td sec:authorize="hasAuthority( 'ADMIN')">
-                <form th:action="@{/editgroup/{id}(id=${rungroup.runGroupId})}" method="get">
-                    <button type="submit">Edit</button>
-                </form>
-            </td>
-            <td sec:authorize="hasAuthority('ADMIN')">
-                <form th:action="@{/deletegroup/{id}(id=${rungroup.runGroupId})}" method="get">
-                    <button type="submit">Delete</button>
-                </form>
-            </td>
         </tr>
     </table>
     <p th:if="${#lists.isEmpty(usersignups)}">
