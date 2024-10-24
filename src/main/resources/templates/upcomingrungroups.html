@@ -2,7 +2,7 @@
 <html xmlns:th="http://thymeleaf.org">
 
 <head>
-    <title>Run groups</title>
+    <title>Upcoming run groups</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
@@ -26,8 +26,7 @@
         </tr>
         <tr th:each="rungroup : ${upcomingrungrouplist}">
             <td th:text="${rungroup.runGroupName}"></td>
-            <td th:text="${#temporals.format(rungroup.runStartDate, 'dd.MM.YYYY')}"></td>
-            <!--FIX!! Näyttää jostakin syystä seuraavan vuoden, kun päivämäärä on 29.-31.12.-->
+            <td th:text="${#temporals.format(rungroup.runStartDate, 'dd.MM.yyyy')}"></td>
             <td th:text="${{rungroup.runStartTime}}"></td>
             <td th:text="${rungroup.startAddress}"></td>
             <td th:text="${rungroup.zipcode.zipcode}"></td>
@@ -49,6 +48,7 @@
             </td>
         </tr>
     </table>
+    <p th:if="${#lists.isEmpty(upcomingrungrouplist)}">No upcoming run groups</p>
     <form th:action="@{/logout}" method="post">
         <p>You are signed in as <span sec:authentication="name"></span>.</p>
         <button type="submit">Sign out</button>
