@@ -63,7 +63,7 @@ public class RunGroupController {
         }
 
         runGroupRepository.save(runGroup);
-        return "redirect:rungrouplist";
+        return "redirect:userrungroups";
     }
 
     @GetMapping("/editgroup/{id}")
@@ -84,7 +84,7 @@ public class RunGroupController {
         }
 
         runGroupRepository.save(runGroup);
-        return "redirect:rungrouplist";
+        return "redirect:userrungroups";
     }
 
     @GetMapping("/deletegroup/{id}")
@@ -93,6 +93,6 @@ public class RunGroupController {
         RunGroup runGroup = runGroupRepository.findById(id).get();
         runGroup.delete();
         runGroupRepository.save(runGroup);
-        return "redirect:/rungrouplist";
+        return "redirect:/userrungroups";
     }
 }

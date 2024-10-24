@@ -24,10 +24,14 @@
 </script>
 
 <header>
-    <h1>Add a run group</h1>
+    <h1>RunFinder</h1>
+    <h2>Add a run group</h2>
 </header>
 
 <body>
+    <form th:action="@{/home}" method="get">
+        <button type="submit">Return home</button>
+    </form>
     <form th:object="${rungroup}" th:action="@{/savenewgroup}" action="#" method="post">
         <input type="hidden" id="runGroupId" th:field="*{runGroupId}" />
 
@@ -65,10 +69,6 @@
         </script>
 
         <button type="submit">Save</button>
-    </form>
-
-    <form th:action="@{/rungrouplist}" method="get">
-        <button type="submit">Back to run group list</button>
     </form>
 </body>
 

@@ -13,10 +13,16 @@
 
 <body>
     <form th:action="@{/home}" method="get">
-        <button type="submit">Return home</button>
+        <button type="submit">Home</button>
     </form>
     <form th:action="@{/upcomingrungroups}" method="get">
-        <button type="submit">See upcoming run groups</button>
+        <button type="submit">Upcoming run groups</button>
+    </form>
+    <form th:action="@{/usersignups}" method="get">
+        <button type="submit">My sign ups</button>
+    </form>
+    <form th:action="@{/userrungroups}" method="get" sec:authorize="hasAuthority('CONTRIBUTOR')">
+        <button type="userrungroups">My run groups</button>
     </form>
     <table>
         <tr>
