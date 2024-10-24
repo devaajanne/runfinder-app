@@ -50,6 +50,7 @@ public class UIController {
         runGroupSignUpRepository.findAll().forEach(runGroupSignUpList::add);
 
         List<Long> runGroupIds = runGroupSignUpList.stream()
+                .filter(runGroupSignUp -> runGroupSignUp.getAppUser().getAppUserId() == appUserService.getAuthenticatedAppUser().getAppUserId())
                 .map(runGroupSignUp -> runGroupSignUp.getRunGroup().getRunGroupId())
                 .collect(Collectors.toList());
 
