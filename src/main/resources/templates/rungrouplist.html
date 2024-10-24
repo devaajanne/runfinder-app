@@ -32,6 +32,11 @@
                 <td th:text="${rungroup.startAddress}"></td>
                 <td th:text="${rungroup.zipcode.zipcode}"></td>
                 <td th:text="${rungroup.zipcode.city}"></td>
+                <td>
+                    <form th:action="@{/signuptogroup/{id}(id=${rungroup.runGroupId})}" method="get">
+                        <button type="submit">Sign up</button>
+                    </form>
+                </td>
                 <td sec:authorize="hasAuthority( 'ADMIN')">
                     <form th:action="@{/editgroup/{id}(id=${rungroup.runGroupId})}" method="get">
                         <button type="submit">Edit</button>

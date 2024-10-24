@@ -6,7 +6,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
+import java.util.Set;
+
 import jakarta.persistence.Column;
 
 // We use @Entity annotation to annotate this class as an entity
@@ -47,6 +51,9 @@ public class AppUser {
 
     @Column(name = "password")
     private String password;
+
+    @OneToMany(mappedBy = "appUser")
+    Set<RunGroupSignUp> runGroupSignUps;
 
     // Empty constructor
     public AppUser() {

@@ -2,6 +2,7 @@ package app.runfinder.domain.entities;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Set;
 import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.FutureOrPresent;
@@ -50,6 +52,9 @@ public class RunGroup {
 
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
+
+    @OneToMany(mappedBy = "runGroup")
+    Set<RunGroupSignUp> runGroupSignUps;
 
     public RunGroup() {
     }
