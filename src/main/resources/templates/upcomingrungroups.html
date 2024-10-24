@@ -34,7 +34,8 @@
             <td th:text="${rungroup.startAddress}"></td>
             <td th:text="${rungroup.zipcode.zipcode}"></td>
             <td th:text="${rungroup.zipcode.city}"></td>
-            <td>
+            <td th:if="${#lists.contains(rungroupids, rungroup.runGroupId)}">Already signed up!</td>
+            <td th:unless="${#lists.contains(rungroupids, rungroup.runGroupId)}">
                 <form th:action="@{/signuptogroup/{id}(id=${rungroup.runGroupId})}" method="get">
                     <button type="submit">Sign up</button>
                 </form>

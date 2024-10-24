@@ -45,7 +45,15 @@ public class UIController {
                         && runGroup.getRunStartDate().isAfter(LocalDate.now()))
                 .collect(Collectors.toList());
 
+        List<RunGroupSignUp> runGroupSignUpList = new ArrayList<RunGroupSignUp>();
+        runGroupSignUpRepository.findAll().forEach(runGroupSignUpList::add);
+
+        List<Long> runGroupIds = runGroupSignUpList.stream()
+                .map(runGroupSignUp -> runGroupSignUp.getRunGroup().getRunGroupId())
+                .collect(Collectors.toList());
+
         model.addAttribute("upcomingrungrouplist", upcomingRunGroups);
+        model.addAttribute("rungroupids", runGroupIds);
 
         return "upcomingrungroups";
     }
