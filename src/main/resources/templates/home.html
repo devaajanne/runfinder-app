@@ -27,6 +27,9 @@
     <form th:action="@{/allrungroups}" method="get" sec:authorize="hasAuthority('ADMIN')">
         <button type="allrungroups">All run groups</button>
     </form>
+    <form th:action="@{/allappusers}" method="get" sec:authorize="hasAuthority('ADMIN')">
+        <button type="allappusers">All app users</button>
+    </form>
     <form th:action="@{/logout}" method="post">
         <p>You are signed in as <span sec:authentication="name"></span>.</p>
         <button type="submit">Sign out</button>

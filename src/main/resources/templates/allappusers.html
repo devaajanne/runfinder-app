@@ -27,6 +27,9 @@
     <form th:action="@{/allrungroups}" method="get" sec:authorize="hasAuthority('ADMIN')">
         <button type="allrungroups">All run groups</button>
     </form>
+    <form th:action="@{/allappusers}" method="get" sec:authorize="hasAuthority('ADMIN')">
+        <button type="allappusers">All app users</button>
+    </form>
     <table>
         <tr>
             <th>User ID</th>
