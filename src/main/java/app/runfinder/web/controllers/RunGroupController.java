@@ -86,4 +86,13 @@ public class RunGroupController {
         runGroupRepository.save(runGroup);
         return "redirect:/userrungroups";
     }
+
+    @GetMapping("/restoregroup/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public String restoreRunGroup(@PathVariable("id") Long id, Model model) {
+        RunGroup runGroup = runGroupRepository.findById(id).get();
+        runGroup.restore();
+        runGroupRepository.save(runGroup);
+        return "redirect:/userrungroups";
+    }
 }
