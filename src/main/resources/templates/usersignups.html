@@ -24,6 +24,9 @@
     <form th:action="@{/userrungroups}" method="get" sec:authorize="hasAnyAuthority('CONTRIBUTOR', 'ADMIN')">
         <button type="userrungroups">My run groups</button>
     </form>
+    <form th:action="@{/allrungroups}" method="get" sec:authorize="hasAuthority('ADMIN')">
+        <button type="allrungroups">All run groups</button>
+    </form>
     <table>
         <tr>
             <th>Run group name</th>
