@@ -16,6 +16,8 @@ import app.runfinder.domain.entities.RunGroup;
 import app.runfinder.domain.repositories.RunGroupRepository;
 import app.runfinder.domain.entities.RunGroupSignUp;
 import app.runfinder.domain.repositories.RunGroupSignUpRepository;
+import app.runfinder.domain.entities.AppUser;
+import app.runfinder.domain.repositories.AppUserRepository;
 
 import app.runfinder.web.services.AppUserService;
 
@@ -25,12 +27,14 @@ public class UIController {
         private final RunGroupRepository runGroupRepository;
         private final RunGroupSignUpRepository runGroupSignUpRepository;
         private final AppUserService appUserService;
+        private final AppUserRepository appUserRepository;
 
         public UIController(RunGroupRepository runGroupRepository, RunGroupSignUpRepository runGroupSignUpRepository,
-                        AppUserService appUserService) {
+                        AppUserService appUserService, AppUserRepository appUserRepository) {
                 this.runGroupRepository = runGroupRepository;
                 this.runGroupSignUpRepository = runGroupSignUpRepository;
                 this.appUserService = appUserService;
+                this.appUserRepository = appUserRepository;
         }
 
         @GetMapping("/login")
@@ -140,5 +144,15 @@ public class UIController {
                 model.addAttribute("rungroupsignupcountmap", runGroupSignUpCountMap);
 
                 return "allrungroups";
+        }
+
+        @GetMapping("/allappusers")
+        public String showAllUsers(Model model) {
+                List<AppUser> allAppUsers = new ArrayList<AppUser>();
+                appUserRepository.findAll().forEach(allAppUsers::add);
+
+                model.addAttribute("allappusers", allAppUsers);
+
+                return "allappusers";
         }
 }

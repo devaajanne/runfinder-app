@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>All users</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<header>
+    <h1>RunFinder</h1>
+    <h2>All users</h2>
+</header>
+
+<body>
+    <form th:action="@{/home}" method="get">
+        <button type="submit">Home</button>
+    </form>
+    <form th:action="@{/upcomingrungroups}" method="get">
+        <button type="submit">Upcoming run groups</button>
+    </form>
+    <form th:action="@{/usersignups}" method="get">
+        <button type="submit">My sign ups</button>
+    </form>
+    <form th:action="@{/userrungroups}" method="get" sec:authorize="hasAnyAuthority('CONTRIBUTOR', 'ADMIN')">
+        <button type="userrungroups">My run groups</button>
+    </form>
+    <form th:action="@{/allrungroups}" method="get" sec:authorize="hasAuthority('ADMIN')">
+        <button type="allrungroups">All run groups</button>
+    </form>
+    <table>
+        <tr>
+            <th>User ID</th>
+            <th>Username</th>
+            <th>First name</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th>Role</th>
+        </tr>
+        <tr th:each="appuser : ${allappusers}">
+            <td th:text="${appuser.appUserId}"></td>
+            <td th:text="${appuser.username}"></td>
+            <td th:text="${appuser.firstName}"></td>
+            <td th:text="${appuser.lastName}"></td>
+            <td th:text="${appuser.email}"></td>
+            <td th:text="${appuser.role.role}"></td>
+        </tr>
+    </table>
+    <p th:if="${#lists.isEmpty(allappusers)}">No app users</p>
+    <form th:action="@{/logout}" method="post">
+        <p>You are signed in as <span sec:authentication="name"></span>.</p>
+        <button type="submit">Sign out</button>
+    </form>
+</body>
+
+</html>
