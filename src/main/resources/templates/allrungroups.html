@@ -61,7 +61,7 @@
             </td>
         </tr>
     </table>
-    <p th:if="${#lists.isEmpty(allrungrouplist)}">No run groups</p>
+    <p th:if="${#lists.isEmpty(allrungroups)}">No run groups</p>
     <form th:action="@{/logout}" method="post">
         <p>You are signed in as <span sec:authentication="name"></span>.</p>
         <button type="submit">Sign out</button>
