@@ -21,7 +21,7 @@
     <form th:action="@{/usersignups}" method="get">
         <button type="submit">My sign ups</button>
     </form>
-    <form th:action="@{/userrungroups}" method="get" sec:authorize="hasAuthority('CONTRIBUTOR')">
+    <form th:action="@{/userrungroups}" method="get" sec:authorize="hasAnyAuthority('CONTRIBUTOR', 'ADMIN')">
         <button type="userrungroups">My run groups</button>
     </form>
     <form th:action="@{/logout}" method="post">
