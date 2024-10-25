@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import jakarta.validation.Valid;
@@ -42,7 +43,7 @@ public class RunGroupController {
 
     @PostMapping("/savenewgroup")
     @PreAuthorize("hasAnyAuthority('CONTRIBUTOR', 'ADMIN')")
-    public String saveNewRunGroup(@Valid @ModelAttribute("rungroup") RunGroup runGroup, BindingResult bindingResult,
+    public String saveNewRunGroup(@Valid @ModelAttribute("rungroup") RunGroup runGroup, @RequestParam("origin") String origin, BindingResult bindingResult,
             Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("rungroup", runGroup);
@@ -52,7 +53,14 @@ public class RunGroupController {
 
         runGroup.setAddedByAppUser(appUserService.getAuthenticatedAppUser());
         runGroupRepository.save(runGroup);
-        return "redirect:userrungroups";
+
+        if (origin.equals("userrungroups")) {
+            return "redirect:/userrungroups";
+        } else if (origin.equals("allrungroups")) {
+            return "redirect:/allrungroups";
+        } else {
+            return "redirect:/home";
+        }
     }
 
     @GetMapping("/editgroup/{id}")
@@ -65,26 +73,43 @@ public class RunGroupController {
 
     @PostMapping("/saveeditedgroup")
     @PreAuthorize("hasAnyAuthority('CONTRIBUTOR', 'ADMIN')")
-    public String saveEditedRunGroup(@Valid @ModelAttribute("rungroup") RunGroup runGroup, BindingResult bindingResult,
+    public String saveEditedRunGroup(@Valid @ModelAttribute("rungroup") RunGroup runGroup,
+            @RequestParam("origin") String origin, BindingResult bindingResult,
             Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("rungroup", runGroup);
             model.addAttribute("zipcodes", zipcodeRepository.findAll());
             return "editrungroup";
         }
-        
+
         runGroup.setAddedByAppUser(appUserService.getAuthenticatedAppUser());
         runGroupRepository.save(runGroup);
-        return "redirect:userrungroups";
+
+        if (origin.equals("userrungroups")) {
+            return "redirect:/userrungroups";
+        } else if (origin.equals("allrungroups")) {
+            return "redirect:/allrungroups";
+        } else {
+            return "redirect:/home";
+        }
     }
 
     @GetMapping("/deletegroup/{id}")
     @PreAuthorize("hasAnyAuthority('CONTRIBUTOR', 'ADMIN')")
-    public String deleteRunGroup(@PathVariable("id") Long id, Model model) {
+    public String deleteRunGroup(@RequestParam("origin") String origin, @PathVariable("id") Long id,
+            Model model) {
         RunGroup runGroup = runGroupRepository.findById(id).get();
         runGroup.delete();
         runGroupRepository.save(runGroup);
-        return "redirect:/userrungroups";
+
+        if (origin.equals("userrungroups")) {
+            return "redirect:/userrungroups";
+        } else if (origin.equals("allrungroups")) {
+            return "redirect:/allrungroups";
+        } else {
+            return "redirect:/home";
+        }
+
     }
 
     @GetMapping("/restoregroup/{id}")
@@ -93,6 +118,6 @@ public class RunGroupController {
         RunGroup runGroup = runGroupRepository.findById(id).get();
         runGroup.restore();
         runGroupRepository.save(runGroup);
-        return "redirect:/userrungroups";
+        return "redirect:/allrungroups";
     }
 }

@@ -34,6 +34,7 @@
     </form>
     <form th:object="${rungroup}" th:action="@{/saveeditedgroup}" action="#" method="post">
         <input type="hidden" id="runGroupId" th:field="*{runGroupId}" />
+        <input type="hidden" name="origin" th:value="${param.origin}" />
 
         <label for="runGroupName">Run group name: </label>
         <input type="text" id="runGroupName" th:field="*{runGroupName}" />
