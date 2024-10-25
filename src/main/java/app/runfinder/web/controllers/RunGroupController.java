@@ -34,7 +34,6 @@ public class RunGroupController {
     @PreAuthorize("hasAnyAuthority('CONTRIBUTOR', 'ADMIN')")
     public String addRunGroup(Model model) {
         RunGroup newRunGroup = new RunGroup();
-        newRunGroup.setAddedByAppUser(appUserService.getAuthenticatedAppUser());
 
         model.addAttribute("rungroup", newRunGroup);
         model.addAttribute("zipcodes", zipcodeRepository.findAll());
@@ -51,6 +50,7 @@ public class RunGroupController {
             return "addrungroup";
         }
 
+        runGroup.setAddedByAppUser(appUserService.getAuthenticatedAppUser());
         runGroupRepository.save(runGroup);
         return "redirect:userrungroups";
     }
@@ -71,7 +71,8 @@ public class RunGroupController {
             model.addAttribute("zipcodes", zipcodeRepository.findAll());
             return "editrungroup";
         }
-
+        
+        runGroup.setAddedByAppUser(appUserService.getAuthenticatedAppUser());
         runGroupRepository.save(runGroup);
         return "redirect:userrungroups";
     }
