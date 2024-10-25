@@ -36,6 +36,7 @@
             <th>Start address</th>
             <th>Zipcode</th>
             <th>City</th>
+            <th>Sign ups</th>
             <th>Added by</th>
             <th>Deleted?</th>
         </tr>
@@ -47,6 +48,8 @@
             <td th:text="${rungroup.startAddress}"></td>
             <td th:text="${rungroup.zipcode.zipcode}"></td>
             <td th:text="${rungroup.zipcode.city}"></td>
+            <td th:each="rungroupsignup : ${rungroupsignupcountmap}"
+                th:if="${rungroupsignup.key == rungroup.runGroupId}" th:text="${rungroupsignup.value}"></td>
             <td th:text="${rungroup.addedByAppUser.username}"></td>
             <td th:text="${rungroup.deletedAt}"></td>
             <td sec:authorize="hasAuthority('ADMIN')">

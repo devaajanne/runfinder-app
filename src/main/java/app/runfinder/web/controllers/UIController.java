@@ -18,7 +18,6 @@ import app.runfinder.domain.entities.RunGroupSignUp;
 import app.runfinder.domain.repositories.RunGroupSignUpRepository;
 
 import app.runfinder.web.services.AppUserService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UIController {
@@ -124,7 +123,22 @@ public class UIController {
                 List<RunGroup> runGroupList = new ArrayList<RunGroup>();
                 runGroupRepository.findAll().forEach(runGroupList::add);
 
+                List<RunGroupSignUp> runGroupSignUpList = new ArrayList<RunGroupSignUp>();
+                runGroupSignUpRepository.findAll().forEach(runGroupSignUpList::add);
+
+                Map<Long, Long> runGroupSignUpCountMap = new HashMap<>();
+                for (RunGroup runGroup : runGroupList) {
+                        runGroupSignUpCountMap.put(runGroup.getRunGroupId(), 0L);
+                }
+
+                for (RunGroupSignUp runGroupSignUp : runGroupSignUpList) {
+                        long runGroupId = runGroupSignUp.getRunGroup().getRunGroupId();
+                        runGroupSignUpCountMap.put(runGroupId, runGroupSignUpCountMap.get(runGroupId) + 1);
+                }
+
                 model.addAttribute("allrungroups", runGroupList);
+                model.addAttribute("rungroupsignupcountmap", runGroupSignUpCountMap);
+
                 return "allrungroups";
         }
 }
