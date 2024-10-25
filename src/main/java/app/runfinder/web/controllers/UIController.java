@@ -18,6 +18,7 @@ import app.runfinder.domain.entities.RunGroupSignUp;
 import app.runfinder.domain.repositories.RunGroupSignUpRepository;
 
 import app.runfinder.web.services.AppUserService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UIController {
@@ -95,7 +96,8 @@ public class UIController {
                 List<RunGroup> userRunGroups = runGroupList.stream()
                                 .filter(runGroup -> runGroup.getDeletedAt() == null
                                                 && runGroup.getRunStartDate().isAfter(LocalDate.now())
-                                                && runGroup.getAddedByAppUser() == appUserService.getAuthenticatedAppUser())
+                                                && runGroup.getAddedByAppUser() == appUserService
+                                                                .getAuthenticatedAppUser())
                                 .collect(Collectors.toList());
 
                 List<RunGroupSignUp> runGroupSignUpList = new ArrayList<RunGroupSignUp>();
@@ -115,5 +117,14 @@ public class UIController {
                 model.addAttribute("rungroupsignupcountmap", runGroupSignUpCountMap);
 
                 return "userrungroups";
+        }
+
+        @GetMapping("/allrungroups")
+        public String showAllRunGroups(Model model) {
+                List<RunGroup> runGroupList = new ArrayList<RunGroup>();
+                runGroupRepository.findAll().forEach(runGroupList::add);
+
+                model.addAttribute("allrungroups", runGroupList);
+                return "allrungroups";
         }
 }
