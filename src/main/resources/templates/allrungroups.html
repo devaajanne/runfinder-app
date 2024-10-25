@@ -54,7 +54,7 @@
             <td th:each="rungroupsignup : ${rungroupsignupcountmap}"
                 th:if="${rungroupsignup.key == rungroup.runGroupId}" th:text="${rungroupsignup.value}"></td>
             <td th:text="${rungroup.addedByAppUser.username}"></td>
-            <td th:text="${rungroup.deletedAt}"></td>
+            <td th:text="${#temporals.format(rungroup.deletedAt, 'dd.MM.YYYY')}"></td>
             <td sec:authorize="hasAuthority('ADMIN')">
                 <form th:action="@{/editgroup/{id}(id=${rungroup.runGroupId})}" method="get">
                     <button type="submit">Edit</button>
