@@ -32,6 +32,7 @@
             <th>Start address</th>
             <th>Zipcode</th>
             <th>City</th>
+            <th>Sign ups</th>
         </tr>
         <tr th:each="rungroup : ${userrungroups}">
             <td th:text="${rungroup.runGroupName}"></td>
@@ -40,6 +41,8 @@
             <td th:text="${rungroup.startAddress}"></td>
             <td th:text="${rungroup.zipcode.zipcode}"></td>
             <td th:text="${rungroup.zipcode.city}"></td>
+            <td th:each="rungroupsignup : ${rungroupsignupcountmap}"
+                th:if="${rungroupsignup.key == rungroup.runGroupId}" th:text="${rungroupsignup.value}"></td>
             <td sec:authorize="hasAnyAuthority( 'CONTRIBUTOR', 'ADMIN')">
                 <form th:action="@{/editgroup/{id}(id=${rungroup.runGroupId})}" method="get">
                     <button type="submit">Edit</button>

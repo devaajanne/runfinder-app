@@ -2,7 +2,9 @@ package app.runfinder.web.controllers;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,81 +22,98 @@ import app.runfinder.web.services.AppUserService;
 @Controller
 public class UIController {
 
-    private final RunGroupRepository runGroupRepository;
-    private final RunGroupSignUpRepository runGroupSignUpRepository;
-    private final AppUserService appUserService;
+        private final RunGroupRepository runGroupRepository;
+        private final RunGroupSignUpRepository runGroupSignUpRepository;
+        private final AppUserService appUserService;
 
-    public UIController(RunGroupRepository runGroupRepository, RunGroupSignUpRepository runGroupSignUpRepository,
-            AppUserService appUserService) {
-        this.runGroupRepository = runGroupRepository;
-        this.runGroupSignUpRepository = runGroupSignUpRepository;
-        this.appUserService = appUserService;
-    }
+        public UIController(RunGroupRepository runGroupRepository, RunGroupSignUpRepository runGroupSignUpRepository,
+                        AppUserService appUserService) {
+                this.runGroupRepository = runGroupRepository;
+                this.runGroupSignUpRepository = runGroupSignUpRepository;
+                this.appUserService = appUserService;
+        }
 
-    @GetMapping("/login")
-    public String showLoginPage() {
-        return "login";
-    }
+        @GetMapping("/login")
+        public String showLoginPage() {
+                return "login";
+        }
 
-    @GetMapping("/home")
-    public String showHomepage(Model model) {
-        return "home";
-    }
+        @GetMapping("/home")
+        public String showHomepage(Model model) {
+                return "home";
+        }
 
-    @GetMapping("/upcomingrungroups")
-    public String showUpcomingRunGroups(Model model) {
-        List<RunGroup> runGroupList = new ArrayList<RunGroup>();
-        runGroupRepository.findAll().forEach(runGroupList::add);
+        @GetMapping("/upcomingrungroups")
+        public String showUpcomingRunGroups(Model model) {
+                List<RunGroup> runGroupList = new ArrayList<RunGroup>();
+                runGroupRepository.findAll().forEach(runGroupList::add);
 
-        List<RunGroup> upcomingRunGroups = runGroupList.stream()
-                .filter(runGroup -> runGroup.getDeletedAt() == null
-                        && runGroup.getRunStartDate().isAfter(LocalDate.now()))
-                .collect(Collectors.toList());
+                List<RunGroup> upcomingRunGroups = runGroupList.stream()
+                                .filter(runGroup -> runGroup.getDeletedAt() == null
+                                                && runGroup.getRunStartDate().isAfter(LocalDate.now()))
+                                .collect(Collectors.toList());
 
-        List<RunGroupSignUp> runGroupSignUpList = new ArrayList<RunGroupSignUp>();
-        runGroupSignUpRepository.findAll().forEach(runGroupSignUpList::add);
+                List<RunGroupSignUp> runGroupSignUpList = new ArrayList<RunGroupSignUp>();
+                runGroupSignUpRepository.findAll().forEach(runGroupSignUpList::add);
 
-        List<Long> runGroupIds = runGroupSignUpList.stream()
-                .filter(runGroupSignUp -> runGroupSignUp.getAppUser().getAppUserId() == appUserService.getAuthenticatedAppUser().getAppUserId())
-                .map(runGroupSignUp -> runGroupSignUp.getRunGroup().getRunGroupId())
-                .collect(Collectors.toList());
+                List<Long> runGroupIds = runGroupSignUpList.stream()
+                                .filter(runGroupSignUp -> runGroupSignUp.getAppUser().getAppUserId() == appUserService
+                                                .getAuthenticatedAppUser().getAppUserId())
+                                .map(runGroupSignUp -> runGroupSignUp.getRunGroup().getRunGroupId())
+                                .collect(Collectors.toList());
 
-        model.addAttribute("upcomingrungrouplist", upcomingRunGroups);
-        model.addAttribute("rungroupids", runGroupIds);
+                model.addAttribute("upcomingrungrouplist", upcomingRunGroups);
+                model.addAttribute("rungroupids", runGroupIds);
 
-        return "upcomingrungroups";
-    }
+                return "upcomingrungroups";
+        }
 
-    @GetMapping("/usersignups")
-    public String showUserSignUps(Model model) {
-        List<RunGroupSignUp> runGroupSignUps = new ArrayList<RunGroupSignUp>();
-        runGroupSignUpRepository.findAll().forEach(runGroupSignUps::add);
+        @GetMapping("/usersignups")
+        public String showUserSignUps(Model model) {
+                List<RunGroupSignUp> runGroupSignUps = new ArrayList<RunGroupSignUp>();
+                runGroupSignUpRepository.findAll().forEach(runGroupSignUps::add);
 
-        List<RunGroupSignUp> userSignUps = runGroupSignUps.stream()
-                .filter(runGroupSignUp -> runGroupSignUp.getRunGroup().getDeletedAt() == null
-                        && runGroupSignUp.getAppUser().getAppUserId() == appUserService.getAuthenticatedAppUser()
-                                .getAppUserId())
-                .collect(Collectors.toList());
+                List<RunGroupSignUp> userSignUps = runGroupSignUps.stream()
+                                .filter(runGroupSignUp -> runGroupSignUp.getRunGroup().getDeletedAt() == null
+                                                && runGroupSignUp.getAppUser().getAppUserId() == appUserService
+                                                                .getAuthenticatedAppUser()
+                                                                .getAppUserId())
+                                .collect(Collectors.toList());
 
-        model.addAttribute("usersignups", userSignUps);
+                model.addAttribute("usersignups", userSignUps);
 
-        return "usersignups";
-    }
+                return "usersignups";
+        }
 
-    @GetMapping("/userrungroups")
-    @PreAuthorize("hasAnyAuthority('CONTRIBUTOR', 'ADMIN')")
-    public String showUserRunGroups(Model model) {
-        List<RunGroup> runGroupList = new ArrayList<RunGroup>();
-        runGroupRepository.findAll().forEach(runGroupList::add);
+        @GetMapping("/userrungroups")
+        @PreAuthorize("hasAnyAuthority('CONTRIBUTOR', 'ADMIN')")
+        public String showUserRunGroups(Model model) {
+                List<RunGroup> runGroupList = new ArrayList<RunGroup>();
+                runGroupRepository.findAll().forEach(runGroupList::add);
 
-        List<RunGroup> userRunGroups = runGroupList.stream()
-                .filter(runGroup -> runGroup.getDeletedAt() == null
-                        && runGroup.getRunStartDate().isAfter(LocalDate.now())
-                        && runGroup.getAddedByAppUser() == appUserService.getAuthenticatedAppUser())
-                .collect(Collectors.toList());
+                // Run groups added by the authenticated user
+                List<RunGroup> userRunGroups = runGroupList.stream()
+                                .filter(runGroup -> runGroup.getDeletedAt() == null
+                                                && runGroup.getRunStartDate().isAfter(LocalDate.now())
+                                                && runGroup.getAddedByAppUser() == appUserService.getAuthenticatedAppUser())
+                                .collect(Collectors.toList());
 
-        model.addAttribute("userrungroups", userRunGroups);
+                List<RunGroupSignUp> runGroupSignUpList = new ArrayList<RunGroupSignUp>();
+                runGroupSignUpRepository.findAll().forEach(runGroupSignUpList::add);
 
-        return "userrungroups";
-    }
+                Map<Long, Long> runGroupSignUpCountMap = new HashMap<>();
+                for (RunGroup runGroup : runGroupList) {
+                        runGroupSignUpCountMap.put(runGroup.getRunGroupId(), 0L);
+                }
+
+                for (RunGroupSignUp runGroupSignUp : runGroupSignUpList) {
+                        long runGroupId = runGroupSignUp.getRunGroup().getRunGroupId();
+                        runGroupSignUpCountMap.put(runGroupId, runGroupSignUpCountMap.get(runGroupId) + 1);
+                }
+
+                model.addAttribute("userrungroups", userRunGroups);
+                model.addAttribute("rungroupsignupcountmap", runGroupSignUpCountMap);
+
+                return "userrungroups";
+        }
 }
