@@ -56,6 +56,7 @@ public class RunGroupController {
     }
 
     @GetMapping("/editgroup/{id}")
+    @PreAuthorize("hasAnyAuthority('CONTRIBUTOR', 'ADMIN')")
     public String editRunGroup(@PathVariable("id") Long id, Model model) {
         model.addAttribute("rungroup", runGroupRepository.findById(id));
         model.addAttribute("zipcodes", zipcodeRepository.findAll());

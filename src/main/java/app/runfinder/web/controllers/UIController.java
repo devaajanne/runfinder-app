@@ -123,6 +123,7 @@ public class UIController {
         }
 
         @GetMapping("/allrungroups")
+        @PreAuthorize("hasAuthority('ADMIN')")
         public String showAllRunGroups(Model model) {
                 List<RunGroup> runGroupList = new ArrayList<RunGroup>();
                 runGroupRepository.findAll().forEach(runGroupList::add);
@@ -147,6 +148,7 @@ public class UIController {
         }
 
         @GetMapping("/allappusers")
+        @PreAuthorize("hasAuthority('ADMIN')")
         public String showAllUsers(Model model) {
                 List<AppUser> allAppUsers = new ArrayList<AppUser>();
                 appUserRepository.findAll().forEach(allAppUsers::add);
