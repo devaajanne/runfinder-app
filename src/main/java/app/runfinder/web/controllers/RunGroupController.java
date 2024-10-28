@@ -33,9 +33,10 @@ public class RunGroupController {
 
     @GetMapping("/addnewgroup")
     @PreAuthorize("hasAnyAuthority('CONTRIBUTOR', 'ADMIN')")
-    public String addRunGroup(Model model) {
+    public String addRunGroup(@RequestParam("origin") String origin, Model model) {
         RunGroup newRunGroup = new RunGroup();
 
+        model.addAttribute("origin", origin);
         model.addAttribute("rungroup", newRunGroup);
         model.addAttribute("zipcodes", zipcodeRepository.findAll());
         return "addrungroup";
@@ -43,7 +44,8 @@ public class RunGroupController {
 
     @PostMapping("/savenewgroup")
     @PreAuthorize("hasAnyAuthority('CONTRIBUTOR', 'ADMIN')")
-    public String saveNewRunGroup(@Valid @ModelAttribute("rungroup") RunGroup runGroup, @RequestParam("origin") String origin, BindingResult bindingResult,
+    public String saveNewRunGroup(@Valid @ModelAttribute("rungroup") RunGroup runGroup,
+            @RequestParam("origin") String origin, BindingResult bindingResult,
             Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("rungroup", runGroup);
@@ -65,7 +67,8 @@ public class RunGroupController {
 
     @GetMapping("/editgroup/{id}")
     @PreAuthorize("hasAnyAuthority('CONTRIBUTOR', 'ADMIN')")
-    public String editRunGroup(@PathVariable("id") Long id, Model model) {
+    public String editRunGroup(@PathVariable("id") Long id, @RequestParam("origin") String origin, Model model) {
+        model.addAttribute("origin", origin);
         model.addAttribute("rungroup", runGroupRepository.findById(id));
         model.addAttribute("zipcodes", zipcodeRepository.findAll());
         return "editrungroup";

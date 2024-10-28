@@ -29,8 +29,8 @@
 </header>
 
 <body>
-    <form th:action="@{/home}" method="get">
-        <button type="submit">Return home</button>
+    <form th:action="@{${origin == 'userrungroups' ? '/userrungroups' : '/allrungroups'}}" method="get">
+        <button type="submit">Return</button>
     </form>
     <form th:object="${rungroup}" th:action="@{/savenewgroup}" action="#" method="post">
         <input type="hidden" id="runGroupId" th:field="*{runGroupId}" />
