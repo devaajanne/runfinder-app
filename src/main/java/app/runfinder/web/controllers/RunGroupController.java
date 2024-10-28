@@ -85,7 +85,6 @@ public class RunGroupController {
             return "editrungroup";
         }
 
-        runGroup.setAddedByAppUser(appUserService.getAuthenticatedAppUser());
         runGroupRepository.save(runGroup);
 
         if (origin.equals("userrungroups")) {
