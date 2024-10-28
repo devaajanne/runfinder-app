@@ -4,6 +4,7 @@
 <head>
     <title>All run groups</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/runfinderstyles.css}">
 </head>
 
 <header>
@@ -12,24 +13,26 @@
 </header>
 
 <body>
-    <form th:action="@{/home}" method="get">
-        <button type="submit">Home</button>
-    </form>
-    <form th:action="@{/upcomingrungroups}" method="get">
-        <button type="submit">Upcoming run groups</button>
-    </form>
-    <form th:action="@{/usersignups}" method="get">
-        <button type="submit">My sign ups</button>
-    </form>
-    <form th:action="@{/userrungroups}" method="get" sec:authorize="hasAnyAuthority('CONTRIBUTOR', 'ADMIN')">
-        <button type="userrungroups">My run groups</button>
-    </form>
-    <form th:action="@{/allrungroups}" method="get" sec:authorize="hasAuthority('ADMIN')">
-        <button type="allrungroups">All run groups</button>
-    </form>
-    <form th:action="@{/allappusers}" method="get" sec:authorize="hasAuthority('ADMIN')">
-        <button type="allappusers">All app users</button>
-    </form>
+    <div class="navbar">
+        <form th:action="@{/home}" method="get">
+            <button type="submit" th:action="@{/home}" method="get">Home</button>
+        </form>
+        <form th:action="@{/upcomingrungroups}" method="get">
+            <button type="submit">Upcoming run groups</button>
+        </form>
+        <form th:action="@{/usersignups}" method="get">
+            <button type="submit">My sign ups</button>
+        </form>
+        <form th:action="@{/userrungroups}" method="get" sec:authorize="hasAnyAuthority('CONTRIBUTOR', 'ADMIN')">
+            <button type="userrungroups">My run groups</button>
+        </form>
+        <form th:action="@{/allrungroups}" method="get" sec:authorize="hasAuthority('ADMIN')">
+            <button type="allrungroups">All run groups</button>
+        </form>
+        <form th:action="@{/allappusers}" method="get" sec:authorize="hasAuthority('ADMIN')">
+            <button type="allappusers">All app users</button>
+        </form>
+    </div>
     <table>
         <tr>
             <th>Run group ID</th>
