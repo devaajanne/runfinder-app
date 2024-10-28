@@ -13,13 +13,29 @@ public class WebSecurityConfig {
 
         @Bean
         public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-                http
-                                .authorizeHttpRequests(authorize -> authorize
-                                                .requestMatchers("/login", "/signup", "/savenewuser").permitAll()
-                                                .requestMatchers("/add", "/savenewgroup", "/edit/**",
-                                                                "/saveeditedgroup", "/delete/**")
-                                                .hasAnyAuthority("CONTRIBUTOR", "ADMIN")
-                                                .anyRequest().authenticated())
+                http.authorizeHttpRequests(authorize -> authorize
+                                // Permissions for all users including unauthenticated uers
+                                .requestMatchers("/login/**", "/signup")
+                                .permitAll()
+
+                                // Permissions for USERS, CONTRIBUTORS and ADMINS
+                                .requestMatchers("/home", "/upcomingrungroups",
+                                                "/usersignups", "/savenewuser", "/signuptogroup/**",
+                                                "/deletesignup/**")
+                                .hasAnyAuthority("USER", "CONTRIBUTOR", "ADMIN")
+
+                                // Permissions for CONTRIBUTORS and ADMINS
+                                .requestMatchers("/userrungroups", "/addnewgroup", "/savenewgroup",
+                                                "/editgroup/**",
+                                                "/saveeditedgroup", "/deletegroup/**", "/zipcodes/**")
+                                .hasAnyAuthority("CONTRIBUTOR", "ADMIN")
+
+                                // Permissions for ADMINS
+                                .requestMatchers("/allrungroups", "/allappusers", "/restoregroup/**",
+                                                "/editappuserrole/**", "/saveeditedappuserrole")
+                                .hasAnyAuthority("ADMIN")
+
+                                .anyRequest().authenticated())
                                 .formLogin(formlogin -> formlogin.loginPage("/login")
                                                 .defaultSuccessUrl("/home", true)
                                                 .permitAll())
