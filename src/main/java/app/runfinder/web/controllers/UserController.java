@@ -1,10 +1,12 @@
 package app.runfinder.web.controllers;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
@@ -22,7 +24,8 @@ public class UserController {
     private final AppUserRepository appUserRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    public UserController(RoleRepository roleRepository, AppUserRepository appUserRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserController(RoleRepository roleRepository, AppUserRepository appUserRepository,
+            BCryptPasswordEncoder passwordEncoder) {
         this.roleRepository = roleRepository;
         this.appUserRepository = appUserRepository;
         this.passwordEncoder = passwordEncoder;
@@ -64,5 +67,23 @@ public class UserController {
         }
 
         return "redirect:/login";
+    }
+
+    @GetMapping("/editappuserrole/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String editRole(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("appuser", appUserRepository.findById(id).get());
+        model.addAttribute("roles", roleRepository.findAll());
+
+        return "editappuserrole";
+    }
+
+    @PostMapping("/saveeditedappuserrole")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String saveEditedRole(@Valid @ModelAttribute("appuser") AppUser appUser) {
+
+        appUserRepository.save(appUser);
+        
+        return "redirect:/allappusers";
     }
 }

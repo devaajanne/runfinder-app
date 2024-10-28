@@ -46,6 +46,11 @@
             <td th:text="${appuser.lastName}"></td>
             <td th:text="${appuser.email}"></td>
             <td th:text="${appuser.role.role}"></td>
+            <td sec:authorize="hasAuthority('ADMIN')">
+                <form th:action="@{/editappuserrole/{id}(id=${appuser.appUserId})}" method="get">
+                    <button type="submit">Edit user role</button>
+                </form>
+            </td>
         </tr>
     </table>
     <p th:if="${#lists.isEmpty(allappusers)}">No app users</p>

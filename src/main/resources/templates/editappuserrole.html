@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Edit an app user role</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<header>
+    <h1>RunFinder</h1>
+    <h2>Edit an app user role</h2>
+</header>
+
+<body>
+    <form th:action="@{/home}" method="get">
+        <button type="submit">Return home</button>
+    </form>
+    <h3 th:text="'User: ' + ${appuser.username}"></h3>
+    <p th:text="'User role: ' + ${appuser.role.role}"></p>
+
+    <form th:object="${appuser}" th:action="@{/saveeditedappuserrole}" action="#" method="post">
+        <input type="hidden" id="appUserId" th:field="*{appUserId}" />
+        <input type="hidden" id="username" th:field="*{username}" />
+        <input type="hidden" id="firstName" th:field="*{firstName}" />
+        <input type="hidden" id="lastName" th:field="*{lastName}" />
+        <input type="hidden" id="email" th:field="*{email}" />
+        <input type="hidden" id="password" th:field="*{password}" />
+
+        <label for="role">Set new role: </label>
+        <select id="roleList" th:field="*{role}" class="form-control">
+            <option th:each="role: ${roles}" th:value="${role.roleId}" th:text="${role.role}">
+            </option>
+        </select>
+
+        <button type="submit">Save</button>
+    </form>
+</body>
+
+</html>
