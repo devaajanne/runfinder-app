@@ -15,7 +15,7 @@ public class WebSecurityConfig {
         public SecurityFilterChain configure(HttpSecurity http) throws Exception {
                 http.authorizeHttpRequests(authorize -> authorize
                                 // Permissions for all users including unauthenticated uers
-                                .requestMatchers("/login/**", "/signup")
+                                .requestMatchers("/login/**", "/signup", "/api/**")
                                 .permitAll()
 
                                 // Permissions for USERS, CONTRIBUTORS and ADMINS
