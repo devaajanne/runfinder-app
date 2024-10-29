@@ -21,7 +21,8 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import app.runfinder.domain.dto.RunGroupDTO;
+import app.runfinder.domain.dto.RunGroupGetDTO;
+import app.runfinder.domain.dto.RunGroupPostPutDTO;
 
 @Entity
 @Table(name = "run_groups")
@@ -193,8 +194,8 @@ public class RunGroup {
         return this;
     }
 
-    public RunGroupDTO toDTO() {
-        return new RunGroupDTO(
+    public RunGroupGetDTO toGetDTO() {
+        return new RunGroupGetDTO(
                 this.runGroupId,
                 this.runGroupName,
                 this.runStartDate,
@@ -203,6 +204,15 @@ public class RunGroup {
                 this.zipcode.getZipcode(),
                 this.zipcode.getCity(),
                 this.addedByAppUser.getAppUserId());
+    }
+
+    public RunGroupPostPutDTO toPostPutDTO() {
+        return new RunGroupPostPutDTO(
+                this.runGroupName,
+                this.runStartDate,
+                this.runStartTime,
+                this.startAddress,
+                this.zipcode.getZipcode());
     }
 
     @Override
