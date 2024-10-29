@@ -8,6 +8,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.util.Set;
 
@@ -28,6 +31,10 @@ public class AppUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     // @Column renames the column in the relational database
     // Not always needed; used to have more control over the database colum naming
+
+    // No validations here; RegistrationForm checks AppUser data validations before
+    // registering and saving to database
+
     @Column(name = "app_user_id")
     private Long appUserId;
 

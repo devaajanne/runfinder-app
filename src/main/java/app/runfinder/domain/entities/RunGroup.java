@@ -16,8 +16,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import app.runfinder.domain.dto.RunGroupDTO;
@@ -39,18 +41,21 @@ public class RunGroup {
     @Column(name = "run_start_date")
     // @FutureOrPresent(message = "Run group start date must be today or in the
     // future")
+    @NotNull(message = "Run group must have a start date")
     private LocalDate runStartDate;
 
     @DateTimeFormat(pattern = "HH:mm")
     @Column(name = "run_start_time")
+    @NotNull(message = "Run group must have a start time")
     private LocalTime runStartTime;
 
     @Column(name = "start_address")
-    @NotEmpty(message = "The run group must have a start address")
+    @NotEmpty(message = "Run group must have a start address")
     private String startAddress;
 
     @ManyToOne
     @JoinColumn(name = "zipcode")
+    @NotNull(message = "Run group must have a zipcode")
     private Zipcode zipcode;
 
     @Column(name = "deleted_at")

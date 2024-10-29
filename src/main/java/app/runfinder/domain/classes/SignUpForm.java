@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 
 public class SignUpForm {
 
-    @Size(min = 4, max = 25, message = "Your username must be between 4 and 25 characters long")
+    @Size(min = 5, max = 25, message = "Your username must be between 5 and 25 characters long")
     private String username = "";
 
     @NotEmpty(message = "Please type your first name")
