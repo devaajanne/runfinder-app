@@ -1,8 +1,15 @@
 package app.runfinder.web.restControllers;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,57 +19,115 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import app.runfinder.domain.entities.RunGroup;
-import app.runfinder.domain.repositories.RunGroupRepository;
+import jakarta.validation.Valid;
 
-// @RestController annotates this class as a rest controller class
-@RestController
-// @RequestMapping sets a default part of the request path
-@RequestMapping("/api")
+import app.runfinder.domain.dto.RunGroupGetDTO;
+import app.runfinder.domain.dto.RunGroupPostPutDTO;
+import app.runfinder.domain.entities.RunGroup;
+import app.runfinder.domain.entities.Zipcode;
+import app.runfinder.domain.repositories.RunGroupRepository;
+import app.runfinder.domain.repositories.ZipcodeRepository;
+import app.runfinder.domain.repositories.AppUserRepository;
+
+@RestController // @RestController annotates this class as a rest controller class
+@RequestMapping("/api") // @RequestMapping sets a default part of the request path
 public class RunGroupRestController {
 
-    // @Autowired injects the repository to the controller
-    @Autowired
-    RunGroupRepository runGroupRepository;
+    // Injects repositories to the controller
+    private final RunGroupRepository runGroupRepository;
+    private final ZipcodeRepository zipcodeRepository;
+    private final AppUserRepository appUserRepository;
 
-    // @GetMapping creates a GET request
-    // Here it lists all the run groups and their attributes
+    public RunGroupRestController(RunGroupRepository runGroupRepository, ZipcodeRepository zipcodeRepository,
+            AppUserRepository appUserRepository) {
+        this.runGroupRepository = runGroupRepository;
+        this.zipcodeRepository = zipcodeRepository;
+        this.appUserRepository = appUserRepository;
+    }
+
     @GetMapping("/rungroups")
-    public Iterable<RunGroup> getRunGroups() {
-        return runGroupRepository.findAll();
+    public ResponseEntity<List<RunGroupGetDTO>> getAllRunGroups() {
+        List<RunGroup> allRunGroups = new ArrayList<RunGroup>();
+        runGroupRepository.findAll().forEach(allRunGroups::add);
+
+        List<RunGroupGetDTO> runGroupDTOs = allRunGroups.stream()
+                .filter(runGroup -> runGroup.getDeletedAt() == null)
+                .map(runGroup -> runGroup.toGetDTO())
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(runGroupDTOs);
     }
 
-    // @GetMapping creates a GET request
-    // Here it lists a run group specified in @PathVariable
-    @GetMapping("rungroups/{runGroupId}")
-    public Optional<RunGroup> getRunGroup(@PathVariable Long runGroupId) {
-        return runGroupRepository.findById(runGroupId);
+    @GetMapping("/rungroups/{runGroupId}")
+    public ResponseEntity<RunGroupGetDTO> getRunGroupById(@PathVariable("runGroupId") Long runGroupId) {
+        Optional<RunGroup> runGroup = runGroupRepository.findById(runGroupId);
+        if (!runGroup.isPresent() || runGroup.get().getDeletedAt() != null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Run group not found");
+        }
+
+        RunGroupGetDTO runGroupDTO = runGroup.get().toGetDTO();
+        return ResponseEntity.ok(runGroupDTO);
     }
 
-    // @PostMapping creates a POST request
-    // Here it adds a new run group to runGroupRepository
-    @PostMapping("rungroups")
-    public RunGroup postRunGroup(@RequestBody RunGroup newRunGroup) {
+    @PostMapping("/rungroups")
+    public ResponseEntity<RunGroupGetDTO> addNewRunGroup(@Valid @RequestBody RunGroupPostPutDTO runGroupDTO) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        Optional<Zipcode> runGroupZipcode = zipcodeRepository.findById(runGroupDTO.zipcode());
+        if (!runGroupZipcode.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Zipcode is not valid");
+        }
+
+        RunGroup newRunGroup = new RunGroup(
+                runGroupDTO.runGroupName(),
+                runGroupDTO.runStartDate(),
+                runGroupDTO.runStartTime(),
+                runGroupDTO.startAddress(),
+                zipcodeRepository.findById(runGroupDTO.zipcode()).get(),
+                null,
+                appUserRepository.findByUsername(username));
         runGroupRepository.save(newRunGroup);
-        return newRunGroup;
+
+        RunGroupGetDTO responseDTO = newRunGroup.toGetDTO();
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
-    // @PutMapping creates a PUT request
-    // Here it updates the rungroup specified in @PathVariable
-    // @RequestBody contains the updated attributes
-    @PutMapping("runroups/{runGroupId}")
-    public RunGroup putRunGroup(@RequestBody RunGroup editedRunGroup,
-            @PathVariable Long runGroupId) {
-        editedRunGroup.setRunGroupId(runGroupId);
+    @PutMapping("/rungroups/{runGroupId}")
+    public ResponseEntity<RunGroupGetDTO> editRunGroup(@RequestBody RunGroupPostPutDTO runGroupDTO,
+            @PathVariable("runGroupId") Long runGroupId) {
+        Optional<RunGroup> runGroup = runGroupRepository.findById(runGroupId);
+        if (!runGroup.isPresent() || runGroup.get().getDeletedAt() != null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Run group not found");
+        }
+
+        Optional<Zipcode> runGroupZipcode = zipcodeRepository.findById(runGroupDTO.zipcode());
+        if (!runGroupZipcode.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Zipcode is not valid");
+        }
+
+        RunGroup editedRunGroup = runGroup.get();
+        editedRunGroup.setRunGroupName(runGroupDTO.runGroupName());
+        editedRunGroup.setRunStartDate(runGroupDTO.runStartDate());
+        editedRunGroup.setRunStartTime(runGroupDTO.runStartTime());
+        editedRunGroup.setStartAddress(runGroupDTO.startAddress());
+        editedRunGroup.setZipcode(zipcodeRepository.findByZipcode(runGroupDTO.zipcode()));
         runGroupRepository.save(editedRunGroup);
-        return editedRunGroup;
+
+        RunGroupGetDTO responseDTO = editedRunGroup.toGetDTO();
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
-    // @DeleteMapping creates a DELETE request
-    // Here it deletes the rungroup specified in @PathVariable
-    @DeleteMapping("runroups/{runGroupId}")
-    public Iterable<RunGroup> deleteRunGroup(@PathVariable Long runGroupId) {
-        runGroupRepository.deleteById(runGroupId);
-        return runGroupRepository.findAll();
+    @DeleteMapping("/rungroups/{runGroupId}")
+    public ResponseEntity<String> deleteRunGroup(@PathVariable("runGroupId") Long runGroupId) {
+        Optional<RunGroup> runGroup = runGroupRepository.findById(runGroupId);
+        if (!runGroup.isPresent() || runGroup.get().getDeletedAt() != null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Run group not found");
+        }
+
+        runGroup.get().delete();
+        runGroupRepository.save(runGroup.get());
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
