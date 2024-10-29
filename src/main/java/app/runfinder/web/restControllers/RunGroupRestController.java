@@ -19,7 +19,7 @@ import app.runfinder.domain.repositories.RunGroupRepository;
 @RestController
 // @RequestMapping sets a default part of the request path
 @RequestMapping("/api")
-public class RestRunGroupController {
+public class RunGroupRestController {
 
     // @Autowired injects the repository to the controller
     @Autowired

@@ -13,7 +13,7 @@ import app.runfinder.domain.repositories.RoleRepository;
 
 @RestController
 @RequestMapping("/api")
-public class RestRoleController {
+public class RoleRestController {
 
     @Autowired
     RoleRepository roleRepository;

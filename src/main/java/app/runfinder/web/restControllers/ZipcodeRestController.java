@@ -11,7 +11,7 @@ import app.runfinder.domain.repositories.ZipcodeRepository;
 
 @RestController
 @RequestMapping("/api")
-public class RestZipcodeController {
+public class ZipcodeRestController {
 
     @Autowired
     ZipcodeRepository zipcodeRepository;
