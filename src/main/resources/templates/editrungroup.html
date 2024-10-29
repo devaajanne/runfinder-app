@@ -59,10 +59,10 @@
 
         <label for="zipcode">Zipcode: </label>
         <select id="zipcodeList" th:field="*{zipcode}" class="form-control" onChange="fetchCity()">
-            <option value="select">Select a zipcode</option>
             <option th:each="zipcode: ${zipcodes}" th:value="${zipcode.zipcode}" th:text="${zipcode.zipcode}">
             </option>
         </select>
+        <span th:if="${#fields.hasErrors('zipcode')}" th:errors="*{zipcode}"></span>
 
         <p>City: <span id="cityDisplay"></span></p>
 
