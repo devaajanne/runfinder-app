@@ -20,6 +20,8 @@ import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
+import app.runfinder.domain.dto.RunGroupDTO;
+
 @Entity
 @Table(name = "run_groups")
 public class RunGroup {
@@ -187,18 +189,29 @@ public class RunGroup {
         return this;
     }
 
+    public RunGroupDTO toDTO() {
+        return new RunGroupDTO(
+                this.runGroupId,
+                this.runGroupName,
+                this.runStartDate,
+                this.runStartTime,
+                this.startAddress,
+                this.zipcode.getZipcode(),
+                this.zipcode.getCity(),
+                this.addedByAppUser.getAppUserId());
+    }
 
     @Override
     public String toString() {
         return "{" +
-            " runGroupId='" + getRunGroupId() + "'" +
-            ", runGroupName='" + getRunGroupName() + "'" +
-            ", runStartDate='" + getRunStartDate() + "'" +
-            ", runStartTime='" + getRunStartTime() + "'" +
-            ", startAddress='" + getStartAddress() + "'" +
-            ", zipcode='" + getZipcode() + "'" +
-            ", deletedAt='" + getDeletedAt() + "'" +
-            ", addedByAppUser='" + getAddedByAppUser() + "'" +
-            "}";
+                " runGroupId='" + getRunGroupId() + "'" +
+                ", runGroupName='" + getRunGroupName() + "'" +
+                ", runStartDate='" + getRunStartDate() + "'" +
+                ", runStartTime='" + getRunStartTime() + "'" +
+                ", startAddress='" + getStartAddress() + "'" +
+                ", zipcode='" + getZipcode() + "'" +
+                ", deletedAt='" + getDeletedAt() + "'" +
+                ", addedByAppUser='" + getAddedByAppUser() + "'" +
+                "}";
     }
 }
