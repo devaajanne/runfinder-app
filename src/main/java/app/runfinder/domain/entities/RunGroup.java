@@ -16,7 +16,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -39,8 +38,6 @@ public class RunGroup {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "run_start_date")
-    // @FutureOrPresent(message = "Run group start date must be today or in the
-    // future")
     @NotNull(message = "Run group must have a start date")
     private LocalDate runStartDate;
 
