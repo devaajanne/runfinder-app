@@ -44,10 +44,10 @@ public class RunGroupController {
 
     @PostMapping("/savenewgroup")
     @PreAuthorize("hasAnyAuthority('CONTRIBUTOR', 'ADMIN')")
-    public String saveNewRunGroup(@Valid @ModelAttribute("rungroup") RunGroup runGroup,
-            @RequestParam("origin") String origin, BindingResult bindingResult,
-            Model model) {
+    public String saveNewRunGroup(@Valid @ModelAttribute("rungroup") RunGroup runGroup, BindingResult bindingResult,
+            @RequestParam("origin") String origin, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("origin", origin);
             model.addAttribute("rungroup", runGroup);
             model.addAttribute("zipcodes", zipcodeRepository.findAll());
             return "addrungroup";
@@ -76,10 +76,10 @@ public class RunGroupController {
 
     @PostMapping("/saveeditedgroup")
     @PreAuthorize("hasAnyAuthority('CONTRIBUTOR', 'ADMIN')")
-    public String saveEditedRunGroup(@Valid @ModelAttribute("rungroup") RunGroup runGroup,
-            @RequestParam("origin") String origin, BindingResult bindingResult,
-            Model model) {
+    public String saveEditedRunGroup(@Valid @ModelAttribute("rungroup") RunGroup runGroup, BindingResult bindingResult,
+            @RequestParam("origin") String origin, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("origin", origin);
             model.addAttribute("rungroup", runGroup);
             model.addAttribute("zipcodes", zipcodeRepository.findAll());
             return "editrungroup";
