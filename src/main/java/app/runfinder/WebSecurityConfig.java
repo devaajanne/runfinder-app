@@ -2,6 +2,7 @@ package app.runfinder;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,6 +15,13 @@ public class WebSecurityConfig {
         @Bean
         public SecurityFilterChain configure(HttpSecurity http) throws Exception {
                 http.authorizeHttpRequests(authorize -> authorize
+
+                                // Permissions to make REST API requests
+                                .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/**").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/api/**").permitAll()
+                                .requestMatchers(HttpMethod.DELETE, "/api/**").permitAll()
+
                                 // Permissions for all users including unauthenticated uers
                                 .requestMatchers("/login/**", "/signup", "/api/**")
                                 .permitAll()
