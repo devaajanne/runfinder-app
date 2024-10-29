@@ -32,7 +32,7 @@ public class RunGroup {
     private Long runGroupId;
 
     @Column(name = "run_group_name")
-    @Size(min = 4, max = 50, message = "Run group name must be between 5 and 50 characters long")
+    @Size(min = 5, max = 50, message = "Run group name must be between 5 and 50 characters long")
     private String runGroupName;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
