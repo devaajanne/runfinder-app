@@ -7,7 +7,7 @@ public record RunGroupGetDTO(
     long runGroupId,
     String runGroupName,
     LocalDate runStartDate,
-    LocalTime runStarTime,
+    LocalTime runStartTime,
     String startAddress,
     String zipcode,
     String city,
