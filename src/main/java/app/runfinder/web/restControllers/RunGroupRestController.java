@@ -94,7 +94,7 @@ public class RunGroupRestController {
     }
 
     @PutMapping("/rungroups/{runGroupId}")
-    public ResponseEntity<RunGroupGetDTO> editRunGroup(@RequestBody RunGroupPostPutDTO runGroupDTO,
+    public ResponseEntity<RunGroupGetDTO> editRunGroup(@Valid @RequestBody RunGroupPostPutDTO runGroupDTO,
             @PathVariable("runGroupId") Long runGroupId) {
         Optional<RunGroup> runGroup = runGroupRepository.findById(runGroupId);
         if (!runGroup.isPresent() || runGroup.get().getDeletedAt() != null) {
