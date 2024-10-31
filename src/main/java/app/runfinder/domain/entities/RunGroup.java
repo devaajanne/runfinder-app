@@ -59,7 +59,7 @@ public class RunGroup {
     private LocalDateTime deletedAt;
 
     @ManyToOne
-    @JoinColumn(name = "appUserId")
+    @JoinColumn(name = "app_user_id")
     private AppUser addedByAppUser;
 
     @OneToMany(mappedBy = "runGroup")
