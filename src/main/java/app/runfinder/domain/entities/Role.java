@@ -22,7 +22,7 @@ public class Role {
     @Column(name = "role_id")
     private Long roleId;
 
-    @Column(name = "role")
+    @Column(name = "role_name")
     private String role;
 
     // @JsonIgnore annotation to stop endless loops from GET requests

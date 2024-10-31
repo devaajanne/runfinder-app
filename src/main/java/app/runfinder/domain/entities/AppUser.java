@@ -53,7 +53,7 @@ public class AppUser {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @Column(name = "password")
+    @Column(name = "password_hash")
     private String password;
 
     @OneToMany(mappedBy = "appUser")
