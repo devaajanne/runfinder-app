@@ -33,7 +33,7 @@ public class RunfinderApplication {
 
 			// Test data has mostly been generated with ChatGPT
 
-			zipcodeRepository.save(new Zipcode("00100", "Helsinki"));
+/* 			zipcodeRepository.save(new Zipcode("00100", "Helsinki"));
 			zipcodeRepository.save(new Zipcode("00200", "Helsinki"));
 			zipcodeRepository.save(new Zipcode("00300", "Helsinki"));
 			zipcodeRepository.save(new Zipcode("00400", "Helsinki"));
@@ -122,7 +122,7 @@ public class RunfinderApplication {
 							LocalTime.of(12, 0, 0),
 							"Juoksurinne 5",
 							zipcodeRepository.findByZipcode("05800"),
-							null, appUserRepository.findById(2L).get()));
+							null, appUserRepository.findById(2L).get())); */
 		};
 	};
 }
