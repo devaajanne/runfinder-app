@@ -10,13 +10,13 @@ import jakarta.persistence.Table;
 import jakarta.persistence.Column;
 
 @Entity
-@Table(name = "run_sign_ups")
+@Table(name = "run_group_sign_ups")
 public class RunGroupSignUp {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "run_sign_up_id")
-    private Long runSignUpId;
+    @Column(name = "run_group_sign_up_id")
+    private Long runGroupSignUpId;
 
     @ManyToOne
     @JoinColumn(name = "app_user")
@@ -34,16 +34,16 @@ public class RunGroupSignUp {
         this.runGroup = runGroup;
     }
 
-    public Long getRunSignUpId() {
-        return this.runSignUpId;
+    public Long getRunGroupSignUpId() {
+        return this.runGroupSignUpId;
     }
 
-    public void setRunSignUpId(Long runSignUpId) {
-        this.runSignUpId = runSignUpId;
+    public void setRunGroupSignUpId(Long runGroupSignUpId) {
+        this.runGroupSignUpId = runGroupSignUpId;
     }
 
-    public RunGroupSignUp runSignUpId(Long runSignUpId) {
-        setRunSignUpId(runSignUpId);
+    public RunGroupSignUp runGroupSignUpId(Long runGroupSignUpId) {
+        setRunGroupSignUpId(runGroupSignUpId);
         return this;
     }
 
@@ -73,12 +73,14 @@ public class RunGroupSignUp {
         return this;
     }
 
+
     @Override
     public String toString() {
         return "{" +
-                " runSignUpId='" + getRunSignUpId() + "'" +
-                ", appUser='" + getAppUser() + "'" +
-                ", runGroup='" + getRunGroup() + "'" +
-                "}";
+            " runGroupSignUpId='" + getRunGroupSignUpId() + "'" +
+            ", appUser='" + getAppUser() + "'" +
+            ", runGroup='" + getRunGroup() + "'" +
+            "}";
     }
+
 }

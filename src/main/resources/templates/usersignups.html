@@ -50,7 +50,7 @@
             <td th:text="${usersignup.runGroup.zipcode.zipcode}"></td>
             <td th:text="${usersignup.runGroup.zipcode.city}"></td>
             <td>
-                <form th:action="@{/deletesignup/{id}(id=${usersignup.runSignUpId})}" method="get">
+                <form th:action="@{/deletesignup/{id}(id=${usersignup.runGroupSignUpId})}" method="get">
                     <button type="submit">Remove sign up</button>
                 </form>
             </td>
