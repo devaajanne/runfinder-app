@@ -27,7 +27,7 @@ public class RunfinderApplication {
 	// CommandLineRunner for adding test data to a runtime database
 	// Used to test application
 	@Bean
-	public CommandLineRunner runfinderCLR(RunGroupRepository runningGroupRepository,
+	public CommandLineRunner runfinderCLR(RunGroupRepository runGroupRepository,
 			ZipcodeRepository zipcodeRepository, RoleRepository roleRepository, AppUserRepository appUserRepository) {
 		return (args) -> {
 
@@ -83,41 +83,41 @@ public class RunfinderApplication {
 							roleRepository.findByRole("ADMIN"),
 							"$2a$10$/X5g8wxjMXw1pIDnJq7cL.WqJbg.LKQltNP8wXYpXjy/1Ha16lpKq"));
 
-			runningGroupRepository.save(
+			runGroupRepository.save(
 					new RunGroup(
-							"runningGroup1",
+							"runGroup1",
 							LocalDate.of(2024, 12, 30),
 							LocalTime.of(12, 0, 0),
 							"Juoksukatu 1",
 							zipcodeRepository.findByZipcode("00100"),
 							null, appUserRepository.findById(2L).get()));
-			runningGroupRepository.save(
+			runGroupRepository.save(
 					new RunGroup(
-							"runningGroup2",
+							"runGroup2",
 							LocalDate.of(2024, 12, 30),
 							LocalTime.of(12, 0, 0),
 							"Juoksutie 2",
 							zipcodeRepository.findByZipcode("02200"),
 							null, appUserRepository.findById(2L).get()));
-			runningGroupRepository.save(
+			runGroupRepository.save(
 					new RunGroup(
-							"runningGroup3",
+							"runGroup3",
 							LocalDate.of(2024, 12, 30),
 							LocalTime.of(12, 0, 0),
 							"Juoksukuja 3",
 							zipcodeRepository.findByZipcode("02300"),
 							null, appUserRepository.findById(2L).get()));
-			runningGroupRepository.save(
+			runGroupRepository.save(
 					new RunGroup(
-							"runningGroup4",
+							"runGroup4",
 							LocalDate.of(2024, 12, 30),
 							LocalTime.of(12, 0, 0),
 							"Juoksupolku 4",
 							zipcodeRepository.findByZipcode("04400"),
 							null, appUserRepository.findById(2L).get()));
-			runningGroupRepository.save(
+			runGroupRepository.save(
 					new RunGroup(
-							"runningGroup5",
+							"runGroup5",
 							LocalDate.of(2022, 12, 30),
 							LocalTime.of(12, 0, 0),
 							"Juoksurinne 5",
