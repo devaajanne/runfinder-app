@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import jakarta.validation.Valid;
 
 import app.runfinder.domain.classes.SignUpForm;
 import app.runfinder.domain.entities.AppUser;
+import app.runfinder.domain.entities.Role;
 import app.runfinder.domain.repositories.RoleRepository;
 import app.runfinder.domain.repositories.AppUserRepository;
 
@@ -69,6 +71,40 @@ public class UserController {
         return "redirect:/login";
     }
 
+    @GetMapping("/editappuserprofile/{id}")
+    public String editUserProfile(@PathVariable("id") Long id, Model model, @RequestParam("origin") String origin) {
+        model.addAttribute("origin", origin);
+        model.addAttribute("userprofile", appUserRepository.findById(id).get());
+
+        return "edituserprofile";
+    }
+
+    @PostMapping("/saveeditedappuserprofile")
+    public String saveEditedRunGroup(@Valid @ModelAttribute("userprofile") AppUser userProfile,
+            BindingResult bindingResult,
+            @RequestParam("origin") String origin, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("origin", origin);
+            Role userRole = roleRepository.findById(userProfile.getRole().getRoleId()).get();
+            userProfile.setRole(userRole);
+            model.addAttribute("userprofile", userProfile);
+            return "edituserprofile";
+        }
+
+        Role userRole = roleRepository.findById(userProfile.getRole().getRoleId()).get();
+        userProfile.setRole(userRole);
+        appUserRepository.save(userProfile);
+
+        if (origin.equals("userprofile")) {
+            return "redirect:/userprofile";
+        } else if (origin.equals("allappusers")) {
+            return "redirect:/allappusers";
+        } else {
+            return "redirect:/home";
+        }
+    }
+
     @GetMapping("/editappuserrole/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String editRole(@PathVariable("id") Long id, Model model) {
@@ -83,7 +119,7 @@ public class UserController {
     public String saveEditedRole(@Valid @ModelAttribute("appuser") AppUser appUser) {
 
         appUserRepository.save(appUser);
-        
+
         return "redirect:/allappusers";
     }
 }

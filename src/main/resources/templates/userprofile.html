@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>My profile</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/runfinderstyles.css}">
+</head>
+
+<header>
+    <h1>RunFinder</h1>
+</header>
+
+<body>
+    <div class="navbar">
+        <form th:action="@{/home}" method="get">
+            <button type="submit" th:action="@{/home}" method="get">Home</button>
+        </form>
+        <form th:action="@{/upcomingrungroups}" method="get">
+            <button type="submit">Upcoming run groups</button>
+        </form>
+        <form th:action="@{/usersignups}" method="get">
+            <button type="submit">My sign ups</button>
+        </form>
+        <form th:action="@{/userrungroups}" method="get" sec:authorize="hasAnyAuthority('CONTRIBUTOR', 'ADMIN')">
+            <button type="userrungroups">My run groups</button>
+        </form>
+        <form th:action="@{/allrungroups}" method="get" sec:authorize="hasAuthority('ADMIN')">
+            <button type="allrungroups">All run groups</button>
+        </form>
+        <form th:action="@{/allappusers}" method="get" sec:authorize="hasAuthority('ADMIN')">
+            <button type="allappusers">All app users</button>
+        </form>
+    </div>
+    <h2>My profile</h2>
+    <div>
+        <p>Username: <span th:text="${userprofile.username}"></span></p>
+        <p>First name: <span th:text="${userprofile.firstName}"></span></p>
+        <p>Last name <span th:text="${userprofile.lastName}"></span></p>
+        <p>Email: <span th:text="${userprofile.email}"></span></p>
+        <p>Role: <span th:text="${userprofile.role.role}"></span></p>
+    </div>
+    <form th:action="@{/editappuserprofile/{id}(id=${userprofile.appUserId})}" method="get">
+        <input type="hidden" name="origin" value="userprofile" />
+        <button type="submit">Edit my profile</button>
+    </form>
+    <form th:action="@{/logout}" method="post">
+        <p>You are signed in as <span sec:authentication="name"></span>.</p>
+        <button type="submit">Sign out</button>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Edit my profile</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/runfinderstyles.css}">
+</head>
+
+<header>
+    <h1>RunFinder</h1>
+</header>
+
+<body>
+    <div class="navbar">
+        <form th:action="@{/home}" method="get">
+            <button type="submit" th:action="@{/home}" method="get">Home</button>
+        </form>
+        <form th:action="@{/upcomingrungroups}" method="get">
+            <button type="submit">Upcoming run groups</button>
+        </form>
+        <form th:action="@{/usersignups}" method="get">
+            <button type="submit">My sign ups</button>
+        </form>
+        <form th:action="@{/userrungroups}" method="get" sec:authorize="hasAnyAuthority('CONTRIBUTOR', 'ADMIN')">
+            <button type="userrungroups">My run groups</button>
+        </form>
+        <form th:action="@{/allrungroups}" method="get" sec:authorize="hasAuthority('ADMIN')">
+            <button type="allrungroups">All run groups</button>
+        </form>
+        <form th:action="@{/allappusers}" method="get" sec:authorize="hasAuthority('ADMIN')">
+            <button type="allappusers">All app users</button>
+        </form>
+    </div>
+    <h2 th:if="${origin == 'userprofile'}">Edit my profile</h2>
+    <h2 th:if="${origin == 'allappusers'}">Edit user profile</h2>
+    <form th:object="${userprofile}" th:action="@{/saveeditedappuserprofile}" action="#" method="post">
+        <input type="hidden" id="appUserId" th:field="*{appUserId}" />
+        <input type="hidden" id="username" th:field="*{username}" />
+        <input type="hidden" id="role" th:field="*{role.roleId}" />
+        <input type="hidden" id="password" th:field="*{password}" />
+        <input type="hidden" name="origin" th:value="${param.origin}" />
+
+        <p>Username: <span th:text="${userprofile.username}"></span></p>
+
+        <label for="firstName">First name: </label>
+        <input type="text" id="firstName" th:field="*{firstName}" />
+        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+        <div style="clear: both; display: block; height: 10px;"></div>
+
+        <label for="lastName">Last name: </label>
+        <input type="text" id="lastName" th:field="*{{lastName}}" />
+        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+        <div style="clear: both; display: block; height: 10px;"></div>
+
+        <label for="email">Email: </label>
+        <input type="text" id="email" th:field="*{email}" />
+        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        <div style="clear: both; display: block; height: 10px;"></div>
+
+        <p>Role:
+            <span th:text="${userprofile.role.role}"></span>
+            <span th:if="${userprofile.role.role != 'ADMIN'}">(contact ADMIN to change role)</span>
+        </p>
+        <button type="submit">Save</button>
+    </form>
+    <form th:action="@{/logout}" method="post">
+        <p>You are signed in as <span sec:authentication="name"></span>.</p>
+        <button type="submit">Sign out</button>
+    </form>
+</body>
+
+</html>
