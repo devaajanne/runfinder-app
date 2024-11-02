@@ -60,12 +60,12 @@ public class RunfinderApplication {
 
 			appUserRepository.save(
 					new AppUser(
-							"user",
+							"appuser",
 							"userFirstname",
 							"userLastname",
 							"user@runfinder.com",
 							roleRepository.findByRole("USER"),
-							"$2a$10$1KmOKZbxn09.ptn75m9ttOWn6X9YDkZZyQOwCURb3wgM6kwEnIcPy"));
+							"$2a$10$cmUpmENuV08s6NFnyyDyP./Vo8HD/xY92BcRBY/HEIrSKwG3Bxou."));
 			appUserRepository.save(
 					new AppUser(
 							"contributor",

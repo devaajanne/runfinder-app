@@ -50,7 +50,7 @@ CREATE TABLE app_users (
     FOREIGN KEY (role_id) REFERENCES roles(role_id));
 
 INSERT INTO app_users (username, first_name, last_name, email, role_id, password_hash) VALUES
-    ('user', 'userFirstname', 'userLastname', 'user@runfinder.com', 1,'$2a$10$1KmOKZbxn09.ptn75m9ttOWn6X9YDkZZyQOwCURb3wgM6kwEnIcPy'),
+    ('appuser', 'userFirstname', 'userLastname', 'user@runfinder.com', 1,'$2a$10$cmUpmENuV08s6NFnyyDyP./Vo8HD/xY92BcRBY/HEIrSKwG3Bxou.'),
     ('contributor', 'contributorFirstname', 'contributorLastName', 'contributor@runfinder.com', 2,'$2a$10$HFh46mkLcOGwS1GJZtPXqutsOrFlYvyODeQKMobBzjLuvGnTiOr3u'),
     ('admin', 'adminFirstname', 'adminLastname', 'admin@runfinder.com', 3,'$2a$10$/X5g8wxjMXw1pIDnJq7cL.WqJbg.LKQltNP8wXYpXjy/1Ha16lpKq');
 
