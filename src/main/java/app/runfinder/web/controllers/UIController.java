@@ -89,6 +89,15 @@ public class UIController {
                 return "usersignups";
         }
 
+        @GetMapping("/userprofile")
+        public String showUserProfile(Model model) {
+                AppUser appUser = appUserRepository.findById(appUserService.getAuthenticatedAppUser().getAppUserId()).get();
+
+                model.addAttribute("userprofile", appUser);
+
+                return "userprofile";
+        }
+
         @GetMapping("/userrungroups")
         @PreAuthorize("hasAnyAuthority('CONTRIBUTOR', 'ADMIN')")
         public String showUserRunGroups(Model model) {
