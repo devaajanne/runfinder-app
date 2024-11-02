@@ -8,6 +8,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 import java.util.Set;
 
@@ -35,15 +37,19 @@ public class AppUser {
     @Column(name = "app_user_id")
     private Long appUserId;
 
+    @Size(min = 5, max = 25, message = "Your username must be between 5 and 25 characters long")
     @Column(name = "username")
     private String username;
 
+    @NotEmpty(message = "Please type your first name")
     @Column(name = "first_name")
     private String firstName;
 
+    @NotEmpty(message = "Please type your first name")
     @Column(name = "last_name")
     private String lastName;
 
+    @NotEmpty(message = "Please provide a valid email address")
     @Column(name = "email")
     private String email;
 
