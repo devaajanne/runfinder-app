@@ -4,6 +4,7 @@
 <head>
     <title>Add a run group</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/runfinderstyles.css}">
 </head>
 
 <script>
@@ -25,13 +26,31 @@
 
 <header>
     <h1>RunFinder</h1>
-    <h2>Add a run group</h2>
 </header>
 
 <body>
-    <form th:action="@{${origin == 'userrungroups' ? '/userrungroups' : '/allrungroups'}}" method="get">
-        <button type="submit">Return</button>
-    </form>
+    <div class="navbar">
+        <form th:action="@{/home}" method="get">
+            <button type="submit" th:action="@{/home}" method="get">Home</button>
+        </form>
+        <form th:action="@{/upcomingrungroups}" method="get">
+            <button type="submit">Upcoming run groups</button>
+        </form>
+        <form th:action="@{/usersignups}" method="get">
+            <button type="submit">My sign ups</button>
+        </form>
+        <form th:action="@{/userrungroups}" method="get" sec:authorize="hasAnyAuthority('CONTRIBUTOR', 'ADMIN')">
+            <button type="userrungroups">My run groups</button>
+        </form>
+        <form th:action="@{/allrungroups}" method="get" sec:authorize="hasAuthority('ADMIN')">
+            <button type="allrungroups">All run groups</button>
+        </form>
+        <form th:action="@{/allappusers}" method="get" sec:authorize="hasAuthority('ADMIN')">
+            <button type="allappusers">All app users</button>
+        </form>
+    </div>
+    <h2>Add a run group</h2>
+
     <form th:object="${rungroup}" th:action="@{/savenewgroup}" action="#" method="post">
         <input type="hidden" id="runGroupId" th:field="*{runGroupId}" />
         <input type="hidden" name="origin" th:value="${param.origin}" />
@@ -70,6 +89,9 @@
         </script>
 
         <button type="submit">Save</button>
+    </form>
+    <form th:action="@{${origin == 'userrungroups' ? '/userrungroups' : '/allrungroups'}}" method="get">
+        <button type="submit">Return</button>
     </form>
 </body>
 

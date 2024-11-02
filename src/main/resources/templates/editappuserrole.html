@@ -4,17 +4,35 @@
 <head>
     <title>Edit an app user role</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/runfinderstyles.css}">
 </head>
 
 <header>
     <h1>RunFinder</h1>
-    <h2>Edit an app user role</h2>
 </header>
 
 <body>
-    <form th:action="@{/home}" method="get">
-        <button type="submit">Return home</button>
-    </form>
+    <div class="navbar">
+        <form th:action="@{/home}" method="get">
+            <button type="submit" th:action="@{/home}" method="get">Home</button>
+        </form>
+        <form th:action="@{/upcomingrungroups}" method="get">
+            <button type="submit">Upcoming run groups</button>
+        </form>
+        <form th:action="@{/usersignups}" method="get">
+            <button type="submit">My sign ups</button>
+        </form>
+        <form th:action="@{/userrungroups}" method="get" sec:authorize="hasAnyAuthority('CONTRIBUTOR', 'ADMIN')">
+            <button type="userrungroups">My run groups</button>
+        </form>
+        <form th:action="@{/allrungroups}" method="get" sec:authorize="hasAuthority('ADMIN')">
+            <button type="allrungroups">All run groups</button>
+        </form>
+        <form th:action="@{/allappusers}" method="get" sec:authorize="hasAuthority('ADMIN')">
+            <button type="allappusers">All app users</button>
+        </form>
+    </div>
+    <h2>Edit an app user role</h2>
     <h3 th:text="'User: ' + ${appuser.username}"></h3>
     <p th:text="'User role: ' + ${appuser.role.role}"></p>
 
@@ -33,6 +51,9 @@
         </select>
 
         <button type="submit">Save</button>
+    </form>
+    <form th:action="@{/allappusers}" method="get">
+        <button type="submit">Return</button>
     </form>
 </body>
 
