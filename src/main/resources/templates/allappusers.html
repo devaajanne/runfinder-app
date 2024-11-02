@@ -22,6 +22,9 @@
         <form th:action="@{/usersignups}" method="get">
             <button type="submit">My sign ups</button>
         </form>
+        <form th:action="@{/userprofile}" method="get">
+            <button type="submit">My profile</button>
+        </form>
         <form th:action="@{/userrungroups}" method="get" sec:authorize="hasAnyAuthority('CONTRIBUTOR', 'ADMIN')">
             <button type="userrungroups">My run groups</button>
         </form>
@@ -49,6 +52,11 @@
             <td th:text="${appuser.lastName}"></td>
             <td th:text="${appuser.email}"></td>
             <td th:text="${appuser.role.role}"></td>
+            <td sec:authorize="hasAuthority('ADMIN')">
+                <form th:action="@{/editappuserprofile/{id}(id=${appuser.appUserId})}" method="get">
+                    <input type="hidden" name="origin" value="allappusers" />
+                    <button type="submit">Edit user profile</button>
+                </form>
             <td sec:authorize="hasAuthority('ADMIN')">
                 <form th:action="@{/editappuserrole/{id}(id=${appuser.appUserId})}" method="get">
                     <button type="submit">Edit user role</button>
