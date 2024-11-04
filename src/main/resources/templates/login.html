@@ -4,6 +4,7 @@
 <head>
     <title>Login to RunFinder</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/runfinderstyles.css}">
 </head>
 
 <header>
@@ -17,22 +18,23 @@
     <div th:if="${param.logout}">
         <p>You have been logged out.</p>
     </div>
+    <div class="verticalbuttons">
+        <form th:action="@{/login}" method="post">
+            <label for="username">Username: </label>
+            <input type="text" name="username" />
+            <div style="clear: both; display: block; height: 10px;"></div>
 
-    <form th:action="@{/login}" method="post">
-        <label for="username">Username: </label>
-        <input type="text" name="username" />
-        <div style="clear: both; display: block; height: 10px;"></div>
+            <label for="password">Password: </label>
+            <input type="password" name="password" />
+            <div style="clear: both; display: block; height: 10px;"></div>
 
-        <label for="password">Password: </label>
-        <input type="password" name="password" />
-        <div style="clear: both; display: block; height: 10px;"></div>
+            <button type="submit">Log in</button>
+        </form>
 
-        <button type="submit">Log in</button>
-    </form>
-
-    <form th:action="@{/signup}" method="get">
-        <button type="submit">Sign up</button>
-    </form>
+        <form th:action="@{/signup}" method="get">
+            <button type="submit">Sign up</button>
+        </form>
+    </div>
 </body>
 
 </html>
