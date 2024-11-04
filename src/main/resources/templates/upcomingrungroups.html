@@ -44,7 +44,8 @@
         </form>
     </div>
     <h2>Upcoming run groups</h2>
-    <table>
+    <p th:if="${#lists.isEmpty(upcomingrungrouplist)}">No upcoming run groups. Check again later!</p>
+    <table th:unless="${#lists.isEmpty(upcomingrungrouplist)}">
         <tr>
             <th>Run group name</th>
             <th>Run start date</th>
@@ -69,7 +70,6 @@
             </td>
         </tr>
     </table>
-    <p th:if="${#lists.isEmpty(upcomingrungrouplist)}">No upcoming run groups</p>
 </body>
 
 </html>

@@ -44,7 +44,9 @@
         </form>
     </div>
     <h2>My sign ups</h2>
-    <table>
+    <p th:if="${#lists.isEmpty(usersignups)}">
+        You have not yet signed up to any run groups. Click <strong>"See upcoming run groups"</strong> to sign up!</p>
+    <table th:unless="${#lists.isEmpty(usersignups)}">
         <tr>
             <th>Run group name</th>
             <th>Run start date</th>
@@ -67,8 +69,6 @@
             </td>
         </tr>
     </table>
-    <p th:if="${#lists.isEmpty(usersignups)}">
-        You have not yet signed up to any run groups. Click <strong>"See upcoming run groups"</strong> to sign up!</p>
 </body>
 
 </html>

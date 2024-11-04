@@ -44,7 +44,8 @@
         </form>
     </div>
     <h2>All run groups</h2>
-    <table>
+    <p th:if="${#lists.isEmpty(allrungroups)}">No run groups</p>
+    <table th:unless="${#lists.isEmpty(allrungroups)}">
         <tr>
             <th>Run group ID</th>
             <th>Run group name</th>
@@ -88,7 +89,6 @@
             </td>
         </tr>
     </table>
-    <p th:if="${#lists.isEmpty(allrungroups)}">No run groups</p>
     <form th:action="@{/addnewgroup}" method="get" sec:authorize="hasAuthority('ADMIN')">
         <input type="hidden" name="origin" value="allrungroups" />
         <button type="submit">Add a new run group</button>
