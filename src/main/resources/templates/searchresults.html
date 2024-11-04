@@ -45,7 +45,8 @@
     </div>
     <h2>Search results</h2>
     <p>Search parameter: <span th:text="${searchparameter}"></span></p>
-    <table>
+    <p th:if="${#lists.isEmpty(searchresultslist)}">No run groups found!</p>
+    <table th:unless="${#lists.isEmpty(searchresultslist)}">
         <tr>
             <th>Run group name</th>
             <th>Run start date</th>
@@ -71,7 +72,6 @@
             </td>
         </tr>
     </table>
-    <p th:if="${#lists.isEmpty(searchresultslist)}">No run groups found</p>
 </body>
 
 </html>
