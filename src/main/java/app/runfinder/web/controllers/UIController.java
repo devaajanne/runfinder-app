@@ -91,7 +91,8 @@ public class UIController {
 
         @GetMapping("/userprofile")
         public String showUserProfile(Model model) {
-                AppUser appUser = appUserRepository.findById(appUserService.getAuthenticatedAppUser().getAppUserId()).get();
+                AppUser appUser = appUserRepository.findById(appUserService.getAuthenticatedAppUser().getAppUserId())
+                                .get();
 
                 model.addAttribute("userprofile", appUser);
 
@@ -165,5 +166,10 @@ public class UIController {
                 model.addAttribute("allappusers", allAppUsers);
 
                 return "allappusers";
+        }
+
+        @GetMapping("/search")
+        public String showSearchPage() {
+                return "search";
         }
 }
