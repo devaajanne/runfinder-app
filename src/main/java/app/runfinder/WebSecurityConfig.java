@@ -32,7 +32,7 @@ public class WebSecurityConfig {
                                 // Permissions for USERS, CONTRIBUTORS and ADMINS
                                 .requestMatchers("/home", "/upcomingrungroups",
                                                 "/usersignups", "/signuptogroup/**",
-                                                "/deletesignup/**")
+                                                "/deletesignup/**", "/search", "/searchresults")
                                 .hasAnyAuthority("USER", "CONTRIBUTOR", "ADMIN")
 
                                 // Permissions for CONTRIBUTORS and ADMINS
@@ -55,7 +55,7 @@ public class WebSecurityConfig {
                                                 .permitAll())
 
                                 .logout(logout -> logout.permitAll())
-                                
+
                                 .csrf(csrf -> csrf.disable());
 
                 return http.build();
