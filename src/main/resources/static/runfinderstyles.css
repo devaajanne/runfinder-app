@@ -4,3 +4,8 @@
   align-items: center;
   padding-bottom: 10px;
 }
+
+.verticalbuttons {
+  display: grid;
+  gap: 10px;
+}
