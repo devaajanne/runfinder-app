@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Search results</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/runfinderstyles.css}">
+</head>
+
+<header>
+    <h1>RunFinder</h1>
+</header>
+
+<body>
+    <div class="navbar">
+        <form th:action="@{/home}" method="get">
+            <button type="submit" th:action="@{/home}" method="get">Home</button>
+        </form>
+        <form th:action="@{/upcomingrungroups}" method="get">
+            <button type="submit">Upcoming run groups</button>
+        </form>
+        <form th:action="@{/usersignups}" method="get">
+            <button type="submit">My sign ups</button>
+        </form>
+        <form th:action="@{/userprofile}" method="get">
+            <button type="submit">My profile</button>
+        </form>
+        <form th:action="@{/userrungroups}" method="get" sec:authorize="hasAnyAuthority('CONTRIBUTOR', 'ADMIN')">
+            <button type="userrungroups">My run groups</button>
+        </form>
+        <form th:action="@{/allrungroups}" method="get" sec:authorize="hasAuthority('ADMIN')">
+            <button type="allrungroups">All run groups</button>
+        </form>
+        <form th:action="@{/allappusers}" method="get" sec:authorize="hasAuthority('ADMIN')">
+            <button type="allappusers">All app users</button>
+        </form>
+    </div>
+    <h2>Search results</h2>
+    <p>Search parameter: <span th:text="${searchparameter}"></span></p>
+    <table>
+        <tr>
+            <th>Run group name</th>
+            <th>Run start date</th>
+            <th>Run start time</th>
+            <th>Start address</th>
+            <th>Zipcode</th>
+            <th>City</th>
+        </tr>
+        <tr th:each="rungroup : ${searchresultslist}">
+            <td th:text="${rungroup.runGroupName}"></td>
+            <td th:text="${#temporals.format(rungroup.runStartDate, 'dd.MM.yyyy')}"></td>
+            <td th:text="${{rungroup.runStartTime}}"></td>
+            <td th:text="${rungroup.startAddress}"></td>
+            <td th:text="${rungroup.zipcode.zipcode}"></td>
+            <td th:text="${rungroup.zipcode.city}"></td>
+            <td th:if="${#lists.contains(rungroupids, rungroup.runGroupId)}">Already signed up!</td>
+            <td th:unless="${#lists.contains(rungroupids, rungroup.runGroupId)}">
+                <form th:action="@{/signuptogroup/{id}(id=${rungroup.runGroupId})}" method="get">
+                    <input type="hidden" name="origin" value="searchresults" />
+                    <input type="hidden" name="searchparameter" th:value="${param.searchparameter}" />
+                    <button type="submit">Sign up</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <p th:if="${#lists.isEmpty(searchresultslist)}">No run groups found</p>
+    <form th:action="@{/logout}" method="post">
+        <p>You are signed in as <span sec:authentication="name"></span>.</p>
+        <button type="submit">Sign out</button>
+    </form>
+
+</html>
