@@ -7,6 +7,7 @@ import app.runfinder.web.services.AppUserService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -24,14 +25,22 @@ public class RunGroupSignUpController {
     }
 
     @GetMapping("/signuptogroup/{id}")
-    public String saveNewRunGroupSignUp(@PathVariable("id") Long runGroupId) {
+    public String saveNewRunGroupSignUp(@PathVariable("id") Long runGroupId, @RequestParam("origin") String origin,
+            @RequestParam("searchparameter") String searchParameter) {
         RunGroupSignUp newRunGroupSignUp = new RunGroupSignUp();
+        System.out.println("Signuptorungroup controller has searchparameter " + searchParameter);
 
         newRunGroupSignUp.setAppUser(appUserService.getAuthenticatedAppUser());
         newRunGroupSignUp.setRunGroup(runGroupRepository.findById(runGroupId).get());
         runGroupSignUpRepository.save(newRunGroupSignUp);
 
-        return "redirect:../upcomingrungroups";
+        if (origin.equals("searchresults")) {
+            return "redirect:../searchresults?searchparameter=" + searchParameter;
+        } else if (origin.equals("upcomingrungroups")) {
+            return "redirect:../upcomingrungroups";
+        } else {
+            return "redirect:../home";
+        }
     }
 
     @GetMapping("/deletesignup/{id}")
