@@ -2,6 +2,7 @@ package app.runfinder;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,6 +13,7 @@ import app.runfinder.domain.repositories.RoleRepository;
 import app.runfinder.domain.repositories.AppUserRepository;
 
 @DataJpaTest
+ @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class AppUserTests {
 
     @Autowired
