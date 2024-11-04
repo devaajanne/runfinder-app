@@ -35,6 +35,14 @@
             <button type="allappusers">All app users</button>
         </form>
     </div>
+    <div class="verticalbuttons">
+        <form th:action="@{/search}" method="get">
+            <button type="search">Search</button>
+        </form>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Sign out</button>
+        </form>
+    </div>
     <h2 th:if="${origin == 'userprofile'}">Edit my profile</h2>
     <h2 th:if="${origin == 'allappusers'}">Edit user profile</h2>
     <form th:object="${userprofile}" th:action="@{/saveeditedappuserprofile}" action="#" method="post">
@@ -67,9 +75,8 @@
         </p>
         <button type="submit">Save</button>
     </form>
-    <form th:action="@{/logout}" method="post">
-        <p>You are signed in as <span sec:authentication="name"></span>.</p>
-        <button type="submit">Sign out</button>
+    <form th:action="@{${origin == 'userprofile' ? '/userprofile' : '/allappusers'}}" method="get">
+        <button type="submit">Return</button>
     </form>
 </body>
 

@@ -35,6 +35,14 @@
             <button type="allappusers">All app users</button>
         </form>
     </div>
+    <div class="verticalbuttons">
+        <form th:action="@{/search}" method="get">
+            <button type="search">Search</button>
+        </form>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Sign out</button>
+        </form>
+    </div>
     <h2>All users</h2>
     <table>
         <tr>
@@ -65,10 +73,6 @@
         </tr>
     </table>
     <p th:if="${#lists.isEmpty(allappusers)}">No app users</p>
-    <form th:action="@{/logout}" method="post">
-        <p>You are signed in as <span sec:authentication="name"></span>.</p>
-        <button type="submit">Sign out</button>
-    </form>
 </body>
 
 </html>
