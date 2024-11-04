@@ -65,6 +65,7 @@
             <td th:unless="${#lists.contains(rungroupids, rungroup.runGroupId)}">
                 <form th:action="@{/signuptogroup/{id}(id=${rungroup.runGroupId})}" method="get">
                     <input type="hidden" name="origin" value="upcomingrungroups" />
+                    <input type="hidden" name="searchparameter" value="" />
                     <button type="submit">Sign up</button>
                 </form>
             </td>
