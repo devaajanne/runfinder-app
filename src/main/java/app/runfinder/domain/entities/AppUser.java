@@ -12,6 +12,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 import java.util.Set;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -63,6 +64,9 @@ public class AppUser {
     @Column(name = "password_hash")
     private String password;
 
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
+
     @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<RunGroupSignUp> runGroupSignUps;
 
@@ -71,13 +75,14 @@ public class AppUser {
     }
 
     // Constructor with attributes
-    public AppUser(String username, String firstName, String lastName, String email, Role role, String password) {
+    public AppUser(String username, String firstName, String lastName, String email, Role role, String password, LocalDateTime deletedAt) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.role = role;
         this.password = password;
+        this.deletedAt = deletedAt;
     }
 
     // Getters and setters
@@ -173,17 +178,40 @@ public class AppUser {
         return this;
     }
 
+    public LocalDateTime getDeletedAt() {
+        return this.deletedAt;
+    }
+
+    public void setDeletedAt(LocalDateTime deletedAt) {
+        this.deletedAt = deletedAt;
+    }
+
+    public AppUser deletedAt(LocalDateTime deletedAt) {
+        setDeletedAt(deletedAt);
+        return this;
+    }
+
+    public void delete() {
+        this.deletedAt = LocalDateTime.now();
+    }
+
+    public void restore() {
+        this.deletedAt = null;
+    }
+
     // toString method
+
     @Override
     public String toString() {
         return "{" +
-                " appUserId='" + getAppUserId() + "'" +
-                ", username='" + getUsername() + "'" +
-                ", firstName='" + getFirstName() + "'" +
-                ", lastName='" + getLastName() + "'" +
-                ", email='" + getEmail() + "'" +
-                ", role='" + getRole() + "'" +
-                ", password='" + getPassword() + "'" +
-                "}";
+            " appUserId='" + getAppUserId() + "'" +
+            ", username='" + getUsername() + "'" +
+            ", firstName='" + getFirstName() + "'" +
+            ", lastName='" + getLastName() + "'" +
+            ", email='" + getEmail() + "'" +
+            ", role='" + getRole() + "'" +
+            ", password='" + getPassword() + "'" +
+            ", deletedAt='" + getDeletedAt() + "'" +
+            "}";
     }
 }

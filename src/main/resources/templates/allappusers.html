@@ -52,6 +52,7 @@
             <th>Lastname</th>
             <th>Email</th>
             <th>Role</th>
+            <th>Deleted?</th>
         </tr>
         <tr th:each="appuser : ${allappusers}">
             <td th:text="${appuser.appUserId}"></td>
@@ -60,6 +61,7 @@
             <td th:text="${appuser.lastName}"></td>
             <td th:text="${appuser.email}"></td>
             <td th:text="${appuser.role.role}"></td>
+            <td th:text="${#temporals.format(appuser.deletedAt, 'dd.MM.YYYY')}"></td>
             <td sec:authorize="hasAuthority('ADMIN')">
                 <form th:action="@{/editappuserprofile/{id}(id=${appuser.appUserId})}" method="get">
                     <input type="hidden" name="origin" value="allappusers" />
@@ -68,6 +70,16 @@
             <td sec:authorize="hasAuthority('ADMIN')">
                 <form th:action="@{/editappuserrole/{id}(id=${appuser.appUserId})}" method="get">
                     <button type="submit">Edit user role</button>
+                </form>
+            </td>
+            <td th:if="${appuser.deletedAt == null}" sec:authorize="hasAuthority('ADMIN')">
+                <form th:action="@{/deleteappuser/{id}(id=${appuser.appUserId})}" method="get">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+            <td th:if="${appuser.deletedAt != null}" sec:authorize="hasAuthority('ADMIN')">
+                <form th:action="@{/restoreappuser/{id}(id=${appuser.appUserId})}" method="get">
+                    <button type="submit">Restore</button>
                 </form>
             </td>
         </tr>

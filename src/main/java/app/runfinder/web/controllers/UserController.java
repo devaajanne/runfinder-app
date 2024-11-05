@@ -122,4 +122,24 @@ public class UserController {
 
         return "redirect:/allappusers";
     }
+
+    @GetMapping("/deleteappuser/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String deleteAppUser( @PathVariable("id") Long id, Model model) {
+        AppUser appUser = appUserRepository.findById(id).get();
+        appUser.delete();
+        appUserRepository.save(appUser);
+
+        return "redirect:/allappusers";
+    }
+
+    @GetMapping("/restoreappuser/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    public String restoreAppUser(@PathVariable("id") Long id, Model model) {
+        AppUser appUser = appUserRepository.findById(id).get();
+        appUser.restore();
+        appUserRepository.save(appUser);
+
+        return "redirect:/allappusers";
+    }
 }
