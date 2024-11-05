@@ -125,8 +125,8 @@ public class RunGroupController {
 
     @GetMapping("/permanentlydeletegroup/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String deleteRunGroup(@PathVariable("id") Long id, Model model) {
-
+    public String permanentlyDeleteRunGroup(@PathVariable("id") Long id, Model model) {
+        
         runGroupRepository.deleteById(id);
 
         return "redirect:/allrungroups";
