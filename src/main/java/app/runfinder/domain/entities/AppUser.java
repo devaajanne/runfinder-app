@@ -14,7 +14,6 @@ import jakarta.validation.constraints.Size;
 import java.util.Set;
 import java.time.LocalDateTime;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 
 // We use @Entity annotation to annotate this class as an entity
