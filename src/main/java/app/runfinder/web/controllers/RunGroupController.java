@@ -1,7 +1,5 @@
 package app.runfinder.web.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -99,9 +97,6 @@ public class RunGroupController {
         }
 
         Set<RunGroupSignUp> newSignUps = new HashSet<>(runGroupSignUpRepository.findByRunGroup(runGroup));
-
-        System.out.println("Sign ups: " + newSignUps);
-
         runGroupService.clearAndSaveSignUps(runGroup, newSignUps);
 
         if (origin.equals("userrungroups")) {
