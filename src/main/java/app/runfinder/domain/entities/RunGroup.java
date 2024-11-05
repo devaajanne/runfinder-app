@@ -19,7 +19,6 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Size;
 
 import app.runfinder.domain.dto.RunGroupGetDTO;
@@ -41,7 +40,6 @@ public class RunGroup {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "run_start_date")
     @NotNull(message = "Run group must have a start date")
-    @FutureOrPresent(message = "Run group start date must be today or in the future")
     private LocalDate runStartDate;
 
     @DateTimeFormat(pattern = "HH:mm")

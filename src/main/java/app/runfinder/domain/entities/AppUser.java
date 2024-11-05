@@ -67,7 +67,7 @@ public class AppUser {
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "appUser")
     Set<RunGroupSignUp> runGroupSignUps;
 
     // Empty constructor
