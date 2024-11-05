@@ -1,5 +1,10 @@
 package app.runfinder.web.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,23 +17,31 @@ import org.springframework.web.bind.annotation.PathVariable;
 import jakarta.validation.Valid;
 
 import app.runfinder.domain.entities.RunGroup;
+import app.runfinder.domain.entities.RunGroupSignUp;
 import app.runfinder.domain.repositories.RunGroupRepository;
+import app.runfinder.domain.repositories.RunGroupSignUpRepository;
 import app.runfinder.domain.repositories.ZipcodeRepository;
 
 import app.runfinder.web.services.AppUserService;
+import app.runfinder.web.services.RunGroupService;
 
 @Controller
 public class RunGroupController {
 
     private final RunGroupRepository runGroupRepository;
+    private final RunGroupSignUpRepository runGroupSignUpRepository;
     private final ZipcodeRepository zipcodeRepository;
     private final AppUserService appUserService;
+    private final RunGroupService runGroupService;
 
-    public RunGroupController(RunGroupRepository runGroupRepository, ZipcodeRepository zipcodeRepository,
-            AppUserService appUserService) {
+    public RunGroupController(RunGroupRepository runGroupRepository, RunGroupSignUpRepository runGroupSignUpRepository,
+            ZipcodeRepository zipcodeRepository,
+            AppUserService appUserService, RunGroupService runGroupService) {
         this.runGroupRepository = runGroupRepository;
+        this.runGroupSignUpRepository = runGroupSignUpRepository;
         this.zipcodeRepository = zipcodeRepository;
         this.appUserService = appUserService;
+        this.runGroupService = runGroupService;
     }
 
     @GetMapping("/addnewgroup")
@@ -85,7 +98,11 @@ public class RunGroupController {
             return "editrungroup";
         }
 
-        runGroupRepository.save(runGroup);
+        Set<RunGroupSignUp> newSignUps = new HashSet<>(runGroupSignUpRepository.findByRunGroup(runGroup));
+
+        System.out.println("Sign ups: " + newSignUps);
+
+        runGroupService.clearAndSaveSignUps(runGroup, newSignUps);
 
         if (origin.equals("userrungroups")) {
             return "redirect:/userrungroups";
@@ -126,7 +143,7 @@ public class RunGroupController {
     @GetMapping("/permanentlydeletegroup/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
     public String permanentlyDeleteRunGroup(@PathVariable("id") Long id, Model model) {
-        
+
         runGroupRepository.deleteById(id);
 
         return "redirect:/allrungroups";

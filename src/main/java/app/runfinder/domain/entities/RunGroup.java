@@ -192,6 +192,20 @@ public class RunGroup {
         return this;
     }
 
+    public Set<RunGroupSignUp> getRunGroupSignUps() {
+        return this.runGroupSignUps;
+    }
+
+    public void setRunGroupSignUps(Set<RunGroupSignUp> runGroupSignUps) {
+        this.runGroupSignUps = runGroupSignUps;
+    }
+
+    public RunGroup runGroupSignUps(Set<RunGroupSignUp> runGroupSignUps) {
+        setRunGroupSignUps(runGroupSignUps);
+        return this;
+    }
+
+
     public RunGroupGetDTO toGetDTO() {
         return new RunGroupGetDTO(
                 this.runGroupId,
