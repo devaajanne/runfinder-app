@@ -37,6 +37,11 @@ public class UIController {
                 this.appUserRepository = appUserRepository;
         }
 
+        @GetMapping("/")
+        public String redirectFromRoot() {
+                return "login";
+        }
+
         @GetMapping("/login")
         public String showLoginPage() {
                 return "login";
