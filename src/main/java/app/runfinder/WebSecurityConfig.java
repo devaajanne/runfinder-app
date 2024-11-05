@@ -26,7 +26,7 @@ public class WebSecurityConfig {
                                 .requestMatchers(HttpMethod.DELETE, "/api/**").permitAll()
 
                                 // Permissions for all users including unauthenticated uers
-                                .requestMatchers("/login/**", "/signup", "/savenewuser")
+                                .requestMatchers("/", "/login/**", "/signup", "/savenewuser", "/runfinderstyles.css")
                                 .permitAll()
 
                                 // Permissions for USERS, CONTRIBUTORS and ADMINS
