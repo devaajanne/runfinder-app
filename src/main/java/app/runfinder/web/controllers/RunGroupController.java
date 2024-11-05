@@ -122,4 +122,13 @@ public class RunGroupController {
         runGroupRepository.save(runGroup);
         return "redirect:/allrungroups";
     }
+
+    @GetMapping("/permanentlydeletegroup/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String deleteRunGroup(@PathVariable("id") Long id, Model model) {
+
+        runGroupRepository.deleteById(id);
+
+        return "redirect:/allrungroups";
+    }
 }

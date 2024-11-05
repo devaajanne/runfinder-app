@@ -23,7 +23,7 @@ public class Zipcode {
     private String city;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "zipcode")
+    @OneToMany(mappedBy = "zipcode", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RunGroup> runningGroups;
 
     public Zipcode() {

@@ -28,7 +28,7 @@ public class Role {
     // @JsonIgnore annotation to stop endless loops from GET requests
     @JsonIgnore
     // @OneToMany annotates a one to many relation between two tables
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AppUser> appUsers;
 
     public Role() {

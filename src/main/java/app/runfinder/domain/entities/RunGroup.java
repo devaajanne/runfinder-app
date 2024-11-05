@@ -15,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -64,7 +65,7 @@ public class RunGroup {
     @JoinColumn(name = "app_user_id")
     private AppUser addedByAppUser;
 
-    @OneToMany(mappedBy = "runGroup")
+    @OneToMany(mappedBy = "runGroup", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<RunGroupSignUp> runGroupSignUps;
 
     public RunGroup() {

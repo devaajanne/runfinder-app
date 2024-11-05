@@ -87,6 +87,11 @@
                     <button type="submit">Restore</button>
                 </form>
             </td>
+            <td th:if="${rungroup.deletedAt != null}" sec:authorize="hasAuthority('ADMIN')">
+                <form th:action="@{/permanentlydeletegroup/{id}(id=${rungroup.runGroupId})}" method="get">
+                    <button type="submit">CONFRIM DELETE</button>
+                </form>
+            </td>
         </tr>
     </table>
     <form th:action="@{/addnewgroup}" method="get" sec:authorize="hasAuthority('ADMIN')">

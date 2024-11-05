@@ -13,6 +13,7 @@ import jakarta.validation.constraints.Size;
 
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 
 // We use @Entity annotation to annotate this class as an entity
@@ -62,7 +63,7 @@ public class AppUser {
     @Column(name = "password_hash")
     private String password;
 
-    @OneToMany(mappedBy = "appUser")
+    @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<RunGroupSignUp> runGroupSignUps;
 
     // Empty constructor
