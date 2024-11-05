@@ -21,6 +21,11 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AppUser currentAppUser = appUserRepository.findByUsername(username);
+
+        if (currentAppUser.getDeletedAt() != null) {
+            throw new UsernameNotFoundException("Username not found or user deleted");
+        }
+
         UserDetails appUser = new org.springframework.security.core.userdetails.User(username,
                 currentAppUser.getPassword(), AuthorityUtils.createAuthorityList(currentAppUser.getRole().getRole()));
 
