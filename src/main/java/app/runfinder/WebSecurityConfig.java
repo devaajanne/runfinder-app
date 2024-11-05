@@ -56,7 +56,7 @@ public class WebSecurityConfig {
 
                                 .logout(logout -> logout.permitAll())
 
-                                .csrf(csrf -> csrf.disable());
+                                .csrf(Customizer.withDefaults());
 
                 return http.build();
         }
