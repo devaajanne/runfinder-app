@@ -30,7 +30,7 @@ import app.runfinder.domain.repositories.ZipcodeRepository;
 import app.runfinder.domain.repositories.AppUserRepository;
 
 @RestController // @RestController annotates this class as a rest controller class
-@RequestMapping("/api") // @RequestMapping sets a default part of the request path
+@RequestMapping("api") // @RequestMapping sets a default part of the request path
 public class RunGroupRestController {
 
     // Injects repositories to the controller
