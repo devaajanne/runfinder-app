@@ -56,7 +56,7 @@ public class WebSecurityConfig {
 
                                 .logout(logout -> logout.permitAll())
 
-                                .csrf(Customizer.withDefaults());
+                                .csrf(csrf -> csrf.ignoringRequestMatchers("/api/**"));
 
                 return http.build();
         }
