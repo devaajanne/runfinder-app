@@ -68,11 +68,17 @@ CREATE TABLE run_groups(
     FOREIGN KEY (app_user_id) REFERENCES app_users(app_user_id));
 
 INSERT INTO run_groups (run_group_name, run_start_date, run_start_time, start_address, zipcode, deleted_at, app_user_id) VALUES
-    ('runGroup1', '2024-12-30', '12:00:00', 'Juoksukatu 1', '00100', null, 2),
-    ('runGroup2', '2024-12-30', '12:00:00', 'Juoksutie 2', '02200', null, 2),
-    ('runGroup3', '2024-12-30', '12:00:00', 'Juoksukuja 3', '02300', null, 2),
-    ('runGroup4', '2024-12-30', '12:00:00', 'Juoksupolku 4', '04400', null, 2),
-    ('runGroup5', '2022-12-30', '12:00:00', 'Juoksurinne 5', '05800', null, 2);
+    ('runGroup1', '2024-11-27', '9:00:00', 'Juoksukatu 1', '00100', null, 2),
+    ('runGroup2', '2024-12-05', '10:30:00', 'Juoksutie 2', '00200', null, 2),
+    ('runGroup3', '2024-12-17', '17:45:00', 'Juoksukuja 3', '00300', null, 2),
+    ('runGroup4', '2024-12-26', '18:00:00', 'Juoksupolku 4', '00400', null, 2),
+    ('runGroup5', '2024-12-26', '11:20:00', 'Juoksurinne 5', '02100', null, 2),
+    ('runGroup6', '2024-12-31', '14:00:00', 'Juoksukatu 6', '02200', null, 3),
+    ('runGroup7', '2025-01-05', '10:30:00', 'Juoksutie 7', '02400', null, 3),
+    ('runGroup8', '2025-01-10', '08:00:00', 'Juoksukuja 8', '03100', null, 2),
+    ('runGroup9', '2025-02-15', '09:15:00', 'Juoksupolku 9', '05800', null, 2),
+    ('runGroup10', '2025-03-20', '16:00:00', 'Juoksurinne 10', '06100', null, 2),
+    ('runGroup11', '2022-03-20', '16:00:00', 'Juoksurinne 10', '06100', null, 2);
 
 CREATE TABLE run_group_sign_ups(
     run_group_sign_up_id BIGSERIAL NOT NULL PRIMARY KEY,
